@@ -11,7 +11,7 @@ or just have questions, head over to Piazza.
 
 _09:00 to 09:50 on Tuesdays, Wednesdays, and Thursdays_
 
-- [Intro to Git](lectures/git.md): Tuesday, June 23rd
+- [Intro to Git](notes/Intro%20to%20Git.md): Tuesday, June 23rd
 
 
 ## Assignments
