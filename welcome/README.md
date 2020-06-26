@@ -77,7 +77,7 @@ commits from the `welcome-text` branch in this one.
   - If you use a GitHub PR, make sure you pull from GitHub afterwards.
   - If you don't use a PR, make sure push to GitHub afterwards.
 - Save the output of `git remote -v` as `welcome/remotes.txt`.
-- Save the output of `git log --pretty="%H %P %d"` as `welcome/commits.txt`.
+- Save the output of `git --no-pager log --pretty="%H %P %d"` as `welcome/commits.txt`.
 - Commit these files to your `master` branch and push to GitHub.
 - Submit the `master` branch of your GitHub repo to Gradescope.
 - You'll be asked to connect your GitHub account to Gradescope if you haven't already.
