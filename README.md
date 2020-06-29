@@ -20,3 +20,4 @@ _09:00 to 09:50 on Tuesdays, Wednesdays, and Thursdays_
 _All assignments are individual assignents._
 
 - [Welcome](welcome): Git some practice.
+- [Chunky List](chunkylist): Fun with pointers.
