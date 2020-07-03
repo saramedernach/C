@@ -1,6 +1,6 @@
 # Chunky List
 
-_Due Monday, July 6th, before midnight Pacific Time._
+_Due Monday, July 13th, before midnight Pacific Time._
 
 In this assignment you'll implement a doubly-linked list.  This isn't your usual
 doubly-linked list:  each node can store multiple items.  The `ChunkyList.h` and
