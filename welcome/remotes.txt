@@ -1,0 +1,4 @@
+origin	https://github.com/saramedernach/Cmpsc-24.git (fetch)
+origin	https://github.com/saramedernach/Cmpsc-24.git (push)
+upstream	https://github.com/ucsb-cs24/m20.git (fetch)
+upstream	https://github.com/ucsb-cs24/m20.git (push)
