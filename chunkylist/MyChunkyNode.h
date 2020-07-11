@@ -3,10 +3,19 @@
 
 #include "ChunkyNode.h"
 
+using namespace std;
+
 class MyChunkyNode: public ChunkyNode {
-  // TODO: Member Variables
+  
+  string mItem;
+  ChunkyNode* mPrev;
+  ChunkyNode* mNext;
+
 public:
-  // TODO: Member Function Declarations
+
+  MyChunkyNode(const string& item, ChunkyNode* prev, ChunkyNode* next);
+
+  ~MyChunkyNode();
 
   int count() const;
   string* items() const;

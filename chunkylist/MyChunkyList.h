@@ -9,7 +9,12 @@
 using namespace std;
 
 class MyChunkyList: public ChunkyList {
-  // TODO: Member Variables
+  
+  ChunkyNode* mHead;
+  ChunkyNode* mTail;
+  int mCount;
+  int mChunksize;
+
 public:
   
   MyChunkyList(int chunksize);
