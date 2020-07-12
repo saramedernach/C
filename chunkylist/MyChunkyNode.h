@@ -2,6 +2,7 @@
 #define MYCHUNKYNODE_H
 
 #include "ChunkyNode.h"
+#include <string>
 
 using namespace std;
 
