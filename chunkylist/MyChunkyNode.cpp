@@ -15,9 +15,3 @@ MyChunkyNode::~MyChunkyNode() {
     delete mNext;
 
 }
-
-int MyChunkyNode::count() const {
-
-
-
-}
