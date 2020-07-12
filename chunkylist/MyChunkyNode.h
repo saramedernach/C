@@ -7,13 +7,13 @@ using namespace std;
 
 class MyChunkyNode: public ChunkyNode {
   
-  string mItem;
+  string* mItem;
   ChunkyNode* mPrev;
   ChunkyNode* mNext;
 
 public:
 
-  MyChunkyNode(const string& item, ChunkyNode* prev, ChunkyNode* next);
+  MyChunkyNode(const string& item, int nodeIndex, int chunksize, ChunkyNode* prev, ChunkyNode* next);
 
   ~MyChunkyNode();
 

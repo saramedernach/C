@@ -26,10 +26,31 @@ int MyChunkyList::count() const {
 
 void MyChunkyList::insert(int index, const string& item) {
 
-    if (index < 0 || index > mChunksize) {
+    int mNodeIndex = mCount % mChunksize;
+
+    if (index < 0 || index > mCount) {
 
         throw out_of_range("Invalid index.");
 
     }
+
+    if (index == 0) {
+
+        if (mNodeIndex == 0) {
+
+            mHead = new MyChunkyNode(item, mNodeIndex, mChunksize, mHead, mTail);
+            
+
+        }
+
+        
+
+    }
+
+    else {
+
+    }
+
+    mCount += 1;
 
 }
