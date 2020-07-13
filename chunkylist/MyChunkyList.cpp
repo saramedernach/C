@@ -183,13 +183,12 @@ void MyChunkyList::remove(int index) {
 
     }
 
-    if (index == 0 ) {
+    /*if (index == 0 ) {
 
         ChunkyNode* dead = mHead;
-        ChunkyNode* temp = dead;
-        temp = dead->next();
+        mHead = dead->next();
 
-    }
+    }*/
     else {
 
         ChunkyNode* node = mHead;
