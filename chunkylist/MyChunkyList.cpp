@@ -169,6 +169,8 @@ string& MyChunkyList::lookup(int index) {
 
 void MyChunkyList::remove(int index) {
 
+    index += 1;
+
     /*if (index < 0 || index >= mCount) {
 
         throw out_of_range("Invalid index.");
