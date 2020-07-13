@@ -78,7 +78,7 @@ void MyChunkyList::insert(int index, const string& item) {
     }
     else {
 
-        ChunkyNode* mNode = mHead;
+        MyChunkyNode* mNode = mHead;
         int n = mNode->count();
         while (n <= index) {
 
@@ -119,10 +119,8 @@ void MyChunkyList::insert(int index, const string& item) {
 
             }
 
-             mNode = node->prev();
-
-            //node->setPrev(mNode);
-            //node->setNext(mNode->next());
+            node->setPrev(mNode);
+            node->setNext(mNode->next());
 
         }
         else {
