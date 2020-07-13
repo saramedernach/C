@@ -21,8 +21,8 @@ public:
 
   int count() const;
   string* items() const;
-  ChunkyNode* prev() const;
-  ChunkyNode* next() const;
+  MyChunkyNode* prev() const;
+  MyChunkyNode* next() const;
   void setNext(MyChunkyNode* next);
   void setPrev(MyChunkyNode* prev);
 

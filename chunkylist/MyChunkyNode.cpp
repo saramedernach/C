@@ -36,13 +36,13 @@ string* MyChunkyNode::items() const {
 
 }
 
-ChunkyNode* MyChunkyNode::prev() const {
+MyChunkyNode* MyChunkyNode::prev() const {
 
     return mPrev;
 
 }
 
-ChunkyNode* MyChunkyNode::next() const {
+MyChunkyNode* MyChunkyNode::next() const {
 
     return mNext;
 
