@@ -22,8 +22,8 @@ public:
   string* items() const;
   ChunkyNode* prev() const;
   ChunkyNode* next() const;
-  void setNext(MyChunkyNode* next);
-  void setPrev(MyChunkyNode* prev);
+  void setNext(ChunkyNode* next);
+  void setPrev(ChunkyNode* prev);
 
 };
 

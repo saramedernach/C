@@ -99,8 +99,7 @@ void MyChunkyList::insert(int index, const string& item) {
         if ((mNode->count()) == mChunksize) {
 
             int half = ((mNode->count()) / 2);
-            //MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, mNode, mNode->next());
-            ChunkyNode* node = mNode->next();
+            MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, nullptr, nullptr);
 
             if ((mNode->count()) % 2 != 0) {
 
@@ -128,6 +127,9 @@ void MyChunkyList::insert(int index, const string& item) {
                 node->items()[nodeIndex] = item;
 
             }
+
+            node->setPrev(mNode);
+            node->setNext(mNode->next());
 
         }
         else {
