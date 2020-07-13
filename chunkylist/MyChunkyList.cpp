@@ -58,7 +58,7 @@ void MyChunkyList::insert(int index, const string& item) {
         
 
     }
-    else if (index == mCount) {
+    /*else if (index == mCount) {
         
         if ((mTail->count()) == mChunksize) {
 
@@ -75,7 +75,7 @@ void MyChunkyList::insert(int index, const string& item) {
 
         }
 
-    }
+    }*/
     else {
 
         MyChunkyNode* mNode = mHead;
@@ -84,6 +84,25 @@ void MyChunkyList::insert(int index, const string& item) {
 
             mNode = mNode->next();
             n += mNode->count();
+
+        }
+
+        if (mNode->next() == nullptr) {
+
+
+            if (mNode->count() == mChunksize) {
+
+                MyChunkyNode* node = new MyChunkyNode(item, 0, mChunksize, nullptr, nullptr);
+                mNode->setNext(node);
+                node->setPrev(mNode);
+
+            }
+            else {
+
+                int nodeIndex = (mNode->count()) % mChunksize;
+                mNode->items()[nodeIndex] = item;
+
+            }
 
         }
 
