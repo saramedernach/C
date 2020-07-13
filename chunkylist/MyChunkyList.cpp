@@ -58,7 +58,7 @@ void MyChunkyList::insert(int index, const string& item) {
         
 
     }
-    else if (index == mCount) {
+    /*else if (index == mCount) {
         
         if ((mTail->count()) == mChunksize) {
 
@@ -130,7 +130,7 @@ void MyChunkyList::insert(int index, const string& item) {
 
         }
 
-    }
+    }*/
 
     mCount += 1;
 
@@ -169,9 +169,7 @@ string& MyChunkyList::lookup(int index) {
 
 void MyChunkyList::remove(int index) {
 
-    index += 1;
-
-    /*if (index < 0 || index >= mCount) {
+    if (index < 0 || index >= mCount) {
 
         throw out_of_range("Invalid index.");
 
@@ -258,7 +256,7 @@ void MyChunkyList::remove(int index) {
 
         }
 
-    }*/
+    }
 
 }
 
