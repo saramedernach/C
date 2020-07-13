@@ -128,8 +128,8 @@ void MyChunkyList::insert(int index, const string& item) {
 
             }
 
-            node->setPrev(mNode);
-            node->setNext(mNode->next());
+            //node->setPrev(mNode);
+            //node->setNext(mNode->next());
 
         }
         else {
