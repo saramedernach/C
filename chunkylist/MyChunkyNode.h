@@ -9,12 +9,12 @@ using namespace std;
 class MyChunkyNode: public ChunkyNode {
   
   string* mItem;
-  ChunkyNode* mPrev;
-  ChunkyNode* mNext;
+  MyChunkyNode* mPrev;
+  MyChunkyNode* mNext;
 
 public:
 
-  MyChunkyNode(const string& item, int nodeIndex, int chunksize, ChunkyNode* prev, ChunkyNode* next);
+  MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyChunkyNode* prev, MyChunkyNode* next);
 
   ~MyChunkyNode();
 
@@ -22,6 +22,8 @@ public:
   string* items() const;
   ChunkyNode* prev() const;
   ChunkyNode* next() const;
+  void setNext(MyChunkyNode* next);
+  void setPrev(MyChunkyNode* prev);
 
 };
 

@@ -1,6 +1,6 @@
 #include "MyChunkyNode.h"
 
-MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, ChunkyNode* prev, ChunkyNode* next) {
+MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyChunkyNode* prev, MyChunkyNode* next) {
 
     mItem = new string[chunksize];
     mItem[nodeIndex] = item;
@@ -45,5 +45,17 @@ ChunkyNode* MyChunkyNode::prev() const {
 ChunkyNode* MyChunkyNode::next() const {
 
     return mNext;
+
+}
+
+void MyChunkyNode::setNext(MyChunkyNode* next) {
+
+    mNext = next;
+
+}
+
+void MyChunkyNode::setPrev(MyChunkyNode* prev) {
+
+    mPrev = prev;
 
 }

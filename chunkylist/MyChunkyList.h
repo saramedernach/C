@@ -10,8 +10,8 @@ using namespace std;
 
 class MyChunkyList: public ChunkyList {
   
-  ChunkyNode* mHead;
-  ChunkyNode* mTail;
+  MyChunkyNode* mHead;
+  MyChunkyNode* mTail;
   int mCount;
   int mChunksize;
 
