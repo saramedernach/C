@@ -4,7 +4,6 @@
 #include "ChunkyList.h"
 #include "MyChunkyNode.h"
 
-#include <cstring>
 #include <string>
 using namespace std;
 

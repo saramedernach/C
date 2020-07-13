@@ -36,15 +36,15 @@ void MyChunkyList::insert(int index, const string& item) {
 
         if (mCount == 0) {
 
-            mHead = new MyChunkyNode(item, 0, mChunksize, nullptr, mHead);
+            mHead = new MyChunkyNode(item, 0, mChunksize, nullptr, nullptr);
             
 
         }
         else if (mHead->count() == mChunksize) {
 
-            MyChunkyNode* node = new MyChunkyNode(item, 0, mChunksize, nullptr, mHead);
-            mHead->setPrev(node);
-            mHead = node;
+            mHead = new MyChunkyNode(item, 0, mChunksize, nullptr, mHead);
+            //mHead->setPrev(node);
+            //mHead = node;
 
         }
         else {
@@ -62,10 +62,10 @@ void MyChunkyList::insert(int index, const string& item) {
         
         if ((mTail->count()) == mChunksize) {
 
-            MyChunkyNode* node = new MyChunkyNode(item, 0, mChunksize, nullptr, nullptr);
-            mTail->setNext(node);
-            node->setPrev(mTail);
-            mTail = node;
+            mTail = new MyChunkyNode(item, 0, mChunksize, mTail, nullptr);
+            //mTail->setNext(node);
+            //node->setPrev(mTail);
+            //mTail = node;
 
         }
         else {
@@ -84,15 +84,6 @@ void MyChunkyList::insert(int index, const string& item) {
 
             mNode = mNode->next();
             n += mNode->count();
-
-        }
-
-        ChunkyNode* indexNode = mHead;
-        int i = index;
-        while (i >= mNode->count()) {
-
-            i -= indexNode->count();
-            indexNode = indexNode->next();
 
         }
 
@@ -127,6 +118,8 @@ void MyChunkyList::insert(int index, const string& item) {
                 node->items()[nodeIndex] = item;
 
             }
+
+             mNode = node->prev();
 
             //node->setPrev(mNode);
             //node->setNext(mNode->next());
