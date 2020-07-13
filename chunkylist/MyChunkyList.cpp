@@ -100,7 +100,8 @@ void MyChunkyList::insert(int index, const string& item) {
         if ((mNode->count()) == mChunksize) {
 
             int half = ((mNode->count()) / 2);
-            MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, mNode, mNode->next());
+            //MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, mNode, mNode->next());
+            ChunkyNode* node = mNode->next();
 
             if ((mNode->count()) % 2 != 0) {
 
@@ -184,9 +185,9 @@ void MyChunkyList::remove(int index) {
 
     if (index == 0 ) {
 
-        ChunkyNode* dead;
-        dead = mHead;
-        mHead = dead->next();
+        ChunkyNode* dead = mHead;
+        ChunkyNode* temp = dead;
+        temp = dead->next();
 
     }
     else {
@@ -218,17 +219,26 @@ void MyChunkyList::remove(int index) {
         node->items()[node->count() - 1] = nullptr;
 
         ChunkyNode* mergeNode = mHead;
+        ChunkyNode* secondNode = mergeNode->next();
         int first = mergeNode->count();
-        int second = mergeNode->next()->count();
+        int second = secondNode->count();
 
-        while (mergeNode->next() != nullptr) {
+        while (secondNode != nullptr) {
 
             if (first + second <= mChunksize / 2) {
 
-                
+                for (int s = 0; s < secondNode->count(); s++) {
+
+                    mergeNode->items()[mergeNode->count() + s] = secondNode->items()[s];
+
+                }
+
+                ChunkyNode* dead = secondNode;
+                secondNode = dead->next();
 
             }
-            mergeNode = mergeNode->next();
+            
+            mergeNode = secondNode;
 
         }
 
