@@ -36,7 +36,7 @@ void MyChunkyList::insert(int index, const string& item) {
 
         if (mCount == 0) {
 
-            mHead = new MyChunkyNode(item, 0, mChunksize, nullptr, nullptr);
+            mHead = new MyChunkyNode(item, 0, mChunksize, mHead, mTail);
             
 
         }
