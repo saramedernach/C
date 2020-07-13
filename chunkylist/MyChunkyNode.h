@@ -9,6 +9,7 @@ using namespace std;
 class MyChunkyNode: public ChunkyNode {
   
   string* mItem;
+  int nodeIndex;
   MyChunkyNode* mPrev;
   MyChunkyNode* mNext;
 
