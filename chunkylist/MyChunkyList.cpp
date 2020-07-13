@@ -58,7 +58,7 @@ void MyChunkyList::insert(int index, const string& item) {
         
 
     }
-    /*else if (index == mCount) {
+    else if (index == mCount) {
         
         if ((mTail->count()) == mChunksize) {
 
@@ -130,7 +130,7 @@ void MyChunkyList::insert(int index, const string& item) {
 
         }
 
-    }*/
+    }
 
     mCount += 1;
 
