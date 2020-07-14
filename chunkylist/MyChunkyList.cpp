@@ -14,7 +14,7 @@ MyChunkyList::MyChunkyList(int chunksize) {
 MyChunkyList::~MyChunkyList() {
 
     delete mHead;
-    delete mTail;
+    //delete mTail;
 
 }
 

@@ -11,7 +11,7 @@ MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyC
 
 MyChunkyNode::~MyChunkyNode() {
 
-    delete mPrev;
+    //delete mPrev;
     delete mNext;
 
 }
