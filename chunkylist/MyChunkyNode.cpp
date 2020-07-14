@@ -2,7 +2,7 @@
 
 MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyChunkyNode* prev, MyChunkyNode* next) {
 
-    mItem[chunksize] = {""};
+    mItem = new string[chunksize];
     mItem[nodeIndex] = item;
     mPrev = prev;
     mNext = next;
