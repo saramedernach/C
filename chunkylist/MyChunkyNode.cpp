@@ -17,13 +17,15 @@ MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyC
 MyChunkyNode::~MyChunkyNode() {
 
     //delete mPrev;
-    delete mNext;
+    while (mNext != nullptr) {
+        delete mNext;
+    }
 
 }
 
 int MyChunkyNode::count() const {
 
-    int n = 1;
+    int n = 0;
 
     while (mItem[n] != "") {
 
