@@ -43,9 +43,9 @@ void MyChunkyList::insert(int index, const string& item) {
         }
         else if (mHead->count() == mChunksize) {
 
+            MyChunkyNode* oldHead = mHead;
             mHead = new MyChunkyNode(item, 0, mChunksize, nullptr, mHead);
-            //mHead->setPrev(node);
-            //mHead = node;
+            oldHead->setPrev(mHead);
 
         }
         else {
