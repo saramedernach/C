@@ -127,8 +127,7 @@ void MyChunkyList::insert(int index, const string& item) {
             }
             else {
 
-                int nodeIndex = (mNode->count()) % mChunksize;
-                mNode->items()[nodeIndex] = item;
+                mNode->items()[i] = item;
 
             }
 
@@ -203,8 +202,7 @@ void MyChunkyList::insert(int index, const string& item) {
         }
         else {
 
-            int nodeIndex = (mNode->count()) % mChunksize;
-            mNode->items()[nodeIndex] = item;
+            mNode->items()[i] = item;
 
         }
 
