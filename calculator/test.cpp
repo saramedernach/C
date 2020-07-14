@@ -6,7 +6,7 @@
 int main() {
   MyStack* stack = new MyStack();
 
-  // TODO: Replace this with some useful tests!
+  // TODO: Replace this with something useful!
   std::cout << "This program doesn't do anything yet...\n";
 
   delete stack;

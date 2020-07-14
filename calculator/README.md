@@ -45,7 +45,7 @@ as a sequence of **tokens**, from left to right:
 - If the token is an operator,  the stack machine pops numbers off of the stack,
   performs the operation on those numbers, and pushes the result onto the stack.
 
-If evertything goes well, there will be one number on the stack after all tokens
+If everything goes well,  there will be one number on the stack after all tokens
 have been processed.  This is the final value of the input expression.
 
 
@@ -61,8 +61,8 @@ have been processed.  This is the final value of the input expression.
 ## The Stack
 
 The  `Stack.h`  file describes an  abstract  Stack  data structure.  Implement a
-concrete Stack in  `MyStack.h` and `MyStack.cpp`.  You'll probably want to use a
-vector or linked list as the underlying structure.
+concrete Stack in  `MyStack.h` and `MyStack.cpp`.  You'll probably want to write
+a vector or a singly linked list for the underlying structure.
 
 
 ## The Calculator
@@ -103,6 +103,17 @@ double result = ???
 std::cout << "= " << result << std::endl;
 ```
 
+When it's working, you'll be able to interact with it:
+
+```
+[alice@lookingglass calculator]$ ./calc
+hello
+Unknown token.
+7 4 -
+= 3
+1 2 + 7 3 - * 2 ^
+= 144
+```
 
 ## Hints
 
@@ -110,4 +121,7 @@ std::cout << "= " << result << std::endl;
   `cmath` header contains additional math functions.
 - Using `std::getline()` makes reading one line at a time very easy.
 - A `std::stringstream` might be useful for splitting a line into tokens.
+- The  `>>`  operator has an annoying tendency  to interpret  `+` and `-` as the
+  `double` zero.  See if your tokens are operators before trying to cast them to
+  numbers!
 - https://xkcd.com/645/
