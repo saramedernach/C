@@ -233,7 +233,7 @@ string& MyChunkyList::lookup(int index) {
 
     ChunkyNode* indexNode = mHead;
     int i = index;
-    while (i >= node->count()) {
+    while (i >= indexNode->count()) {
 
         i -= indexNode->count();
         indexNode = indexNode->next();
@@ -287,7 +287,7 @@ void MyChunkyList::remove(int index) {
 
         MyChunkyNode* indexNode = mHead;
         int i = index;
-        while (i >= node->count()) {
+        while (i >= indexNode->count()) {
 
             i -= indexNode->count();
             indexNode = indexNode->next();
