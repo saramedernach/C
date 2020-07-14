@@ -334,6 +334,8 @@ void MyChunkyList::remove(int index) {
 
     }
 
+    mCount -= 1;
+
 }
 
 ChunkyNode* MyChunkyList::head() const {
