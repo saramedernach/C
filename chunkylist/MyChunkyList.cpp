@@ -136,11 +136,11 @@ void MyChunkyList::insert(int index, const string& item) {
 
         if ((mNode->count()) == mChunksize) {
 
-            MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, nullptr, nullptr);
+            MyChunkyNode* node = new MyChunkyNode("", 0, mChunksize, nullptr, nullptr);
 
             if ((mNode->count()) % 2 != 0) {
 
-                MyChunkyNode* temp = new MyChunkyNode(nullptr, 0, mChunksize + 1, nullptr, nullptr);
+                MyChunkyNode* temp = new MyChunkyNode("", 0, mChunksize + 1, nullptr, nullptr);
                 int w = 0;
 
                 while (w < i) {
@@ -162,14 +162,14 @@ void MyChunkyList::insert(int index, const string& item) {
                 for (int j =  0; j < half; ++j) {
 
                     node->items()[j] = mNode->items()[j + half + 1];
-                    mNode->items()[j + half + 1] = nullptr;
+                    mNode->items()[j + half + 1] = "";
 
                 }
 
             }
             else {
 
-                MyChunkyNode* temp = new MyChunkyNode(nullptr, 0, mChunksize + 1, nullptr, nullptr);
+                MyChunkyNode* temp = new MyChunkyNode("", 0, mChunksize + 1, nullptr, nullptr);
                 int w = 0;
 
                 while (w < i) {
@@ -191,7 +191,7 @@ void MyChunkyList::insert(int index, const string& item) {
                 for (int j = 0; j < half - 1; ++j) {
 
                     node->items()[j] = mNode->items()[j + half + 1];
-                    mNode->items()[j + half + 1] = nullptr;
+                    mNode->items()[j + half + 1] = "";
 
                 }
 
@@ -269,7 +269,7 @@ void MyChunkyList::remove(int index) {
 
             }
 
-            mHead->items()[mHead->count() - 1] = nullptr;
+            mHead->items()[mHead->count() - 1] = "";
 
         }
 
@@ -300,7 +300,7 @@ void MyChunkyList::remove(int index) {
 
         }
 
-        node->items()[node->count() - 1] = nullptr;
+        node->items()[node->count() - 1] = "";
 
         MyChunkyNode* mergeNode = mHead;
         MyChunkyNode* secondNode = mergeNode->next();
