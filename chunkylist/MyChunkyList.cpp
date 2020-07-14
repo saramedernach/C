@@ -50,8 +50,25 @@ void MyChunkyList::insert(int index, const string& item) {
         }
         else {
 
-            int nodeIndex = (mHead->count()) % mChunksize;
-            mHead->items()[nodeIndex] = item;
+            ChunkyNode* node = mHead;
+            int n = node->count();
+            while (n <= index) {
+
+                node = node->next();
+                n += node->count();
+
+            }
+
+            ChunkyNode* indexNode = mHead;
+            int i = index;
+            while (i >= node->count()) {
+
+                i -= indexNode->count();
+                indexNode = indexNode->next();
+
+            }
+
+            mHead->items()[i] = item;
 
         }
         
