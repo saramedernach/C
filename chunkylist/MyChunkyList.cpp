@@ -88,6 +88,15 @@ void MyChunkyList::insert(int index, const string& item) {
 
         }
 
+        ChunkyNode* indexNode = mHead;
+        int i = index;
+        while (i >= node->count()) {
+
+            i -= indexNode->count();
+            indexNode = indexNode->next();
+
+        }
+
         if (mNode->next() == nullptr) {
 
 
@@ -110,10 +119,28 @@ void MyChunkyList::insert(int index, const string& item) {
 
         if ((mNode->count()) == mChunksize) {
 
-            int half = ((mNode->count()) / 2);
             MyChunkyNode* node = new MyChunkyNode(nullptr, 0, mChunksize, nullptr, nullptr);
 
             if ((mNode->count()) % 2 != 0) {
+
+                MyChunkyNode* temp = new MyChunkyNode(nullptr, 0, mChunksize + 1, nullptr, nullptr);
+                int w = 0;
+
+                while (w < i) {
+
+                    temp->items()[w] = mNode->items()[w];
+                    w++;
+
+                }
+
+                temp->items()[i] = item;
+                for (int p = i + 1; p < mNode->count(); ++p) {
+
+                    temp->items()[p] = mNode->items()[p];
+
+                }
+
+                int half = ((temp->count()) / 2);
 
                 for (int j =  0; j < half; ++j) {
 
@@ -122,11 +149,27 @@ void MyChunkyList::insert(int index, const string& item) {
 
                 }
 
-                int nodeIndex = (node->count()) % mChunksize;
-                node->items()[nodeIndex] = item;
-
             }
             else {
+
+                MyChunkyNode* temp = new MyChunkyNode(nullptr, 0, mChunksize + 1, nullptr, nullptr);
+                int w = 0;
+
+                while (w < i) {
+
+                    temp->items()[w] = mNode->items()[w];
+                    w++;
+
+                }
+
+                temp->items()[i] = item;
+                for (int p = i + 1; p < mNode->count(); ++p) {
+
+                    temp->items()[p] = mNode->items()[p];
+
+                }
+
+                int half = ((temp->count()) / 2);
 
                 for (int j = 0; j < half - 1; ++j) {
 
@@ -134,9 +177,6 @@ void MyChunkyList::insert(int index, const string& item) {
                     mNode->items()[j + half + 1] = nullptr;
 
                 }
-
-                int nodeIndex = (node->count()) % mChunksize;
-                node->items()[nodeIndex] = item;
 
             }
 
