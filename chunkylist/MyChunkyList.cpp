@@ -96,6 +96,7 @@ void MyChunkyList::insert(int index, const string& item) {
                 MyChunkyNode* node = new MyChunkyNode(item, 0, mChunksize, nullptr, nullptr);
                 mNode->setNext(node);
                 node->setPrev(mNode);
+                mTail = node;
 
             }
             else {
