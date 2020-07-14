@@ -135,6 +135,12 @@ void MyChunkyList::insert(int index, const string& item) {
             }
             else {
 
+                for (int k = i; k < mNode->count(); ++k) {
+
+                    mNode->items()[k + 1] = mNode->items()[k]; 
+
+                }
+
                 mNode->items()[i] = item;
 
             }

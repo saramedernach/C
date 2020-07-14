@@ -6,8 +6,8 @@ using namespace std;
 int main() {
 
     MyChunkyList list(3);
-    MyChunkyNode node("a", 0, 3, nullptr, nullptr);
-    cout << node.count();
+    list.insert(0, "H");
+    list.insert(1, "B");
 
     return 0;
 
