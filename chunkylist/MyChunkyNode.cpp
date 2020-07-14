@@ -3,11 +3,6 @@
 MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyChunkyNode* prev, MyChunkyNode* next) {
 
     mItem = new string[chunksize];
-    for (int i = 0; i < chunksize; ++i) {
-
-        mItem[i] = "";
-
-    }
     mItem[nodeIndex] = item;
     mPrev = prev;
     mNext = next;
@@ -25,7 +20,7 @@ int MyChunkyNode::count() const {
 
     int n = 0;
 
-    while (mItem[n] != "\0") {
+    while (mItem[n] != "") {
 
         n++;
 
