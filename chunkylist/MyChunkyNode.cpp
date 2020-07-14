@@ -17,9 +17,7 @@ MyChunkyNode::MyChunkyNode(const string& item, int nodeIndex, int chunksize, MyC
 MyChunkyNode::~MyChunkyNode() {
 
     //delete mPrev;
-    while (mNext != nullptr) {
-        delete mNext;
-    }
+    delete mNext;
 
 }
 

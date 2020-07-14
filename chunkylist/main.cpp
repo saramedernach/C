@@ -7,7 +7,7 @@ int main() {
 
     MyChunkyList list(3);
     MyChunkyNode node("a", 0, 3, nullptr, nullptr);
-    cout<< *(node.items());
+    cout<< node.items()[0];
 
     return 0;
 

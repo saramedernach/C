@@ -70,13 +70,21 @@ void MyChunkyList::insert(int index, const string& item) {
 
             mHead->items()[i] = item;*/
 
+            MyChunkyNode* temp = new MyChunkyNode("", 0, mChunksize, nullptr, nullptr); 
+
             for (int i = 0; i < mHead->count(); ++i) {
 
-                mHead->items()[i + 1] = mHead->items()[i];
+                temp->items()[i] = mHead->items()[i];
 
             }
 
             mHead->items()[0] = item;
+
+            for (int j = 0; j < temp->count(); ++j) {
+
+                mHead->items()[j + 1] = temp->items()[j];
+
+            }
 
         }
         
@@ -135,13 +143,21 @@ void MyChunkyList::insert(int index, const string& item) {
             }
             else {
 
-                for (int k = i; k < mNode->count(); ++k) {
+                MyChunkyNode* temp = new MyChunkyNode("", 0, mChunksize, nullptr, nullptr); 
 
-                    mNode->items()[k + 1] = mNode->items()[k]; 
+                for (int k = 0; k < mNode->count(); ++k) {
+
+                    temp->items()[k] = mNode->items()[k];
 
                 }
 
                 mNode->items()[i] = item;
+
+                for (int s = i; s < mNode->count(); ++s) {
+
+                    mNode->items()[s + 1] = temp->items()[s];
+
+                }
 
             }
 
