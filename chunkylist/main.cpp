@@ -5,9 +5,9 @@ using namespace std;
 
 int main() {
 
-    MyChunkyList list(2);
-    list.insert(0, "Molly");
-    list.insert(1, "Hannah");
+    MyChunkyList list(3);
+    MyChunkyNode node("a", 0, 3, nullptr, nullptr);
+    cout << node.count();
 
     return 0;
 
