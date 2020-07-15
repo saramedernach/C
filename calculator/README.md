@@ -69,20 +69,23 @@ a vector or a singly linked list for the underlying structure.
 
 Now use your stack  to power a calculator.  Your calculator should read one line
 at a time from standard input. Each line will be a sequence of tokens, separated
-by whitespace. Tokens will either be numbers (`double`s) or one of the following
-operators:
+by whitespace. Tokens will either be numbers  (`double`s like `-12`, `0.443`, or
+`+57000.2`) or one of the following operators:
 
 - `+` adds two numbers (`3 4 +` is `7`).
 - `-` subtracts one number from another (`2 6 -` is `-4`).
 - `*` multiplies two numbers (`2 7 *` is `14`).
-- `/` divides one number by another (`8 -4 /` is `-2`).
-- `%` returns the remainder after dividing one number by another (`7 3 %` is `1`).
+- `/` divides one number by another (`7 -4 /` is `-1.75`).
+- `%` returns the remainder after dividing one number by another (`0.7 0.3 %` is `0.1`).
 - `^` raises one number to the power of another (`3 2 ^` is `9`).
 - `~` negates a number (`8 ~` is `-8`).
 
 There are  a few things that could go wrong.  If you hit these cases,  print the
-correct error message and move on to the next line of input:
+correct error message and move on to the next line of input.  If multiple errors
+apply, print whichever comes first in this list:
 
+- Print `Unknown token.` if you encounter a token that's not a number or one of
+  the operators described above.
 - Print `Not enough operands.` if there aren't enough numbers on the stack for
   the current operator.
 - Print `Division by zero.` if you ever attempt to divide (or take a remainder
@@ -91,8 +94,6 @@ correct error message and move on to the next line of input:
   evaluating the entire expression.
 - Print `No expression.` if the stack is empty after evaluating the entire
   expression (this can only happen if there are no tokens at all).
-- Print `Unknown token.` if you encounter a token that's not a number or one of
-  the operators described above.
 
 If no error occurred, print the result prefixed by `= ` and move on  to the next
 line of input.  You don't need to format  the number;  the default  C++ `double`
@@ -103,7 +104,12 @@ double result = ???
 std::cout << "= " << result << std::endl;
 ```
 
-When it's working, you'll be able to interact with it:
+When you reach  the end of the input stream,  your program should exit.  You can
+simulate this by sending an end-of-file (EOF) signal to your program. Do this by
+pressing  `Ctrl` + `D` on Linux and Mac,  or by pressing  `Ctrl` + `Z`  and then
+`Enter` on Windows.
+
+Once your program is working, you'll be able to interact with it:
 
 ```
 [alice@lookingglass calculator]$ ./calc
@@ -120,8 +126,11 @@ Unknown token.
 - The `double` type doesn't support all the operators you need, but the standard
   `cmath` header contains additional math functions.
 - Using `std::getline()` makes reading one line at a time very easy.
-- A `std::stringstream` might be useful for splitting a line into tokens.
+- A `std::stringstream` will be useful for splitting a line into tokens.
 - The  `>>`  operator has an annoying tendency  to interpret  `+` and `-` as the
-  `double` zero.  See if your tokens are operators before trying to cast them to
-  numbers!
+  `double` zero.  See if your tokens are  operators  before trying  to interpret
+  them as numbers!
+- For a token to be a valid number, the  entire token  must be a number.  `tuba`
+  and `2ba` are both invalid tokens, but a lot of parsing methods will parse the
+  latter as `2`, ignoring the trailing non-digits.  Watch out for this!
 - https://xkcd.com/645/
