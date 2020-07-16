@@ -2,11 +2,20 @@
 #define MYSTACK_H
 
 #include "Stack.h"
+#include <string>
+#include <iostream>
+#include <stdexcept>
+
+using namespace std;
 
 class MyStack: public Stack {
-  // TODO: Member Variables
+  
+  Node* mTop;
+
 public:
-  // TODO: Constructor & Destructor
+  
+  MyStack();
+  ~MyStack();
 
   // Required Stack functions.
   // See Stack.h for descriptions.
@@ -16,7 +25,21 @@ public:
   double pop();
   double top() const;
 
-  // TODO: Add helper functions if necessary.
+};
+
+class Node {
+
+  double mToken;
+  Node* mNext;
+
+public:
+
+  Node(double token, Node* next);
+  ~Node();
+
+  Node* next() const;
+  double token();
+  
 };
 
 #endif
