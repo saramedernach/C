@@ -48,8 +48,6 @@ void MyStack::clear() {
 
     }
 
-    delete mTop;
-
 }
 
 bool MyStack::is_empty() const {
