@@ -8,6 +8,21 @@
 
 using namespace std;
 
+class Node {
+
+  double mToken;
+  Node* mNext;
+
+public:
+
+  Node(double token, Node* next);
+  ~Node();
+
+  Node* next() const;
+  double token();
+  
+};
+
 class MyStack: public Stack {
   
   Node* mTop;
@@ -25,21 +40,6 @@ public:
   double pop();
   double top() const;
 
-};
-
-class Node {
-
-  double mToken;
-  Node* mNext;
-
-public:
-
-  Node(double token, Node* next);
-  ~Node();
-
-  Node* next() const;
-  double token();
-  
 };
 
 #endif

@@ -1,6 +1,31 @@
 #include "MyStack.h"
 
 
+Node::Node(double token, Node* next) {
+
+    mToken = token;
+    mNext = next;
+
+}
+
+Node::~Node() {
+
+    delete mNext;
+
+}
+
+Node* Node::next() const {
+
+    return mNext;
+
+}
+
+double Node::token() {
+
+    return mToken;
+
+}
+
 MyStack::MyStack() {
 
     mTop = nullptr;
@@ -69,32 +94,7 @@ double MyStack::top() const {
     else {
 
         return mTop->token();
-        
+
     }
-
-}
-
-Node::Node(double token, Node* next) {
-
-    mToken = token;
-    mNext = next;
-
-}
-
-Node::~Node() {
-
-    delete mNext;
-
-}
-
-Node* Node::next() const {
-
-    return mNext;
-
-}
-
-double Node::token() {
-
-    return mToken;
 
 }
