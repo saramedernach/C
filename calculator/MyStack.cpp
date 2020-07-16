@@ -74,13 +74,10 @@ double MyStack::pop() {
     }
     else {
 
-        Node* node;
-
-        node = mTop;
+        Node* node = mTop;
         mTop = mTop->next();
-        double nodeToken = node->token();
+        return node->token();
         delete node;
-        return nodeToken;
         
     }
 
