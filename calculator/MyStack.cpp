@@ -40,15 +40,15 @@ MyStack::~MyStack() {
 
 void MyStack::clear() {
     
-    while (mTop != nullptr) {
+    while (mTop->next() != nullptr) {
 
-        Node* node;
-
-        node = mTop;
+        Node* node = mTop;
         mTop = mTop->next();
         delete node;
 
     }
+
+    delete mTop;
 
 }
 
@@ -76,8 +76,9 @@ double MyStack::pop() {
 
         Node* node = mTop;
         mTop = mTop->next();
+        double nodeToken = node->token();
         delete node;
-        return node->token();
+        return nodeToken;
         
     }
 
