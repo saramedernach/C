@@ -40,11 +40,14 @@ MyStack::~MyStack() {
 
 void MyStack::clear() {
     
-    while (mTop->next() != nullptr) {
+    while (mTop != nullptr) {
 
         Node* node = mTop;
-        mTop = mTop->next();
         delete node;
+
+        if (mTop->next() != nullptr) {
+            mTop = mTop->next();
+        }
 
     }
 
