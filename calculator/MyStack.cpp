@@ -76,8 +76,8 @@ double MyStack::pop() {
 
         Node* node = mTop;
         mTop = mTop->next();
-        return node->token();
         delete node;
+        return node->token();
         
     }
 
