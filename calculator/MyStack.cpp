@@ -81,7 +81,12 @@ double MyStack::pop() {
         return node->token();*/
 
         double topToken = mTop->token();
-        mTop = mTop->next();
+        if (mTop->next() != nullptr) {
+            mTop = mTop->next();
+        }
+        else {
+            delete mTop;
+        }
         return topToken;
         
     }
