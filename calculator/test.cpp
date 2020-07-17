@@ -9,8 +9,9 @@ int main() {
   MyStack* stack = new MyStack();
 
   stack->push(1);
+  stack->push(2);
 
-  stack->pop();
+  stack->clear();
 
 
   delete stack;
