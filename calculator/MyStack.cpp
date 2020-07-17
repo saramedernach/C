@@ -76,15 +76,11 @@ double MyStack::pop() {
     }
     else {
 
-        /*Node* node = mTop;
+        Node* node = mTop;
         mTop = mTop->next();
-        return node->token();*/
-
-        double topToken = mTop->token();
-        if (mTop->next() != nullptr) {
-            mTop = mTop->next();
-        }
-        return topToken;
+        double nodeToken = node->token();
+        delete node;
+        return nodeToken;
         
     }
 
