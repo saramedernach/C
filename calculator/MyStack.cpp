@@ -43,11 +43,8 @@ void MyStack::clear() {
     while (mTop != nullptr) {
 
         Node* node = mTop;
-
-        if (mTop->next() != nullptr) {
-            mTop = mTop->next();
-        }
-
+        mTop = mTop->next();
+        node = nullptr;
         delete node;
 
     }

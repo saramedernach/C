@@ -8,8 +8,11 @@ using namespace std;
 int main() {
   MyStack* stack = new MyStack();
 
-  // TODO: Replace this with something useful!
-  cout << "This program doesn't do anything yet...\n";
+  stack->push(1);
+  stack->push(2);
+
+  stack->clear();
+
 
   delete stack;
   return 0;
