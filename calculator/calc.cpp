@@ -1,7 +1,18 @@
 #include "Stack.h"
+#include "MyStack.h"
+#include <string>
+#include <iostream>
 
-// TODO: Calculator helper fuctions, if necessary.
+using namespace std;
+
+
 
 int main() {
-  // TODO: Implement a calculator!
+  
+  string line;
+  while (getline(cin, line)) {
+
+    
+  }
+
 }

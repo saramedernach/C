@@ -44,8 +44,8 @@ void MyStack::clear() {
 
         Node* node = mTop;
         mTop = mTop->next();
-        node = nullptr;
         delete node;
+        node = nullptr;
 
     }
 
