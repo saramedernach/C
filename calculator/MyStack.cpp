@@ -84,9 +84,6 @@ double MyStack::pop() {
         if (mTop->next() != nullptr) {
             mTop = mTop->next();
         }
-        else {
-            delete mTop;
-        }
         return topToken;
         
     }
