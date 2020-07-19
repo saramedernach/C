@@ -25,6 +25,7 @@ public:
 class MyStack: public Stack {
   
   Node* mTop;
+  int mCount;
 
 public:
   
@@ -38,6 +39,7 @@ public:
   void   push(double item);
   double pop();
   double top() const;
+  int count() const;
 
 };
 

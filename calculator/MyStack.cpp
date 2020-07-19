@@ -23,6 +23,7 @@ double Node::token() {
 MyStack::MyStack() {
 
     mTop = nullptr;
+    mCount = 0;
 
 }
 
@@ -52,6 +53,7 @@ void MyStack::push(double item) {
 
     Node* node = new Node(item, mTop);
     mTop = node;
+    mCount++;
 
 }
 
@@ -68,6 +70,7 @@ double MyStack::pop() {
         mTop = mTop->next();
         double nodeToken = node->token();
         delete node;
+        mCount--;
         return nodeToken;
         
     }
@@ -86,5 +89,11 @@ double MyStack::top() const {
         return mTop->token();
 
     }
+
+}
+
+int MyStack::count() const {
+
+    return mCount;
 
 }

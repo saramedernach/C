@@ -118,13 +118,17 @@ int main() {
 
     }
 
-      cout << "= " << stack->pop() << endl;
-    
-    /*else {
+    if (stack->count() > 1) {
 
       cout << "Too many operands" << endl;
+      getline(cin, line);
 
-    }*/
+    }
+    else {
+
+      cout << "= " << stack->pop() << endl;
+
+    }
     
   }
 
