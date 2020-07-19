@@ -102,6 +102,12 @@ int main() {
         stack->push(stod(token));
 
       }
+      else if (line.empty()) {
+
+        cout << "No expression" << endl;
+        getline(cin, line);
+
+      }
       else {
 
         cout << "Unknown token." << endl;
@@ -109,14 +115,6 @@ int main() {
 
       }
 
-
-    }
-
-
-    if (stack->is_empty()) {
-
-      cout << "No expression" << endl;
-      getline(cin, line);
 
     }
 
