@@ -61,6 +61,7 @@ int main() {
           if (rightOperand == 0) {
 
             cout << "Division by zero" << endl;
+            return 0;
 
           }
           else {
@@ -113,11 +114,8 @@ int main() {
       cout << "No expression" << endl;
 
     }
-    else {
 
       cout << "= " << stack->pop() << endl;
-
-    }
     
     /*else {
 
