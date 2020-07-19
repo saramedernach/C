@@ -108,14 +108,18 @@ int main() {
 
     }
 
-    cout << "= " << stack->pop() << endl;
+    if (stack->is_empty()) {
 
-    /*if (stack->is_empty()) {
-
-      cout << "=" << stack->pop() << endl;
+      cout << "No expression" << endl;
 
     }
     else {
+
+      cout << "= " << stack->pop() << endl;
+
+    }
+    
+    /*else {
 
       cout << "Too many operands" << endl;
 
