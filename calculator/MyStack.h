@@ -16,7 +16,6 @@ class Node {
 public:
 
   Node(double token, Node* next);
-  //~Node();
 
   Node* next() const;
   double token();

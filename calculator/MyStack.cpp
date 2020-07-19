@@ -8,12 +8,6 @@ Node::Node(double token, Node* next) {
 
 }
 
-/*Node::~Node() {
-
-    delete mNext;
-
-}*/
-
 Node* Node::next() const {
 
     return mNext;
@@ -45,15 +39,6 @@ void MyStack::clear() {
         pop();
 
     }
-    
-    /*while (mTop != nullptr) {
-
-        Node* node = mTop;
-        mTop = mTop->next();
-        node = nullptr;
-        delete node;
-
-    }*/
 
 }
 
