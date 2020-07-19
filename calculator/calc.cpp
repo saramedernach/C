@@ -19,14 +19,11 @@ int main() {
     stringstream s(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
-    double rightOperand = 0;
-    double leftOperand = 0;
-
     while (s >> token) {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
-        rightOperand = stack->pop();
+        double rightOperand = stack->pop();
         double result = 0;
 
         if (token == "~"){
@@ -42,7 +39,7 @@ int main() {
 
         }
 
-        leftOperand = stack->pop();
+        double leftOperand = stack->pop();
 
         if (token == "+") {
 
