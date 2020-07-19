@@ -19,8 +19,8 @@ int main() {
     stringstream s(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
-    double rightOperand;
-    double leftOperand;
+    double rightOperand = 0;
+    double leftOperand = 0;
 
     while (s >> token) {
 
