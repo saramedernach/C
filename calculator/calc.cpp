@@ -36,6 +36,7 @@ int main() {
         if (stack->is_empty()) {
 
           cout << "Not enough operands." << endl;
+          getline(cin, line);
 
         }
 
@@ -61,7 +62,7 @@ int main() {
           if (rightOperand == 0) {
 
             cout << "Division by zero" << endl;
-            return 0;
+            getline(cin, line);
 
           }
           else {
@@ -76,6 +77,7 @@ int main() {
           if (rightOperand == 0) {
 
             cout << "Division by zero" << endl;
+            getline(cin, line);
 
           }
           else {
@@ -103,15 +105,18 @@ int main() {
       else {
 
         cout << "Unknown token." << endl;
+        getline(cin, line);
 
       }
 
 
     }
 
+
     if (stack->is_empty()) {
 
       cout << "No expression" << endl;
+      getline(cin, line);
 
     }
 
