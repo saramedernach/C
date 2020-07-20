@@ -166,8 +166,11 @@ int main() {
         cout << "= " << stack.pop() << endl;
 
       }
+      else {
 
-      break;
+        continue;
+
+      }
 
     }
     
