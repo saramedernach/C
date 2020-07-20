@@ -14,6 +14,8 @@ int main() {
   string line;
   while (getline(cin, line)) {
 
+    cout << line << endl;
+
     MyStack stack;
     stringstream s(line);
     string token;
@@ -165,11 +167,6 @@ int main() {
         cout << "= " << stack.pop() << endl;
 
       }
-
-      continue;
-
-    }
-    else {
 
       continue;
 
