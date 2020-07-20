@@ -166,11 +166,9 @@ int main() {
         cout << "= " << stack.pop() << endl;
 
       }
-      else {
-
-        continue;
-
-      }
+      
+      continue;
+      getline(cin, line);
 
     }
     
