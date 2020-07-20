@@ -14,10 +14,8 @@ int main() {
   string line;
   while (getline(cin, line)) {
 
-    cout << line << endl;
-
     MyStack stack;
-    stringstream s(line);
+    stringstream tokens(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
     
@@ -29,7 +27,7 @@ int main() {
 
     }
 
-    while (s >> token) {
+    while (tokens >> token) {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
