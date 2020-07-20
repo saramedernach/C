@@ -20,11 +20,12 @@ int main() {
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
     
     int flag = 0;
+    int spaceCount = 0;
+    int tokenCount = 0;
 
     if (line.empty()) {
 
       cout << "No expression." << endl;
-      //getline(cin, line);
 
     }
 
@@ -36,7 +37,6 @@ int main() {
 
           cout << "Not enough operands." << endl;
           flag = 1;
-          //getline(cin, line);
           break;
 
         }
@@ -63,7 +63,6 @@ int main() {
 
           cout << "Not enough operands." << endl;
           flag = 1;
-          //getline(cin, line);
           break;
 
         }
@@ -97,7 +96,6 @@ int main() {
 
             cout << "Division by zero." << endl;
             flag = 1;
-            //getline(cin, line);
             break;
 
           }
@@ -114,7 +112,6 @@ int main() {
 
             cout << "Division by zero." << endl;
             flag = 1;
-            //getline(cin, line);
             break;
 
           }
@@ -140,6 +137,11 @@ int main() {
         stack.push(stod(token));
 
       }
+      else if (token == " ") {
+
+        spaceCount++;
+
+      }
       else {
 
         cout << "Unknown token." << endl;
@@ -148,10 +150,17 @@ int main() {
 
       }
 
+    tokenCount++;
+
 
     }
 
-    if (stack.count() > 1) {
+    if (tokenCount == spaceCount) {
+
+      cout << "No expression." << endl;
+
+    }
+    else if (stack.count() > 1) {
 
       if (flag == 0) {
 
