@@ -35,6 +35,7 @@ int main() {
         if (stack.is_empty()) {
 
           cout << "Not enough operands." << endl;
+          flag = 1;
           //getline(cin, line);
           break;
 
@@ -61,6 +62,7 @@ int main() {
         if (stack.is_empty()) {
 
           cout << "Not enough operands." << endl;
+          flag = 1;
           //getline(cin, line);
           break;
 
@@ -94,6 +96,7 @@ int main() {
           if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero." << endl;
+            flag = 1;
             //getline(cin, line);
             break;
 
@@ -110,6 +113,7 @@ int main() {
           if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero." << endl;
+            flag = 1;
             //getline(cin, line);
             break;
 
@@ -154,7 +158,7 @@ int main() {
         cout << "Too many operands." << endl;
 
       }
-      
+
       continue;
       getline(cin, line);
 
