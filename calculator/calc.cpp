@@ -21,7 +21,7 @@ int main() {
     
     int flag = 0;
 
-    if (line.empty() || line == "  ") {
+    if (line.empty() || line == "   ") {
 
       cout << "No expression." << endl;
 
