@@ -169,9 +169,12 @@ int main() {
       continue;
 
     }
+    else {
 
-    continue;
-    
+      continue;
+
+    }
+
   }
 
 }
