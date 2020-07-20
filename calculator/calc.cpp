@@ -73,7 +73,7 @@ int main() {
 
           if (rightOperand == 0 || rightOperand == -0) {
 
-            cout << "Division by zero" << endl;
+            cout << "Division by zero." << endl;
             getline(cin, line);
 
           }
@@ -88,7 +88,7 @@ int main() {
 
           if (rightOperand == 0 || rightOperand == -0) {
 
-            cout << "Division by zero" << endl;
+            cout << "Division by zero." << endl;
             getline(cin, line);
 
           }
@@ -116,7 +116,7 @@ int main() {
       }
       else if (line.empty()) {
 
-        cout << "No expression" << endl;
+        cout << "No expression." << endl;
         getline(cin, line);
 
       }
@@ -132,7 +132,7 @@ int main() {
 
     if (stack.count() > 1) {
 
-      cout << "Too many operands" << endl;
+      cout << "Too many operands." << endl;
       getline(cin, line);
 
     }
