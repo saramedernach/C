@@ -23,14 +23,15 @@ int main() {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
-        double rightOperand = stack.pop();
-        double result = 0;
+        double rightOperand;
 
-        if (token == "~"){
+        if (!stack.is_empty()) {
 
-          result = -rightOperand;
-          
+          rightOperand = stack.pop();
+
         }
+
+        double result = 0;
 
         if (stack.is_empty()) {
 
@@ -39,7 +40,19 @@ int main() {
 
         }
 
-        double leftOperand = stack.pop();
+        if (token == "~"){
+
+          result = rightOperand  * (-1);
+          
+        }
+
+        double leftOperand;
+
+        if (!stack.is_empty()) {
+
+          leftOperand = stack.pop();
+
+        }
 
         if (token == "+") {
 
@@ -47,7 +60,7 @@ int main() {
 
         }
         else if (token == "-"){
-
+          
           result = leftOperand - rightOperand;
 
         }
@@ -87,7 +100,7 @@ int main() {
           
         }
         else if (token == "^"){
-
+          
           result = pow(leftOperand, rightOperand);
           
         }
@@ -123,7 +136,7 @@ int main() {
       getline(cin, line);
 
     }
-    else {
+    else if (!stack.is_empty()) {
 
       cout << "= " << stack.pop() << endl;
 
