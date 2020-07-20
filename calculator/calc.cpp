@@ -18,32 +18,13 @@ int main() {
     stringstream s(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
+    
+    int flag = 0;
 
     if (line.empty()) {
 
       cout << "No expression." << endl;
       //getline(cin, line);
-
-    }
-
-    int tokenCount = 0;
-    int spaceCount = 0;
-    
-    while (s >> token) {
-
-      if (token == " ") {
-
-        spaceCount++;
-
-      }
-
-      tokenCount++;
-
-    }
-
-    if (tokenCount == spaceCount) {
-
-      cout << "No expression." << endl;
 
     }
 
@@ -158,7 +139,7 @@ int main() {
       else {
 
         cout << "Unknown token." << endl;
-        //getline(cin, line);
+        flag = 1;
         break;
 
       }
@@ -168,7 +149,12 @@ int main() {
 
     if (stack.count() > 1) {
 
-      cout << "Too many operands." << endl;
+      if (flag == 0) {
+
+        cout << "Too many operands." << endl;
+
+      }
+      
       continue;
       getline(cin, line);
 
