@@ -155,7 +155,7 @@ int main() {
       }
 
       continue;
-      getline(cin, line);
+      //getline(cin, line);
 
     }
 
@@ -166,8 +166,6 @@ int main() {
         cout << "= " << stack.pop() << endl;
 
       }
-      
-      getline(cin, line);
 
     }
     
