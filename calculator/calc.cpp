@@ -9,7 +9,6 @@
 using namespace std;
 
 
-
 int main() {
   
   string line;
@@ -20,10 +19,31 @@ int main() {
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
 
-    if (line.empty() || line == " ") {
+    if (line.empty()) {
 
       cout << "No expression." << endl;
       //getline(cin, line);
+
+    }
+
+    int tokenCount = 0;
+    int spaceCount = 0;
+    
+    while (s >> token) {
+
+      if (token == " ") {
+
+        spaceCount++;
+
+      }
+
+      tokenCount++;
+
+    }
+
+    if (tokenCount == spaceCount) {
+
+      cout << "No expression." << endl;
 
     }
 
