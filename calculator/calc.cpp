@@ -15,7 +15,7 @@ int main() {
   string line;
   while (getline(cin, line)) {
 
-    MyStack* stack = new MyStack();
+    MyStack stack;
     stringstream s(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
@@ -23,7 +23,7 @@ int main() {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
-        double rightOperand = stack->pop();
+        double rightOperand = stack.pop();
         double result = 0;
 
         if (token == "~"){
@@ -32,14 +32,14 @@ int main() {
           
         }
 
-        if (stack->is_empty()) {
+        if (stack.is_empty()) {
 
           cout << "Not enough operands." << endl;
           getline(cin, line);
 
         }
 
-        double leftOperand = stack->pop();
+        double leftOperand = stack.pop();
 
         if (token == "+") {
 
@@ -58,7 +58,7 @@ int main() {
         }
         else if (token == "/"){
 
-          if (rightOperand == 0) {
+          if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero" << endl;
             getline(cin, line);
@@ -73,7 +73,7 @@ int main() {
         }
         else if (token == "%"){
 
-          if (rightOperand == 0) {
+          if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero" << endl;
             getline(cin, line);
@@ -92,13 +92,13 @@ int main() {
           
         }
 
-        stack->push(result);
+        stack.push(result);
 
       }
       else if (regex_match(token, regex_number))
       {
         
-        stack->push(stod(token));
+        stack.push(stod(token));
 
       }
       else if (line.empty()) {
@@ -117,7 +117,7 @@ int main() {
 
     }
 
-    if (stack->count() > 1) {
+    if (stack.count() > 1) {
 
       cout << "Too many operands" << endl;
       getline(cin, line);
@@ -125,7 +125,7 @@ int main() {
     }
     else {
 
-      cout << "= " << stack->pop() << endl;
+      cout << "= " << stack.pop() << endl;
 
     }
     
