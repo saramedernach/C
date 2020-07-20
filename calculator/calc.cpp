@@ -31,14 +31,6 @@ int main() {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
-        if (stack.is_empty()) {
-
-          cout << "Not enough operands." << endl;
-          flag = 1;
-          break;
-
-        }
-
         double rightOperand;
 
         if (!stack.is_empty()) {
@@ -143,6 +135,14 @@ int main() {
 
       }
 
+      if (stack.is_empty()) {
+
+        cout << "Not enough operands." << endl;
+        flag = 1;
+        break;
+
+      }
+
 
     }
 
@@ -161,11 +161,6 @@ int main() {
     else if (!stack.is_empty()) {
 
       cout << "= " << stack.pop() << endl;
-
-    }
-    else if (stack.count() == 1) {
-
-      cout << "No expression." << endl;
 
     }
     
