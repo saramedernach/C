@@ -155,7 +155,6 @@ int main() {
       }
 
       continue;
-      //getline(cin, line);
 
     }
 
@@ -167,7 +166,11 @@ int main() {
 
       }
 
+      continue;
+
     }
+
+    continue;
     
   }
 
