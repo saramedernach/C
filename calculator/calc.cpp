@@ -31,6 +31,12 @@ int main() {
 
     while (s >> token) {
 
+      if (token == " ") {
+
+        spaceCount++;
+
+      }
+
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
         if (stack.is_empty()) {
@@ -135,11 +141,6 @@ int main() {
       {
         
         stack.push(stod(token));
-
-      }
-      else if (token == " ") {
-
-        spaceCount++;
 
       }
       else {
