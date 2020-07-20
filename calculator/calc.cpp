@@ -19,6 +19,14 @@ int main() {
     stringstream s(line);
     string token;
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
+
+    if (line.empty() || line == " ") {
+
+      cout << "No expression." << endl;
+      //getline(cin, line);
+
+    }
+
     while (s >> token) {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
@@ -125,13 +133,6 @@ int main() {
       {
         
         stack.push(stod(token));
-
-      }
-      else if (line.empty()) {
-
-        cout << "No expression." << endl;
-        //getline(cin, line);
-        break;
 
       }
       else {
