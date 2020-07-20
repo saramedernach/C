@@ -20,8 +20,6 @@ int main() {
     regex regex_number("[+-]?[0-9]+(\\.[0-9]+)?([Ee][+-]?[0-9]+)?");
     
     int flag = 0;
-    int spaceCount = 0;
-    int tokenCount = 0;
 
     if (line.empty()) {
 
@@ -30,12 +28,6 @@ int main() {
     }
 
     while (s >> token) {
-
-      if (token == " ") {
-
-        spaceCount++;
-
-      }
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
@@ -151,17 +143,10 @@ int main() {
 
       }
 
-    tokenCount++;
-
 
     }
 
-    if (tokenCount == spaceCount) {
-
-      cout << "No expression." << endl;
-
-    }
-    else if (stack.count() > 1) {
+    if (stack.count() > 1) {
 
       if (flag == 0) {
 
@@ -176,6 +161,11 @@ int main() {
     else if (!stack.is_empty()) {
 
       cout << "= " << stack.pop() << endl;
+
+    }
+    else if (stack.count() == 1) {
+
+      cout << "No expression." << endl;
 
     }
     
