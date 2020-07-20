@@ -21,7 +21,7 @@ int main() {
     
     int flag = 0;
 
-    if (line.empty()) {
+    if (line.empty() || line == "  ") {
 
       cout << "No expression." << endl;
 
@@ -30,6 +30,14 @@ int main() {
     while (s >> token) {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
+
+        if (stack.is_empty()) {
+
+          cout << "Not enough operands." << endl;
+          flag = 1;
+          break;
+
+        }
 
         double rightOperand;
 
@@ -135,14 +143,6 @@ int main() {
 
       }
 
-      if (stack.is_empty()) {
-
-        cout << "Not enough operands." << endl;
-        flag = 1;
-        break;
-
-      }
-
 
     }
 
@@ -158,6 +158,7 @@ int main() {
       getline(cin, line);
 
     }
+
     else if (!stack.is_empty()) {
 
       cout << "= " << stack.pop() << endl;
