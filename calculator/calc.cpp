@@ -23,6 +23,14 @@ int main() {
 
       if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "^" || token == "~") {
 
+        if (stack.is_empty()) {
+
+          cout << "Not enough operands." << endl;
+          //getline(cin, line);
+          break;
+
+        }
+
         double rightOperand;
 
         if (!stack.is_empty()) {
@@ -33,17 +41,20 @@ int main() {
 
         double result = 0;
 
+        if (token == "~"){
+
+          result = -rightOperand;
+          stack.push(result);
+          continue;
+          
+        }
+
         if (stack.is_empty()) {
 
           cout << "Not enough operands." << endl;
-          getline(cin, line);
+          //getline(cin, line);
+          break;
 
-        }
-
-        if (token == "~"){
-
-          result = rightOperand  * (-1);
-          
         }
 
         double leftOperand;
@@ -74,7 +85,8 @@ int main() {
           if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero." << endl;
-            getline(cin, line);
+            //getline(cin, line);
+            break;
 
           }
           else {
@@ -89,7 +101,8 @@ int main() {
           if (rightOperand == 0 || rightOperand == -0) {
 
             cout << "Division by zero." << endl;
-            getline(cin, line);
+            //getline(cin, line);
+            break;
 
           }
           else {
@@ -117,13 +130,15 @@ int main() {
       else if (line.empty()) {
 
         cout << "No expression." << endl;
-        getline(cin, line);
+        //getline(cin, line);
+        break;
 
       }
       else {
 
         cout << "Unknown token." << endl;
-        getline(cin, line);
+        //getline(cin, line);
+        break;
 
       }
 
@@ -133,6 +148,7 @@ int main() {
     if (stack.count() > 1) {
 
       cout << "Too many operands." << endl;
+      continue;
       getline(cin, line);
 
     }
