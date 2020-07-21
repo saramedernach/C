@@ -53,7 +53,7 @@ int main() {
 
           result = -rightOperand;
           stack.push(result);
-          continue;
+          //continue;
           
         }
 
@@ -154,7 +154,7 @@ int main() {
 
       }
 
-      continue;
+      //continue;
 
     }
 
@@ -166,7 +166,7 @@ int main() {
 
       }
 
-      continue;
+      //continue;
 
     }
 
