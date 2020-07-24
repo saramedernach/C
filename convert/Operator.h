@@ -1,11 +1,19 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
+#include "AST.h"
+
+using namespace std;
+
 class Operator: public AST {
-  // Member Variables
+
+  char mToken;
+  AST* mLHS;
+  AST* mRHS;
+
 public:
-  // Constructor
-  // Destructor?
+  
+  Operator(char token, AST* lhs, AST* rhs);
 
   // Required helper functions.
   int arity()         const;
@@ -13,9 +21,9 @@ public:
   int precedence()    const;
 
   // Required member functions.
-  std::string infix()   const;
-  std::string postfix() const;
-  std::string prefix()  const;
+  string infix()   const;
+  string postfix() const;
+  string prefix()  const;
 };
 
 #endif

@@ -1,11 +1,18 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
+#include "AST.h"
+
+using namespace std;
+
+
 class Number: public AST {
-  // Member Variables
+  
+  double mValue;
+
 public:
-  // Constructor
-  // Destructor?
+  
+  Number(const string& token);
 
   // Required helper functions.
   int arity()         const;
@@ -13,9 +20,10 @@ public:
   int precedence()    const;
 
   // Required member functions.
-  std::string infix()   const;
-  std::string postfix() const;
-  std::string prefix()  const;
+  string infix()   const;
+  string postfix() const;
+  string prefix()  const;
+  string to_string() const;
 };
 
 #endif
