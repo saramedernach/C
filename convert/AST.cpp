@@ -55,6 +55,14 @@ bool is_number(const std::string& token) {
 AST* AST::parse_prefix(std::istream& tokens) {
 
     string token;
+
+    if (!(tokens >> token)) {
+
+        cout << "Not enough operands."  << endl;
+        return 0;
+
+    }
+
     tokens >> token;
 
     if (token == "~") {
