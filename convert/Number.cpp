@@ -30,13 +30,13 @@ int Number::precedence() const {
 // Required member functions.
 string Number::infix() const {
 
-    return "number";
+    return to_string();
 
 }
 
 string Number::postfix() const {
 
-    return "number";
+    return to_string();
 
 }
 

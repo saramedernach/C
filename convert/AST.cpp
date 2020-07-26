@@ -70,6 +70,13 @@ AST* AST::parse_prefix(std::istream& tokens) {
         AST* rhs = AST::parse_prefix(tokens);
         return new Operator('~', nullptr, rhs);
 
+    }
+    else if(is_operator(token)) {
+
+        AST* lhs = AST::parse_prefix(tokens);
+        AST* rhs = AST::parse_prefix(tokens);
+        return new Operator(token[0], lhs, rhs);
+
     }       
     else if (is_number(token)) {
 

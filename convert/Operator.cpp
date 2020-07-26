@@ -41,7 +41,13 @@ string Operator::infix() const {
 
 string Operator::postfix() const {
 
-    return "operator";
+    if (mToken == '~') {
+
+        return mRHS->postfix() + " ~";
+
+    }
+
+    return mLHS->postfix() + ' ' + mRHS->postfix() + ' ' + mToken;
 
 }
 

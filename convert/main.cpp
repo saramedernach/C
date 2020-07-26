@@ -22,8 +22,34 @@ int main(int argc, char** argv) {
   while(std::getline(std::cin, line)) {
     std::istringstream tokens(line);
 
-    AST* ast = AST::parse_postfix(tokens);
-    cout << "=> " << ast->prefix() << endl;
+    AST* ast;
+
+    if (strcmp(argv[1], "prefix") == 0) {
+
+      ast = AST::parse_prefix(tokens);
+
+    }
+    else if (strcmp(argv[1], "postfix") == 0) {
+
+      ast = AST::parse_postfix(tokens);
+
+    }
+
+    if (strcmp(argv[2], "prefix") == 0) {
+
+      cout << "=> " << ast->prefix() << endl;
+
+    }
+    else if (strcmp(argv[2], "infix") == 0) {
+
+      cout << "=> " << ast->infix() << endl;
+
+    }
+    else if (strcmp(argv[2], "postfix") == 0) {
+
+      cout << "=> " << ast->postfix() << endl;
+
+    }
     
 
   }
