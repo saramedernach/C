@@ -10,7 +10,13 @@ Operator::Operator(char token, AST* lhs, AST* rhs) {
 
 int Operator::arity() const {
 
-    return 79;
+    /*if (token == "~") {
+
+        return 1;
+
+    }*/
+
+    return 2;
 
 }
 
