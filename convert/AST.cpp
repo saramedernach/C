@@ -86,43 +86,59 @@ AST* AST::parse_postfix(std::istream& tokens) {
     stack<AST*> stack;
     string token;
 
-    while (tokens >> token) {
+    try {
 
-        if (token == "~") {
+        while (tokens >> token) {
 
-            AST* rhs = stack.top();
-            stack.pop();
+            if (token == "~") {
 
-            AST* ast = new Operator('~', nullptr, rhs);
-            stack.push(ast);
+                AST* rhs = stack.top();
+                stack.pop();
+
+                AST* ast = new Operator('~', nullptr, rhs);
+                stack.push(ast);
+
+            }
+            else if (is_operator(token)) {
+
+                AST* rhs = stack.top();
+                stack.pop();
+
+                AST* lhs = stack.top();
+                stack.pop();
+
+                AST* ast = new Operator(token[0], lhs, rhs);
+                stack.push(ast);
+
+            }
+            else if (is_number(token)) {
+
+                stack.push(new Number(token));
+
+            }
+            else {
+
+                cout << "Invalid token: " << token;
+                break;
+
+            }
 
         }
-        else if (is_operator(token)) {
 
-            AST* rhs = stack.top();
+        return stack.top();
+
+    }
+    catch (const runtime_error&) {
+
+        while(!stack.empty()) {
+
+            delete stack.top();
             stack.pop();
-
-            AST* lhs = stack.top();
-            stack.pop();
-
-            AST* ast = new Operator(token[0], lhs, rhs);
-            stack.push(ast);
-
-        }
-        else if (is_number(token)) {
-
-            stack.push(new Number(token));
-
-        }
-        else {
-
-            cout << "Invalid token: " << token;
-            break;
 
         }
 
     }
 
-    return stack.top();
+    throw;
 
 }
