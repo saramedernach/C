@@ -149,8 +149,9 @@ AST* AST::parse_postfix(std::istream& tokens) {
             }
             else {
 
-                cout << "Invalid token: " << token << endl;
-                break;
+                throw runtime_error("Invalid token: " + token + "\n");
+                //cout << "Invalid token: " << token << endl;
+                //break;
 
             }
 
