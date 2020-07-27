@@ -44,60 +44,69 @@ int main(int argc, char** argv) {
     AST* ast;
     string token;
 
-    if (strcmp(argv[1], "prefix") == 0) {
+    try {
 
-      ast = AST::parse_prefix(tokens);
-      
-      if (tokens >> token) {
+      if (strcmp(argv[1], "prefix") == 0) {
 
-        cout << "Too many operands." << endl;
-        delete ast;
-        continue;
+        ast = AST::parse_prefix(tokens);
+        
+        if (tokens >> token) {
+
+          cout << "Too many operands." << endl;
+          delete ast;
+          continue;
+
+        }
+
+      }
+      else {
+
+        ast = AST::parse_postfix(tokens);
 
       }
 
-    }
-    else {
+      if (strcmp(argv[2], "prefix") == 0) {
 
-      ast = AST::parse_postfix(tokens);
+        if (ast == nullptr) {
 
-    }
+              continue;     
 
-    if (strcmp(argv[2], "prefix") == 0) {
+        }
 
-      if (ast == nullptr) {
+        cout << "=> " << ast->prefix() << endl;
 
-            continue;     
+      }
+      else if (strcmp(argv[2], "infix") == 0) {
+
+        if (ast == nullptr) {
+
+              continue;     
+
+        }
+
+        cout << "=> " << ast->infix() << endl;
+
+      }
+      else if (strcmp(argv[2], "postfix") == 0) {
+
+        if (ast == nullptr) {
+
+              continue;     
+
+        }
+
+        cout << "=> " << ast->postfix() << endl;
 
       }
 
-      cout << "=> " << ast->prefix() << endl;
-
-    }
-    else if (strcmp(argv[2], "infix") == 0) {
-
-      if (ast == nullptr) {
-
-            continue;     
-
-      }
-
-      cout << "=> " << ast->infix() << endl;
-
-    }
-    else if (strcmp(argv[2], "postfix") == 0) {
-
-      if (ast == nullptr) {
-
-            continue;     
-
-      }
-
-      cout << "=> " << ast->postfix() << endl;
-
-    }
-
-    delete ast;
+      delete ast;
     
+    }
+    catch (runtime_error& e) {
+
+      cout << e.what();
+
+    }
+
   }
 }
