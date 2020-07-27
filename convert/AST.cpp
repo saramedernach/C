@@ -56,15 +56,13 @@ AST* AST::parse_prefix(std::istream& tokens) {
 
     string token;
 
-    /*if (!(tokens >> token)) {
+    tokens >> token;
+
+    if (!(tokens)) {
 
         throw runtime_error("Not enough operands.\n");
-        //cout << "Not enough operands."  << endl;
-        //return 0;
 
-    }*/
-
-    tokens >> token;
+    }
 
     if (token == "~") {
         

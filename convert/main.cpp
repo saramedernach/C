@@ -48,12 +48,22 @@ int main(int argc, char** argv) {
 
       if (strcmp(argv[1], "prefix") == 0) {
 
-        ast = AST::parse_prefix(tokens);
-        
-        if (tokens >> token) {
+        try {
 
-          cout << "Too many operands." << endl;
-          delete ast;
+          ast = AST::parse_prefix(tokens);
+          
+          if (tokens >> token) {
+
+            cout << "Too many operands." << endl;
+            delete ast;
+            continue;
+
+          }
+        
+        }
+        catch (const runtime_error& r) {
+
+          cout << r.what();
           continue;
 
         }
