@@ -51,12 +51,13 @@ int main(int argc, char** argv) {
       if (tokens >> token) {
 
         cout << "Too many operands." << endl;
+        delete ast;
         continue;
 
       }
 
     }
-    else /*if (strcmp(argv[1], "postfix") == 0)*/ {
+    else {
 
       ast = AST::parse_postfix(tokens);
 
