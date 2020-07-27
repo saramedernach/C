@@ -157,12 +157,13 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
         if (stack.size() < 1) {
 
-            cout << "Not enough operands." << endl;
+            throw runtime_error("Not enough operands.\n");
 
         }     
         else if (stack.size() > 1) {
 
-            cout << "Too many operands." << endl;
+            throw runtime_error("Too many operands.\n");
+            //cout << "Too many operands." << endl;
             
         }
         else {
