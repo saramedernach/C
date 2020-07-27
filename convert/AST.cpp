@@ -105,6 +105,12 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
             if (token == "~") {
 
+                if (stack.empty()) {
+
+                    throw runtime_error("Not enough operands.\n");
+
+                }
+
                 AST* rhs = stack.top();
                 stack.pop();
 
