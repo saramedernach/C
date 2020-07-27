@@ -84,7 +84,17 @@ AST* AST::parse_prefix(std::istream& tokens) {
     }
     else {
 
-        throw runtime_error("Invalid token: " + token + "\n");
+        try {
+            
+            throw runtime_error("Invalid token: " + token + "\n");
+        
+        }
+        catch (const runtime_error& r) {
+
+            cout << r.what();
+            return 0;
+
+        }
 
     }
 
@@ -105,7 +115,17 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
                 if (stack.empty()) {
 
-                    throw runtime_error("Not enough operands.\n");
+                    try {
+            
+                        throw runtime_error("Not enough operands.\n");
+                    
+                    }
+                    catch (const runtime_error& r) {
+
+                        cout << r.what();
+                        return 0;
+
+                    }
 
                 }
 
@@ -120,7 +140,17 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
                 if (stack.empty()) {
 
-                    throw runtime_error("Not enough operands.\n");
+                    try {
+            
+                        throw runtime_error("Not enough operands.\n");
+                    
+                    }
+                    catch (const runtime_error& r) {
+
+                        cout << r.what();
+                        return 0;
+
+                    }
 
                 }
 
@@ -129,7 +159,17 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
                 if (stack.empty()) {
 
-                    throw runtime_error("Not enough operands.\n");
+                    try {
+            
+                        throw runtime_error("Not enough operands.\n");
+                    
+                    }
+                    catch (const runtime_error& r) {
+
+                        cout << r.what();
+                        return 0;
+
+                    }
 
                 }
 
@@ -155,7 +195,17 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
         if (stack.size() < 1) {
 
-            throw runtime_error("Not enough operands.\n");
+            try {
+            
+                throw runtime_error("Not enough operands.\n");
+                    
+            }
+            catch (const runtime_error& r) {
+
+                cout << r.what();
+                return 0;
+
+            }
 
         }     
         else if (stack.size() > 1) {
