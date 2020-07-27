@@ -84,18 +84,7 @@ AST* AST::parse_prefix(std::istream& tokens) {
     }
     else {
 
-        try {
-            
-            throw runtime_error("Invalid token: " + token + "\n");
-        
-        }
-        catch (const runtime_error& r) {
-
-            cout << r.what();
-            return 0;
-
-        }
-        //throw runtime_error("Invalid token: " + token + "\n");
+        throw runtime_error("Invalid token: " + token + "\n");
 
     }
 
