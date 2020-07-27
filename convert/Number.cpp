@@ -11,19 +11,19 @@ Number::Number(const string& token) {
 // Required helper functions.
 int Number::arity() const {
 
-    return 42;
+    return 0;
 
 }
 
 int Number::associativity() const {
 
-    return 42;
+    return 0;
 
 }
 
 int Number::precedence() const {
 
-    return 42;
+    return 5;
 
 }
 

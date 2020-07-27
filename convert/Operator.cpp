@@ -11,18 +11,28 @@ Operator::Operator(char token, AST* lhs, AST* rhs) {
 
 Operator::~Operator() {
 
-    delete mLHS;
-    delete mRHS;
+    if(mRHS == nullptr && mLHS == nullptr) {
+
+        delete this;
+
+    }
+    else {
+
+        delete mLHS;
+        delete mRHS;
+        
+    }
+
 
 }
 
 int Operator::arity() const {
 
-    /*if (token == "~") {
+    if (mToken == '~') {
 
         return 1;
 
-    }*/
+    }
 
     return 2;
 
@@ -30,19 +40,43 @@ int Operator::arity() const {
 
 int Operator::associativity() const {
 
-    return 79;
+    if (mToken == '~') {
+
+        return 1;
+
+    }
+
+    return -1;
 
 }
 
 int Operator::precedence() const {
 
-    return 79;
+    if (mToken == '+' || mToken == '-') {
+
+        return 1;
+
+    }
+    else if (mToken == '*' || mToken == '/' || mToken == '%') {
+
+        return 2;
+
+    }
+    else if (mToken == '~') {
+
+        return 3;
+
+    }
+    
+    return 4;
 
 } 
 
 // Required member functions.
 string Operator::infix() const {
 
+    
+    
     if (mToken == '~') {
 
         return "~ " + mRHS->infix();
