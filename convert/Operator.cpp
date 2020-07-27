@@ -75,15 +75,54 @@ int Operator::precedence() const {
 // Required member functions.
 string Operator::infix() const {
 
-    
-    
-    if (mToken == '~') {
+    if (mLHS->precedence() > mRHS->precedence()) {
 
-        return "~ " + mRHS->infix();
+        if (mToken == '~') {
+
+            return "~ " + mRHS->infix();
+
+        }
+
+        return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
 
     }
+    else if (mLHS->precedence() < mRHS->precedence()) {
 
-    return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+        if (mToken == '~') {
+
+            return "(~ " + mRHS->infix() + ")";
+
+        }
+
+        return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
+
+    }
+    else {
+
+        if (mLHS->associativity() < mRHS->associativity()) {
+
+            if (mToken == '~') {
+
+                return "~ " + mRHS->infix();
+
+            }
+
+            return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+
+        }
+        else {
+
+            if (mToken == '~') {
+
+                return "(~ " + mRHS->infix() + ")";
+
+            }
+
+            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
+
+        }
+
+    }
 
 }
 
