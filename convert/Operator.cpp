@@ -75,31 +75,9 @@ int Operator::precedence() const {
 // Required member functions.
 string Operator::infix() const {
 
-    if (mLHS->precedence() > mRHS->precedence()) {
+    try {
 
-        if (mToken == '~') {
-
-            return "~ " + mRHS->infix();
-
-        }
-
-        return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
-
-    }
-    else if (mLHS->precedence() < mRHS->precedence()) {
-
-        if (mToken == '~') {
-
-            return "(~ " + mRHS->infix() + ")";
-
-        }
-
-        return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
-
-    }
-    else {
-
-        if (mLHS->associativity() < mRHS->associativity()) {
+        if (mLHS->precedence() > mRHS->precedence()) {
 
             if (mToken == '~') {
 
@@ -110,7 +88,7 @@ string Operator::infix() const {
             return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
 
         }
-        else {
+        else if (mLHS->precedence() < mRHS->precedence()) {
 
             if (mToken == '~') {
 
@@ -121,6 +99,37 @@ string Operator::infix() const {
             return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
 
         }
+        else {
+
+            if (mLHS->associativity() < mRHS->associativity()) {
+
+                if (mToken == '~') {
+
+                    return "~ " + mRHS->infix();
+
+                }
+
+                return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+
+            }
+            else {
+
+                if (mToken == '~') {
+
+                    return "(~ " + mRHS->infix() + ")";
+
+                }
+
+                return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
+
+            }
+
+        }
+
+    }
+    catch (const runtime_error&) {
+
+        return 0;
 
     }
 
