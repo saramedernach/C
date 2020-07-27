@@ -58,8 +58,9 @@ AST* AST::parse_prefix(std::istream& tokens) {
 
     /*if (!(tokens >> token)) {
 
-        cout << "Not enough operands."  << endl;
-        return 0;
+        throw runtime_error("Not enough operands.\n");
+        //cout << "Not enough operands."  << endl;
+        //return 0;
 
     }*/
 
@@ -89,7 +90,7 @@ AST* AST::parse_prefix(std::istream& tokens) {
 
     }
 
-    return new Number(token);
+    //return new Number(token);
 
 }
 
