@@ -43,7 +43,13 @@ int Operator::precedence() const {
 // Required member functions.
 string Operator::infix() const {
 
-    return "operator";
+    if (mToken == '~') {
+
+        return "~ " + mRHS->infix();
+
+    }
+
+    return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
 
 }
 
