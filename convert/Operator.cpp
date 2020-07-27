@@ -73,7 +73,7 @@ int Operator::precedence() const {
 // Required member functions.
 string Operator::infix() const {
 
-    if (mLHS == nullptr && mRHS == nullptr) {
+    if (mLHS == nullptr || mRHS == nullptr) {
 
         return "";
 
