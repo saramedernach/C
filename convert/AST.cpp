@@ -150,14 +150,17 @@ AST* AST::parse_postfix(std::istream& tokens) {
             else {
 
                 throw runtime_error("Invalid token: " + token + "\n");
-                //cout << "Invalid token: " << token << endl;
-                //break;
 
             }
 
         }
 
-        if (stack.size() > 1) {
+        if (stack.size() < 1) {
+
+            cout << "Not enough operands." << endl;
+
+        }     
+        else if (stack.size() > 1) {
 
             cout << "Too many operands." << endl;
             
