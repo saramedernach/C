@@ -65,15 +65,33 @@ int main(int argc, char** argv) {
 
     if (strcmp(argv[2], "prefix") == 0) {
 
+      if (ast == nullptr) {
+
+            continue;     
+
+      }
+
       cout << "=> " << ast->prefix() << endl;
 
     }
     else if (strcmp(argv[2], "infix") == 0) {
 
+      if (ast == nullptr) {
+
+            continue;     
+
+      }
+
       cout << "=> " << ast->infix() << endl;
 
     }
     else if (strcmp(argv[2], "postfix") == 0) {
+
+      if (ast == nullptr) {
+
+            continue;     
+
+      }
 
       cout << "=> " << ast->postfix() << endl;
 

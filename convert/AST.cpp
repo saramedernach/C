@@ -83,6 +83,12 @@ AST* AST::parse_prefix(std::istream& tokens) {
         return new Number(token);
 
     }
+    else {
+
+        cout << "Invalid token: " << token << endl;
+        return 0;
+
+    }
 
     return new Number(token);
 
@@ -108,8 +114,20 @@ AST* AST::parse_postfix(std::istream& tokens) {
             }
             else if (is_operator(token)) {
 
+                if (stack.empty()) {
+
+                    throw runtime_error("Not enough operands.\n");
+
+                }
+
                 AST* rhs = stack.top();
                 stack.pop();
+
+                if (stack.empty()) {
+
+                    throw runtime_error("Not enough operands.\n");
+
+                }
 
                 AST* lhs = stack.top();
                 stack.pop();
@@ -132,19 +150,10 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
         }
 
-        if (stack.size() < 1) {
+        if (stack.size() > 1) {
 
-            //throw runtime_error("Not enough operands.");
-            cout << "Not enough operands." << endl;
-            
-
-        }
-        else if (stack.size() > 1) {
-
-            //throw runtime_error("Too many operands.");
             cout << "Too many operands." << endl;
             
-
         }
         else {
 
@@ -153,7 +162,7 @@ AST* AST::parse_postfix(std::istream& tokens) {
         }
 
     }
-    catch (const runtime_error&) {
+    catch (const runtime_error& r) {
 
         while(!stack.empty()) {
 
@@ -162,8 +171,10 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
         }
 
+        cout << r.what();
+
     }
 
-    throw;
+    return 0;
 
 }
