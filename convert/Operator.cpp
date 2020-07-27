@@ -75,7 +75,7 @@ string Operator::infix() const {
 
     if (mLHS == nullptr || mRHS == nullptr) {
 
-        return "";
+        return to_string(mToken);
 
     }
     else if (mLHS->precedence() > mRHS->precedence()) {
