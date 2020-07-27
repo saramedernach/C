@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
       }
 
     }
-    else if (strcmp(argv[1], "postfix") == 0) {
+    else /*if (strcmp(argv[1], "postfix") == 0)*/ {
 
       ast = AST::parse_postfix(tokens);
 
@@ -77,7 +77,8 @@ int main(int argc, char** argv) {
       cout << "=> " << ast->postfix() << endl;
 
     }
-    
 
+    delete ast;
+    
   }
 }
