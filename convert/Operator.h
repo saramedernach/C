@@ -14,6 +14,7 @@ class Operator: public AST {
 public:
   
   Operator(char token, AST* lhs, AST* rhs);
+  ~Operator();
 
   // Required helper functions.
   int arity()         const;

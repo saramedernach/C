@@ -1,10 +1,18 @@
 #include "Operator.h"
+#include <stack>
 
 Operator::Operator(char token, AST* lhs, AST* rhs) {
 
     mToken = token;
     mLHS = lhs;
     mRHS = rhs;
+
+}
+
+Operator::~Operator() {
+
+    delete mLHS;
+    delete mRHS;
 
 }
 
