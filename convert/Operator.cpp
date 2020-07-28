@@ -77,6 +77,12 @@ string Operator::infix() const {
 
         if (mRHS != nullptr) {
 
+            if (mRHS->precedence() < this->precedence()) {
+
+                return "(~ " + mRHS->infix() + ')';
+
+            }
+
             return "~ " + mRHS->infix();
 
         }
