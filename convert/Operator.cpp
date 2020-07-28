@@ -108,7 +108,7 @@ string Operator::infix() const {
     }
     else {
 
-        if (mLHS->associativity() < 0 || mRHS->associativity() > 0) {
+        if (mLHS->associativity() > 0 || mRHS->associativity() < 0) {
 
             if (mToken == '~') {
 
