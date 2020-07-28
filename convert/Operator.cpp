@@ -77,7 +77,18 @@ string Operator::infix() const {
 
         if (mRHS != nullptr) {
 
-            if (mRHS->precedence() < this->precedence()) {
+            if (mRHS->precedence() == this->precedence()) {
+
+                if (mRHS->associativity() < 0) {
+            
+                    return "(~" + mRHS->infix() + ')';
+
+                }
+
+                return "~ " + mRHS->infix();
+
+            }
+            else if (mRHS->precedence() < this->precedence()) {
 
                 return "(~ " + mRHS->infix() + ')';
 
