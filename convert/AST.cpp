@@ -139,6 +139,7 @@ AST* AST::parse_postfix(std::istream& tokens) {
 
                 if (stack.empty()) {
 
+                    delete rhs;
                     throw runtime_error("Not enough operands.\n");
 
                 }
