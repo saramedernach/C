@@ -98,7 +98,7 @@ string Operator::infix() const {
         }
         else {
 
-            return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
 
         }
 
@@ -117,7 +117,7 @@ string Operator::infix() const {
         }
         else {
 
-            return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
 
         }
 
