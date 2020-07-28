@@ -112,6 +112,29 @@ string Operator::infix() const {
 
             if (mToken == '~') {
 
+                return "(~ " + mRHS->infix() + ")";
+
+            }
+
+            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
+
+        }
+        else {
+
+            if (mToken == '~') {
+
+                return "~ " + mRHS->infix();
+
+            }
+
+            return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
+
+        }
+        
+        /*if (mLHS->associativity() > 0 || mRHS->associativity() < 0) {
+
+            if (mToken == '~') {
+
                 return "~ " + mRHS->infix();
 
             }
@@ -129,7 +152,7 @@ string Operator::infix() const {
 
             return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
 
-        }
+        }*/
 
     }
 
