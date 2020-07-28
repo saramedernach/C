@@ -124,6 +124,12 @@ string Operator::infix() const {
     }
     else if (mLHS->precedence() < this->precedence()) {
 
+        if (mToken == '~') {
+
+            return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+
+        }
+
         if (mRHS->precedence() < this->precedence()) {
 
             if (mToken == '~') {
@@ -140,6 +146,12 @@ string Operator::infix() const {
 
     }
     else if (mRHS->precedence() < this->precedence()) {
+
+        if (mToken == '~') {
+
+            return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+
+        }
 
         if (mLHS->precedence() < this->precedence()) {
 
