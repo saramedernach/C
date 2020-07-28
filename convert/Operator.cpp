@@ -88,7 +88,7 @@ string Operator::infix() const {
 
         if (mRHS->associativity() < 0) {
 
-            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
+            return mLHS->infix() + ' ' + mToken + " (" + mRHS->infix() + ')';
 
         } 
         else if (mLHS->associativity() > 0) {
@@ -107,7 +107,7 @@ string Operator::infix() const {
 
         if (mLHS->associativity() > 0) {
 
-            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
+            return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
 
         } 
         else if (mRHS->associativity() < 0) {
