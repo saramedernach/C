@@ -77,23 +77,6 @@ string Operator::infix() const {
 
         if (mRHS != nullptr) {
 
-            /*if (mRHS->precedence() == this->precedence()) {
-
-                if (mRHS->associativity() < 0) {
-            
-                    return "~ " + mRHS->infix();
-
-                }
-
-                return "~ " + mRHS->infix();
-
-            }
-            else if (mRHS->precedence() < this->precedence()) {
-
-                return "~ " + mRHS->infix();
-
-            }*/
-
             return "~ " + mRHS->infix();
 
         }
@@ -143,7 +126,13 @@ string Operator::infix() const {
 
         if (mRHS->precedence() < this->precedence()) {
 
-            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';;
+            if (mToken == '~') {
+
+                return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+
+            }
+
+            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
 
         }
 
@@ -154,7 +143,7 @@ string Operator::infix() const {
 
         if (mLHS->precedence() < this->precedence()) {
 
-            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';;
+            return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
 
         }
 
