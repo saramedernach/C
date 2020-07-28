@@ -86,12 +86,7 @@ string Operator::infix() const {
     }
     else if (mLHS->precedence() == this->precedence()) {
 
-        if (mRHS->associativity() < 0 && mLHS->associativity() > 0) {
-
-            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix()  + ')';
-
-        }
-        else if (mRHS->associativity() < 0) {
+        if (mRHS->associativity() < 0) {
             
             return mLHS->infix() + ' ' + mToken + " (" + mRHS->infix() + ')';
 
@@ -110,12 +105,7 @@ string Operator::infix() const {
     }
     else if (mRHS->precedence() == this->precedence()) {
 
-        if (mLHS->associativity() > 0 && mRHS->associativity() < 0) {
-
-            return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix()  + ')';
-
-        }
-        else if (mLHS->associativity() > 0) {
+        if (mLHS->associativity() > 0) {
 
             return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
 
