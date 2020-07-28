@@ -81,7 +81,7 @@ string Operator::infix() const {
 
                 if (mRHS->associativity() < 0) {
             
-                    return "(~" + mRHS->infix() + ')';
+                    return "~ " + mRHS->infix();
 
                 }
 
