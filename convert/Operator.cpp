@@ -75,7 +75,7 @@ string Operator::infix() const {
 
     if (mLHS == nullptr || mRHS == nullptr) {
 
-        /*if (mRHS != nullptr) {
+        if (mRHS != nullptr) {
 
             if (mRHS->precedence() < this->precedence()) {
 
@@ -85,7 +85,7 @@ string Operator::infix() const {
 
             return "~ " + mRHS->infix();
 
-        }*/
+        }
 
         return to_string(mToken);
     
