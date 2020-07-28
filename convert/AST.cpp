@@ -72,8 +72,19 @@ AST* AST::parse_prefix(std::istream& tokens) {
     else if(is_operator(token)) {
 
         AST* lhs = AST::parse_prefix(tokens);
-        AST* rhs = AST::parse_prefix(tokens);
-        return new Operator(token[0], lhs, rhs);
+
+        try {
+
+            AST* rhs = AST::parse_prefix(tokens);
+            return new Operator(token[0], lhs, rhs);
+
+        }
+        catch (const runtime_error&) {
+
+            delete lhs;
+            throw;
+
+        }
 
     }       
     else if (is_number(token)) {
