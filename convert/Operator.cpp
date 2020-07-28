@@ -75,10 +75,16 @@ string Operator::infix() const {
 
     if (mLHS == nullptr || mRHS == nullptr) {
 
+        if (mRHS != nullptr) {
+
+            return "~ " + mRHS->infix();
+
+        }
+
         return to_string(mToken);
 
     }
-    else if (mLHS->precedence() > mRHS->precedence()) {
+    else if (mLHS->precedence() > this->precedence() || mRHS->precedence() > this->precedence()) {
 
         if (mToken == '~') {
 
@@ -89,7 +95,7 @@ string Operator::infix() const {
         return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
 
     }
-    else if (mLHS->precedence() < mRHS->precedence()) {
+    else if (mLHS->precedence() < this->precedence() || mRHS->precedence() < this->precedence()) {
 
         if (mToken == '~') {
 
@@ -102,7 +108,7 @@ string Operator::infix() const {
     }
     else {
 
-        if (mLHS->associativity() < 0) {
+        if (mLHS->associativity() < 0 || mRHS->associativity() > 0) {
 
             if (mToken == '~') {
 
