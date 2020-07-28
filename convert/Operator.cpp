@@ -143,6 +143,12 @@ string Operator::infix() const {
 
         if (mLHS->precedence() < this->precedence()) {
 
+            if (mToken == '~') {
+
+                return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+
+            }
+
             return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
 
         }
