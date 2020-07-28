@@ -90,7 +90,7 @@ string Operator::infix() const {
             }
             else if (mRHS->precedence() < this->precedence()) {
 
-                return "(~ " + mRHS->infix() + ')';
+                return "~ " + mRHS->infix() + ')';
 
             }
 
