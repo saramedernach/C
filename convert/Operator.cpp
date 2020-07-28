@@ -68,7 +68,7 @@ int Operator::precedence() const {
     
     return 4;
 
-} 
+}
 
 // Required member functions.
 string Operator::infix() const {
@@ -124,17 +124,11 @@ string Operator::infix() const {
     }
     else if (mLHS->precedence() < this->precedence()) {
 
-        if (mToken == '~') {
-
-            return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
-
-        }
-
         if (mRHS->precedence() < this->precedence()) {
 
-            if (mToken == '~') {
+            if (mRHS->arity() == 1) {
 
-                return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+                 return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
 
             }
 
@@ -147,24 +141,12 @@ string Operator::infix() const {
     }
     else if (mRHS->precedence() < this->precedence()) {
 
-        if (mToken == '~') {
-
-            return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
-
-        }
-
         if (mLHS->precedence() < this->precedence()) {
-
-            if (mToken == '~') {
-
-                return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
-
-            }
 
             return '(' + mLHS->infix() + ") " + mToken + " (" + mRHS->infix() + ')';
 
         }
-
+        
         return mLHS->infix() + ' ' + mToken + " (" + mRHS->infix() + ')';
 
     }
