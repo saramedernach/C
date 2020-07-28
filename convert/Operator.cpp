@@ -112,7 +112,18 @@ string Operator::infix() const {
         }
 
     }
-    else if (mLHS->precedence() > this->precedence() || mRHS->precedence() > this->precedence()) {
+    else if (mLHS->precedence() < this->precedence()) {
+
+        return '(' + mLHS->infix() + ") " + mToken + ' ' + mRHS->infix();
+
+    }
+    else if (mRHS->precedence() < this->precedence()) {
+
+        return mLHS->infix() + ' ' + mToken + " (" + mRHS->infix() + ')';
+
+    }
+    
+    /*else if (mLHS->precedence() > this->precedence() || mRHS->precedence() > this->precedence()) {
 
         if (mToken == '~') {
 
@@ -133,7 +144,7 @@ string Operator::infix() const {
 
         return '(' + mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix() + ')';
 
-    }
+    }*/
 
     return mLHS->infix() + ' ' + mToken + ' ' + mRHS->infix();
 
