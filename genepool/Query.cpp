@@ -101,7 +101,13 @@ std::set<Person*> Query::run(const GenePool& pool) const {
     return person->descendants();
   }
   else if(relationship == "father") {
-    return person->parents(PMod::PATERNAL);
+    Person* father = person->father();
+    std::set<Person*> result;
+    if(father != nullptr) {
+      result.insert(father);
+    }
+
+    return result;
   }
   else if(relationship == "grandchildren") {
     return person->grandchildren();
@@ -122,7 +128,13 @@ std::set<Person*> Query::run(const GenePool& pool) const {
     return person->grandsons();
   }
   else if(relationship == "mother") {
-    return person->parents(PMod::MATERNAL);
+    Person* mother = person->mother();
+    std::set<Person*> result;
+    if(mother != nullptr) {
+      result.insert(mother);
+    }
+
+    return result;
   }
   else if(relationship == "nephews") {
     return person->nephews(pmod, smod);

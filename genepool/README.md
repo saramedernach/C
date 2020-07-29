@@ -172,6 +172,10 @@ to support are explained below.
 
 ## Edge Cases
 
+Two people  with completely unknown parents  should not be considered  siblings.
+People need  at least one  known parent in common  before they should be treated
+as siblings.
+
 Siblings who share one known parent and have the other parent unknown  should be
 considered full siblings. For example, if Alice and Bob are both the children of
 Eve and an unknown father, they should be treated as full siblings.
