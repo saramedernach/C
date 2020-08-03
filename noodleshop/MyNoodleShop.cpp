@@ -1,11 +1,7 @@
 #include "MyNoodleShop.h"
 
-NoodleShop* NoodleShop::create(
-  unsigned int npots,
-  unsigned int rent,
-  unsigned int customers,
-  std::vector<Noodle> noodles
-) {
+// This is here to avoid creating yet another object file.
+NoodleShop* NoodleShop::create(int npots, int rent, int customers, std::vector<Noodle> noodles) {
   return new MyNoodleShop(/* TODO */);
 }
 

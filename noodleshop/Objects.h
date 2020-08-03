@@ -1,54 +1,59 @@
-#ifndef ORDER_H
-#define ORDER_H
+#ifndef OBJECTS_H
+#define OBJECTS_H
 
 #include <string>
 
-// This class contains information
-// about a single type of noodle.
+// This file contains the objects you'll use to communicate
+// with the autograder framework.  Don't edit this file!
+
+
+// This class contains information about a single type of noodle.
+// A vector of this type will be passed to your constructor.
 struct Noodle {
   // The name of the noodle.
   std::string name;
 
-  // The price of the ingredients needed
-  // to make one batch of this noodle.
-  unsigned int ingredient_cost;
-
   // The number of servings in one batch.
-  unsigned int batch_size;
+  int batch_size;
 
   // The time needed to cook one batch.
-  unsigned int cook_time;
+  int cook_time;
+
+  // The price of the ingredients needed
+  // to make one batch of this noodle.
+  int ingredient_cost;
 
   // The profit from selling one serving.
-  unsigned int serving_price;
+  int serving_price;
 };
 
 
-// This class will be passed to your shop to
-// tell you about a new order coming in.
+// A vector of this type will be passed to your shop each
+// minute to tell you about any new orders coming in.
 struct Order {
   // The unique ID of this order.
-  // IDs are strictly increasing.
-  unsigned int id;
+  // IDs are positive and strictly increasing.
+  int id;
 
   // The name of the noodle being ordered.
   std::string noodle;
 
-  // Comparison operator to support std::set.
+  // Comparison operator to support std::set operations.
   bool operator < (const Order& other) const {
     return id < other.id;
   }
 };
 
 
-// Return this class as part of a ServeAction
-// to give noodles to a customer.
+// Return a vector of this type in a ServeAction
+// to give noodles to any number of customers.
 struct Serve {
   // The ID of the order you're fulfilling.
-  unsigned int order_id;
+  int order_id;
 
   // The ID of the pot you're serving from.
-  unsigned int pot_id;
+  // Pot IDs are integers 0 <= id < npots.
+  int pot_id;
 };
 
 #endif

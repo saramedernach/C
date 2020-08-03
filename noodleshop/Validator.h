@@ -10,48 +10,50 @@
 
 class Validator {
   struct PotInfo {
-    std::string  noodle;
-    unsigned int ready_at;
-    unsigned int stale_at;
-    unsigned int servings;
+    std::string noodle;
+    int         ready_at;
+    int         stale_at;
+    int         servings;
   };
 
   struct OrderInfo {
-    unsigned int id;
-    std::string  noodle;
-    unsigned int minute;
+    int         id;
+    std::string noodle;
+    int         minute;
   };
 
   struct NoodleInfo {
-    unsigned int cook_time;
-    unsigned int batch_size;
-    unsigned int ingredient_cost;
-    unsigned int serving_price;
+    int cook_time;
+    int batch_size;
+    int ingredient_cost;
+    int serving_price;
 
-    unsigned int profit;
-    unsigned int loss;
+    int profit;
+    int loss;
 
     std::queue<OrderInfo> orders;
   };
 
 private:
   std::map<std::string, NoodleInfo> mNoodles;
-  std::map<unsigned int, OrderInfo> mOrders;
+  std::map<int, OrderInfo> mOrders;
   std::vector<PotInfo> mPots;
 
-  unsigned int mCoGS;
-  unsigned int mIncome;
-  unsigned int mRent;
-  unsigned int mMinute;
+  int mCoGS;
+  int mIncome;
+  int mRent;
+  int mMinute;
+  int mVerbosity;
 
 public:
-  Validator(unsigned int npots, unsigned int rent, std::vector<Noodle> noodles);
+  Validator(int npots, int rent, std::vector<Noodle> noodles, int verbosity);
 
-  unsigned int cogs()   const;
-  unsigned int income() const;
-  unsigned int rent()   const;
+  int cogs()   const;
+  int income() const;
+  int rent()   const;
 
-  void orders(unsigned int minute, const std::vector<Order>& orders);
+  void log(const std::string& message, int level = 0) const;
+  void orders(int minute, const std::vector<Order>& orders);
   void summarize() const;
 
   void validate(const Action*      action);

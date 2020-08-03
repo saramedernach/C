@@ -7,11 +7,12 @@
 #include <sstream>
 #include <stdexcept>
 
+// Global for creating unique IDs.
 unsigned int order_id = 0;
 
+// Random number generator initialization.
 std::random_device rd;
 std::mt19937 gen(rd());
-
 
 
 // Helper function to parse noodle information.
@@ -25,7 +26,7 @@ std::vector<Noodle> parse_noodles(std::istream& stream, unsigned int n) {
 
     Noodle n;
     std::istringstream linestream(line);
-    if(!(linestream >> n.ingredient_cost >> n.batch_size >> n.cook_time >> n.serving_price)) {
+    if(!(linestream >> n.batch_size >> n.cook_time >> n.ingredient_cost >> n.serving_price >> std::ws)) {
       throw std::runtime_error("Invalid noodle line: " + line);
     }
 
@@ -74,6 +75,9 @@ int main(int argc, char** argv) {
     std::exit(1);
   }
 
+  // Change this to get more detailed logs!
+  int verbosity = 0;
+
   unsigned int npots;
   unsigned int rent;
   unsigned int expect;
@@ -82,17 +86,23 @@ int main(int argc, char** argv) {
   NoodleShop* shop = nullptr;
 
   try {
+    std::string line;
     std::ifstream file(argv[1]);
-    if(!(file >> npots >> rent >> expect >> nnoodles)) {
-      throw std::runtime_error("Could not read metadata.");
+
+    if(!std::getline(file, line)) {
+      throw std::runtime_error("Could not read file!");
+    }
+
+    std::istringstream metadata(line);
+    if(!(metadata >> npots >> rent >> expect >> nnoodles)) {
+      throw std::runtime_error("Could not read metadata!");
     }
 
     noodles = parse_noodles(file, nnoodles);
-    Validator validator(npots, rent, noodles);
+    Validator validator(npots, rent, noodles, verbosity);
     shop = NoodleShop::create(npots, rent, expect, noodles);
 
-    std::string line;
-    unsigned int minute = 480;
+    unsigned int minute = 0;
     while(std::getline(file, line)) {
       std::istringstream linestream(line);
       auto in = parse_orders(linestream, noodles);
@@ -107,6 +117,7 @@ int main(int argc, char** argv) {
       validator.orders(minute, accepted);
       Action* action = shop->action(minute);
       validator.validate(action);
+      delete action;
       minute += 1;
     }
 

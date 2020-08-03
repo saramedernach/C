@@ -10,7 +10,7 @@ public:
   // Destructor?
 
   // Required Member Functions
-  std::vector<Order> orders(unsigned int minute, std::vector<Order> orderlist);
+  std::vector<Order> orders(int minute, std::vector<Order> orderlist);
   Action* action(int minute);
 
   // Other Member Functions
