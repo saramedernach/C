@@ -104,7 +104,11 @@ MyGenePool::MyGenePool(istream& stream) {
 
 MyGenePool::~MyGenePool() {
 
+  for (map<string, MyPerson*>::iterator it = genePool.begin(); it != genePool.end(); ++it) {
+
+    delete it->second;
   
+  }
 
 }
 
@@ -120,6 +124,6 @@ GenePool* GenePool::create(std::istream& stream) {
 
 MyPerson* MyGenePool::find(const std::string& name) const {
 
-  return genePool.at(name);
+  return genePool.find(name)->second;
 
 }

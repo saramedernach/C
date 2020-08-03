@@ -11,6 +11,18 @@ MyPerson::MyPerson(const string name, const Gender gender, MyPerson* mother, MyP
 
 }
 
+MyPerson::~MyPerson() {
+
+    delete mMother;
+    delete mFather;
+    for (Person* child: mChildren) {
+
+        delete child;
+
+    }
+
+}
+
 const string& MyPerson::name()  const {
 
     return mName;

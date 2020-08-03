@@ -16,6 +16,7 @@ class MyPerson: public Person {
 public:
   
   MyPerson(const string name, const Gender gender, MyPerson* mother, MyPerson* father, set<MyPerson*> children);
+  ~MyPerson();
 
   // Required Functions
   const std::string& name()   const;
