@@ -143,6 +143,11 @@ MyGenePool::MyGenePool(istream& stream) {
 
 MyGenePool::~MyGenePool() {
 
+  for (map<string, MyPerson*>::iterator it = genePool.begin(); it != genePool.end(); ++it) {
+
+   delete it->second;
+  
+  }
 
 }
 
