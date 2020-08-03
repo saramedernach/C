@@ -5,17 +5,22 @@
 #include "MyPerson.h"
 #include <map>
 
+using namespace std;
+
 class MyGenePool: public GenePool {
-  // Member Variables
+
+  map <string, MyPerson*> genePool;
 
 public:
-  // Constructor
-  // Destructor
+
+  MyGenePool(istream& stream);
+  ~MyGenePool();
 
   // Required Function
   MyPerson* find(const std::string& name) const;
 
   // Other Member Functions
+  Gender stringToGender (string stringGender);
 };
 
 #endif
