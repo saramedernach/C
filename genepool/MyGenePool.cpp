@@ -95,17 +95,56 @@ MyGenePool::MyGenePool(istream& stream) {
     MyPerson* person = new MyPerson(name, gender, mother, father, children);
     genePool[name] = person;
 
-    person->mother()->children().insert(person);
-    person->father()->children().insert(person);
+    set<Person*> mChildSet;
+    mChildSet.insert(person);
+
+    for (Person* parent: person->parents(PMod::MATERNAL)) {
+
+       for (Person* child: parent->children()) {
+
+         mChildSet.insert(child);
+
+       }
+       
+    }
+
+    for (Person* parent: person->parents(PMod::MATERNAL)) {
+
+      parent->children() = mChildSet;
+
+    }
+
+    set<Person*> fChildSet;
+    fChildSet.insert(person);
+
+    for (Person* parent: person->parents(PMod::PATERNAL)) {
+
+       for (Person* child: parent->children()) {
+
+         fChildSet.insert(child);
+
+       }
+       
+    }
+
+    for (Person* parent: person->parents(PMod::PATERNAL)) {
+
+      parent->children() = fChildSet;
+
+    }
+    
+
+    //person->mother()->children().insert(person);
+    //person->father()->children().insert(person);
 
   }
 
 }
 
-/*MyGenePool::~MyGenePool() {
+MyGenePool::~MyGenePool() {
 
 
-}*/
+}
 
 // This is here to avoid having yet another object file:
 GenePool* GenePool::create(std::istream& stream) {
