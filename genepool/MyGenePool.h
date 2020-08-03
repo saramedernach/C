@@ -14,7 +14,7 @@ class MyGenePool: public GenePool {
 public:
 
   MyGenePool(istream& stream);
-  ~MyGenePool();
+  //~MyGenePool();
 
   // Required Function
   MyPerson* find(const std::string& name) const;

@@ -102,15 +102,10 @@ MyGenePool::MyGenePool(istream& stream) {
 
 }
 
-MyGenePool::~MyGenePool() {
+/*MyGenePool::~MyGenePool() {
 
-  for (map<string, MyPerson*>::iterator it = genePool.begin(); it != genePool.end(); ++it) {
 
-    delete it->second;
-  
-  }
-
-}
+}*/
 
 // This is here to avoid having yet another object file:
 GenePool* GenePool::create(std::istream& stream) {
