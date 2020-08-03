@@ -94,48 +94,28 @@ MyGenePool::MyGenePool(istream& stream) {
 
     MyPerson* person = new MyPerson(name, gender, mother, father, children);
     genePool[name] = person;
+    
+    if (person->mother() == nullptr) {
 
-    set<Person*> mChildSet;
-    mChildSet.insert(person);
-
-    for (Person* parent: person->parents(PMod::MATERNAL)) {
-
-       for (Person* child: parent->children()) {
-
-         mChildSet.insert(child);
-
-       }
-       
-    }
-
-    for (Person* parent: person->parents(PMod::MATERNAL)) {
-
-      parent->children() = mChildSet;
-
-    }
-
-    set<Person*> fChildSet;
-    fChildSet.insert(person);
-
-    for (Person* parent: person->parents(PMod::PATERNAL)) {
-
-       for (Person* child: parent->children()) {
-
-         fChildSet.insert(child);
-
-       }
-       
-    }
-
-    for (Person* parent: person->parents(PMod::PATERNAL)) {
-
-      parent->children() = fChildSet;
+      continue;
 
     }
     
-
     //person->mother()->children().insert(person);
+    set<Person*> childSet = person->mother()->children();
+    childSet.insert(person);
+    person->mother()->children() = childSet;
+
+    if (person->father() == nullptr) {
+
+      continue;
+
+    }
+
     //person->father()->children().insert(person);
+    set<Person*> fchildSet = person->father()->children();
+    fchildSet.insert(person);
+    person->father()->children() = fchildSet;
 
   }
 
@@ -143,10 +123,10 @@ MyGenePool::MyGenePool(istream& stream) {
 
 MyGenePool::~MyGenePool() {
 
-  for (map<string, MyPerson*>::iterator it = genePool.begin(); it != genePool.end(); ++it) {
+  for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
 
-   delete it->second;
-  
+    delete itr->second;
+
   }
 
 }

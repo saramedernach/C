@@ -11,7 +11,7 @@ MyPerson::MyPerson(const string name, const Gender gender, MyPerson* mother, MyP
 
 }
 
-MyPerson::~MyPerson() {
+/*MyPerson::~MyPerson() {
 
     delete mMother;
     delete mFather;
@@ -21,7 +21,7 @@ MyPerson::~MyPerson() {
 
     }
 
-}
+}*/
 
 const string& MyPerson::name()  const {
 
