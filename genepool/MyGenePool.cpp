@@ -28,7 +28,7 @@ MyGenePool::MyGenePool(istream& stream) {
 
     for (char x: line) {
 
-      if (x == '\t') {
+      if (x == '\t' || x == '\0') {
 
         if (i == 1) {
 
@@ -95,10 +95,27 @@ MyGenePool::MyGenePool(istream& stream) {
     MyPerson* person = new MyPerson(name, gender, mother, father, children);
     genePool[name] = person;
 
+    if (person->mother() == nullptr) {
+
+      continue;
+
+    }
+
+    person->mother()->addChild(person);
+
+    if (person->father() == nullptr) {
+
+      continue;
+
+    }
+
+    person->mother()->addChild(person);
+
   }
 
-  for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
+  /*for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
 
+    cout << itr->first << endl;
     if (itr->second->mother() == nullptr) {
 
       continue;
@@ -115,7 +132,7 @@ MyGenePool::MyGenePool(istream& stream) {
 
     itr->second->father()->addChildPtr(itr->second);
 
-  }
+  }*/
 
 }
 

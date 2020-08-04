@@ -48,9 +48,7 @@ public:
 
   // Other Member Functions
   void ancestorRecursion(Person* p, std::set<Person*> &list);
-  void addChildPtr(MyPerson* person);
-  void setMotherPtr(MyPerson* person);
-  void setFatherPtr(MyPerson* person);
+  void addChild(MyPerson* person);
 
 };
 
