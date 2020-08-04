@@ -141,9 +141,14 @@ set<Person*> MyPerson::descendants() {
 
     set<Person*> s;
 
-    for (Person* person: children()) {
+    if (!children().empty()) {
 
-        descendantRecursion(person, s);
+        for (Person* person: children()) {
+
+            s.insert(person);
+            descendants();
+
+        }
 
     }
 
@@ -459,18 +464,6 @@ void MyPerson::ancestorRecursion(Person* person, std::set<Person*> &s) {
         s.insert(person);
         ancestorRecursion(person->mother(), s);
         ancestorRecursion(person->father(), s);
-
-    }
-
-}
-
-void MyPerson::descendantRecursion(Person* person, std::set<Person*> &s) {
-
-    if (person != nullptr) {
-
-        s.insert(person);
-        descendantRecursion(person->mother(), s);
-        descendantRecursion(person->father(), s);
 
     }
 
