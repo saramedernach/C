@@ -47,7 +47,8 @@ public:
   set<Person*> uncles(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
 
   // Other Member Functions
-  void ancestorRecursion(Person* p, std::set<Person*> &list);
+  void ancestorRecursion(Person* person, std::set<Person*> &s);
+  void descendantRecursion(Person* person, std::set<Person*> &s);
   void addChild(MyPerson* person);
 
 };
