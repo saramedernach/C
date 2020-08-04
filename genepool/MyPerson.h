@@ -48,7 +48,7 @@ public:
 
   // Other Member Functions
   void ancestorRecursion(Person* person, std::set<Person*> &s);
-  void descendantRecursion(Person* person, std::set<Person*> &s);
+  void descendantRecursion(std::set<Person*> &set, std::set<Person*> childSet);
   void addChild(MyPerson* person);
 
 };

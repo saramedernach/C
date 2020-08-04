@@ -141,20 +141,20 @@ set<Person*> MyPerson::descendants() {
 
     set<Person*> s;
 
-    descendantRecursion(this, s);
+    descendantRecursion(s, children());
 
     return s;
 
 }
 
-void MyPerson::descendantRecursion(Person* person, std::set<Person*> &s) {
+void MyPerson::descendantRecursion(std::set<Person*> &set, std::set<Person*> childSet) {
 
     if (!children().empty()) {
 
-        for (Person* person: children()) {
+        for (Person* person: childSet) {
 
-            s.insert(person);
-            descendantRecursion(person, s);
+            set.insert(person);
+            descendantRecursion(set, person->children());
 
         }
 
