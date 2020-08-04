@@ -469,3 +469,21 @@ void MyPerson::ancestorRecursion(Person* person, std::set<Person*> &s) {
     }
 
 }
+
+void MyPerson::addChildPtr(MyPerson* person) {
+
+  mChildren.insert(person);
+
+}
+
+void MyPerson::setMotherPtr(MyPerson* person) {
+
+  mMother = person;
+
+}
+
+void MyPerson::setFatherPtr(MyPerson* person) {
+
+  mFather = person;
+
+}

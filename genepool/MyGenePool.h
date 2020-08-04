@@ -20,7 +20,7 @@ public:
   MyPerson* find(const std::string& name) const;
 
   // Other Member Functions
-  Gender stringToGender (string stringGender);
+
 };
 
 #endif

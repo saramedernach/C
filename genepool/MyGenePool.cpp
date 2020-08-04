@@ -97,7 +97,7 @@ MyGenePool::MyGenePool(istream& stream) {
 
   }
 
-  /*for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
+  for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
 
     if (itr->second->mother() == nullptr) {
 
@@ -105,7 +105,7 @@ MyGenePool::MyGenePool(istream& stream) {
 
     }
     
-    itr->second->mother()->children().insert(itr->second);
+    itr->second->mother()->addChildPtr(itr->second);
     
     if (itr->second->father() == nullptr) {
 
@@ -113,10 +113,9 @@ MyGenePool::MyGenePool(istream& stream) {
 
     }
 
-    itr->second->father()->children().insert(itr->second);
+    itr->second->father()->addChildPtr(itr->second);
 
-
-  }*/
+  }
 
 }
 
