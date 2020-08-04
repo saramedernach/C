@@ -94,30 +94,29 @@ MyGenePool::MyGenePool(istream& stream) {
 
     MyPerson* person = new MyPerson(name, gender, mother, father, children);
     genePool[name] = person;
-    
-    if (person->mother() == nullptr) {
-
-      continue;
-
-    }
-    
-    //person->mother()->children().insert(person);
-    set<Person*> childSet = person->mother()->children();
-    childSet.insert(person);
-    person->mother()->children() = childSet;
-
-    if (person->father() == nullptr) {
-
-      continue;
-
-    }
-
-    //person->father()->children().insert(person);
-    set<Person*> fchildSet = person->father()->children();
-    fchildSet.insert(person);
-    person->father()->children() = fchildSet;
 
   }
+
+  /*for(map<string, MyPerson*>::iterator itr = genePool.begin(); itr != genePool.end(); itr++) {
+
+    if (itr->second->mother() == nullptr) {
+
+      continue;
+
+    }
+    
+    itr->second->mother()->children().insert(itr->second);
+    
+    if (itr->second->father() == nullptr) {
+
+      continue;
+
+    }
+
+    itr->second->father()->children().insert(itr->second);
+
+
+  }*/
 
 }
 

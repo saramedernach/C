@@ -11,18 +11,6 @@ MyPerson::MyPerson(const string name, const Gender gender, MyPerson* mother, MyP
 
 }
 
-/*MyPerson::~MyPerson() {
-
-    delete mMother;
-    delete mFather;
-    for (Person* child: mChildren) {
-
-        delete child;
-
-    }
-
-}*/
-
 const string& MyPerson::name()  const {
 
     return mName;
@@ -51,19 +39,10 @@ set<Person*> MyPerson::ancestors(PMod pmod) {
 
     set<Person*> s;
     
-    for (Person* parent: parents(pmod)) {
+    for (Person* person: parents(pmod)) {
 
-        while (mother() != nullptr && father() != nullptr) {
-
-            for (Person* grandparent: parent->parents()) {
-
-                s.insert(grandparent);
-
-            }
-
-            ancestors();
-
-        }
+        s.insert(person);
+        ancestorRecursion(person, s);
 
     }
 
@@ -476,5 +455,18 @@ set<Person*> MyPerson::uncles(PMod pmod, SMod smod) {
     }
 
     return s;
+
+}
+
+void MyPerson::ancestorRecursion(Person* person, std::set<Person*> &s) {
+
+    //s.insert(person);
+
+    if (person != nullptr) {
+
+        ancestorRecursion(person->mother(), s);
+        ancestorRecursion(person->father(), s);
+
+    }
 
 }
