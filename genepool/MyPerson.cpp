@@ -460,10 +460,9 @@ set<Person*> MyPerson::uncles(PMod pmod, SMod smod) {
 
 void MyPerson::ancestorRecursion(Person* person, std::set<Person*> &s) {
 
-    //s.insert(person);
-
     if (person != nullptr) {
 
+        s.insert(person);
         ancestorRecursion(person->mother(), s);
         ancestorRecursion(person->father(), s);
 
