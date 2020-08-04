@@ -95,7 +95,7 @@ MyGenePool::MyGenePool(istream& stream) {
     MyPerson* person = new MyPerson(name, gender, mother, father, children);
     genePool[name] = person;
 
-    if (person->mother() == nullptr || person->father() == nullptr) {
+    if (person->mother() == nullptr && person->father() == nullptr) {
 
       continue;
 
