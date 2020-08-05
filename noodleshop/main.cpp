@@ -6,6 +6,7 @@
 #include <random>
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 // Global for creating unique IDs.
 unsigned int order_id = 0;

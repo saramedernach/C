@@ -3,11 +3,19 @@
 
 #include "NoodleShop.h"
 
+using namespace std;
+
 class MyNoodleShop: public NoodleShop {
+
   // Member Variables
+  int mNpots;
+  int mRent;
+  int mCustomers;
+  vector<Noodle> mNoodles;
+
 public:
-  // Constructor
-  // Destructor?
+
+  MyNoodleShop(int npots, int rent, int customers, std::vector<Noodle> noodles);
 
   // Required Member Functions
   std::vector<Order> orders(int minute, std::vector<Order> orderlist);
