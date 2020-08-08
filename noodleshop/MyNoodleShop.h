@@ -2,6 +2,11 @@
 #define MYNOODLESHOP_H
 
 #include "NoodleShop.h"
+#include "Objects.h"
+
+#include <map>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,6 +17,8 @@ class MyNoodleShop: public NoodleShop {
   int mRent;
   int mCustomers;
   vector<Noodle> mNoodles;
+  map<string, queue<MyNoodle*>> noodleOrder;
+  vector<Order> mOrderList;
 
 public:
 
@@ -22,6 +29,39 @@ public:
   Action* action(int minute);
 
   // Other Member Functions
+};
+
+class MyNoodle: public Noodle {
+
+  string mName;
+  int mBatchSize;
+  int mCookTime;
+  int mIngredientCost;
+  int mServingPrice;
+
+public:
+
+  MyNoodle(string name, int batchSize, int cookTime, int ingredientCost, int servingPrice) {
+
+    mName = name;
+    mBatchSize = batchSize;
+    mCookTime = cookTime;
+    mIngredientCost = ingredientCost;
+    mServingPrice = servingPrice;
+
+  }
+
+};
+
+class MyOrder: public Order {
+
+  int mID;
+  string mNoodle;
+
+public:
+
+  MyOrder(int id, string noodle);
+
 };
 
 #endif
