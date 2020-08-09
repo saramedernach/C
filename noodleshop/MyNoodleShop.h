@@ -10,6 +10,38 @@
 
 using namespace std;
 
+struct MyOrder: public Order {
+
+  int mID;
+  string mNoodle;
+  int minute;
+
+};
+
+struct MyNoodle: public Noodle {
+
+  string mName;
+  int mBatchSize;
+  int mCookTime;
+  int mIngredientCost;
+  int mServingPrice;
+  int amount = 0;
+
+  queue<MyOrder> orders;
+
+};
+
+struct Pot {
+
+  string noodle = "";
+  int readyAt = 0;
+  int staleAt = 0;
+  int servings = 0;
+  int potID;
+  bool dirty = false;
+
+};
+
 class MyNoodleShop: public NoodleShop {
 
   // Member Variables
@@ -17,8 +49,8 @@ class MyNoodleShop: public NoodleShop {
   int mRent;
   int mCustomers;
   vector<Noodle> mNoodles;
-  map<string, queue<MyNoodle*>> noodleOrder;
-  vector<Order> mOrderList;
+  map<string, MyNoodle> noodleOrder;
+  vector<Pot> pots;
 
 public:
 
@@ -29,39 +61,6 @@ public:
   Action* action(int minute);
 
   // Other Member Functions
-};
-
-class MyNoodle: public Noodle {
-
-  string mName;
-  int mBatchSize;
-  int mCookTime;
-  int mIngredientCost;
-  int mServingPrice;
-
-public:
-
-  MyNoodle(string name, int batchSize, int cookTime, int ingredientCost, int servingPrice) {
-
-    mName = name;
-    mBatchSize = batchSize;
-    mCookTime = cookTime;
-    mIngredientCost = ingredientCost;
-    mServingPrice = servingPrice;
-
-  }
-
-};
-
-class MyOrder: public Order {
-
-  int mID;
-  string mNoodle;
-
-public:
-
-  MyOrder(int id, string noodle);
-
 };
 
 #endif

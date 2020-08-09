@@ -1,5 +1,7 @@
 #include "MyNoodleShop.h"
 
+#include <iostream>
+
 // This is here to avoid creating yet another object file.
 NoodleShop* NoodleShop::create(int npots, int rent, int customers, std::vector<Noodle> noodles) {
   return new MyNoodleShop(npots, rent, customers, noodles);
@@ -12,41 +14,58 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
   mCustomers = customers;
   mNoodles = noodles;
 
+  for (int potID = 0; potID < mNpots; potID++) {
+
+    Pot* p = new Pot();
+    pots.push_back(*p);
+    p->potID = potID;
+
+
+  }
+
 }
 
 // MyNoodleShop Member Functions
 vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
-  mOrderList = orderlist;
-
   for (Order order: orderlist) {
 
-    vector<Noodle>::iterator it = find(mNoodles.begin(), mNoodles.end(), order.noodle);
-    int batchSize, cookTime, ingredientCost, servingPrice;
+    auto itr = noodleOrder.find(order.noodle);
 
-    if (it != mNoodles.end()) {
+    if (itr == noodleOrder.end()) {
 
-      batchSize = it->batch_size;
-      cookTime = it->cook_time;
-      ingredientCost = it->ingredient_cost;
-      servingPrice = it->serving_price;
+      vector<Noodle>::iterator it;
+
+      for (auto i = mNoodles.begin(); i < mNoodles.end(); i++) {
+
+        if (i->name == order.noodle) {
+
+          it = i;
+          break;
+
+        }
+
+      }
+      MyNoodle noodle;
+      noodle.mName = it->name;
+      noodle.mBatchSize = it->batch_size;
+      noodle.mCookTime = it->cook_time;
+      noodle.mIngredientCost = it->ingredient_cost;
+      noodle.mServingPrice = it->serving_price;
+
+      noodleOrder[order.noodle] = noodle;
+      itr = noodleOrder.find(order.noodle);
 
     }
 
-    MyNoodle* mNoodle = new MyNoodle(order.noodle, batchSize, cookTime, ingredientCost, servingPrice);
+    MyOrder info;
+    info.id = order.id;
+    info.noodle = order.noodle;
+    info.minute = minute;
 
-    if (noodleOrder.find(order.noodle) == noodleOrder.end()) {
-      
-      queue<MyNoodle*> queueNoodle;
-      noodleOrder[order.noodle] = queueNoodle;
-      queueNoodle.push(mNoodle);
+    MyNoodle& noodle = itr->second;
+    noodle.orders.push(info);
 
-    }
-    else {
-
-      noodleOrder[order.noodle].push(mNoodle);
-
-    } 
 
   }
 
@@ -56,24 +75,74 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
 Action* MyNoodleShop::action(int minute) {
 
-  int potID = rand() % 0 + (mNpots - 1);
+  auto itr = noodleOrder.begin();
+  MyNoodle& noodle = itr->second;
 
-  for (int potID = 0; potID < mNpots; potID++) {
+  auto it = pots.begin();
 
-    
-  
+  if (it->dirty || it->staleAt > minute) {
+
+    it->dirty = false;
+    Action* clean = new CleanAction(it->potID);
+    return clean;
+
+  } 
+  else if (it->servings == 0) {
+
+    it->dirty = true;
+    it->servings = noodle.mBatchSize;
+    it->readyAt = noodle.mCookTime + minute;
+    it->staleAt = it->readyAt + 30;
+    it->noodle = noodle.mName;
+
+    Action* cook = new CookAction(it->potID, noodle.mName);
+    cout << "5" << endl;
+    return cook;
+
   }
+  else if (it->readyAt >= minute) {
 
-  for (Order order: mOrderList) {
+    vector<Serve> serveVector;
+    Serve serveObject;
 
-    if (mNpots != 0) {
+    cout << noodle.orders.size() << endl;
 
-      return CookAction(potID, order.noodle);
+    if (noodle.orders.empty()) {
+      
+      Action* none = new NoAction();
+      return none;
+    }
+
+    MyOrder info = noodle.orders.front();
+    noodle.orders.pop();
+
+    serveObject.order_id = info.id;
+    serveObject.pot_id = it->potID;
+    serveVector.push_back(serveObject);
+
+    if (noodle.orders.empty()) {
+
+      noodleOrder.erase(itr);
+      Action* none = new NoAction();
+      return none;
 
     }
-    else if ()
+
+    it->servings --;
+
+    Action* serve = new ServeAction(serveVector);
+    return serve;
 
   }
+  else {
+
+    Action* none = new NoAction();
+    return none;
+
+  }
+
+  pots.push_back(*it);
+  pots.erase(it);
 
 }
 
