@@ -52,9 +52,10 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
     noodle.orders.push(info);
 
 
+
   }
 
-  vector<Order> acceptedOrders;
+  /*vector<Order> acceptedOrders;
   auto i = noodleOrder.begin();
 
   for (Order order: orderlist) {
@@ -67,8 +68,8 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
   }
 
-  return acceptedOrders;
-  //return orderlist;
+  return acceptedOrders;*/
+  return orderlist;
 
 }
 
@@ -76,6 +77,12 @@ Action* MyNoodleShop::action(int minute) {
 
   auto itr = noodleOrder.begin();
   MyNoodle& noodle = itr->second;
+
+  if (noodle.orders.empty()) {
+
+    itr++;
+
+  }
   
   auto it = pots.begin();
 
@@ -124,13 +131,6 @@ Action* MyNoodleShop::action(int minute) {
       Action* none = new NoAction();
       return none;
     }
-
-    /*for (auto& p: inUsePots) {
-
-      cout << p.second.potID << endl;
-
-    }*/
-
 
     for (auto& pair: noodleOrder) {
 

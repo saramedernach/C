@@ -7,6 +7,7 @@
 #include <map>
 #include <queue>
 #include <algorithm>
+#include <list>
 
 using namespace std;
 
@@ -51,6 +52,7 @@ class MyNoodleShop: public NoodleShop {
   map<string, MyNoodle> noodleOrder;
   vector<Pot> pots;
   map<string, Pot> inUsePots;
+  list<string> toCook;
 
 public:
 
@@ -61,6 +63,7 @@ public:
   Action* action(int minute);
 
   // Other Member Functions
+
 };
 
 #endif
