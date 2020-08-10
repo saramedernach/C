@@ -16,9 +16,9 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
   for (int potID = 0; potID < mNpots; potID++) {
 
-    Pot* p = new Pot();
-    pots.push_back(*p);
-    p->potID = potID;
+    Pot p;
+    p.potID = potID;
+    pots.push_back(p);
 
   }
 
@@ -36,7 +36,6 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
   }
 
 }
-
 // MyNoodleShop Member Functions
 vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
@@ -55,7 +54,21 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
   }
 
-  return orderlist;
+  vector<Order> acceptedOrders;
+  auto i = noodleOrder.begin();
+
+  for (Order order: orderlist) {
+
+    if (order.noodle == i->second.mName) {
+
+      acceptedOrders.push_back(order);
+
+    }
+
+  }
+
+  return acceptedOrders;
+  //return orderlist;
 
 }
 
@@ -65,14 +78,8 @@ Action* MyNoodleShop::action(int minute) {
   MyNoodle& noodle = itr->second;
   
   auto it = pots.begin();
-  
+
   for (auto i = pots.begin(); i < pots.end(); i++) {
-
-    cout << i->potID << endl;
-
-  }
-
-  /*for (auto i = pots.begin(); i < pots.end(); i++) {
 
     if (i->dirty) {
 
@@ -83,7 +90,7 @@ Action* MyNoodleShop::action(int minute) {
     it = i;
     break;
 
-  }*/
+  }
  
   if ((it->dirty && it->servings == 0) || it->staleAt < minute) {
 
