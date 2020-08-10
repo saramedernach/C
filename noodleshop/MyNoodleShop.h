@@ -37,6 +37,7 @@ struct Pot {
   int readyAt = 0;
   int staleAt = 0;
   int servings = 0;
+  int cookTime = 0;
   int potID;
   bool dirty = false;
 
