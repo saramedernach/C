@@ -25,7 +25,6 @@ struct MyNoodle: public Noodle {
   int mCookTime;
   int mIngredientCost;
   int mServingPrice;
-  int amount = 0;
 
   queue<MyOrder> orders;
 
@@ -39,6 +38,7 @@ struct Pot {
   int servings = 0;
   int potID;
   bool dirty = false;
+  bool inUse = false;
 
 };
 
@@ -51,7 +51,7 @@ class MyNoodleShop: public NoodleShop {
   vector<Noodle> mNoodles;
   map<string, MyNoodle> noodleOrder;
   vector<Pot> pots;
-  int potNum;
+  map<string, Pot> inUsePots;
 
 public:
 

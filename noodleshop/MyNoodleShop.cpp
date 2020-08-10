@@ -23,8 +23,6 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
   }
 
-  potNum = 0;
-
   for (auto& noodle: noodles) {
 
     MyNoodle info;
@@ -95,10 +93,12 @@ Action* MyNoodleShop::action(int minute) {
   
   auto it = pots.begin();
  
-  if ((it->dirty && it->servings == 0) || it->staleAt > minute) {
+  if ((it->dirty && it->servings == 0) || it->staleAt < minute) {
 
     it->dirty = false;
-    it->staleAt = it->readyAt + 30;
+    it->inUse = false;
+    it->staleAt = noodle.mCookTime + 30 + minute;
+    it->servings = 0;
     Action* clean = new CleanAction(it->potID);
     return clean;
 
@@ -106,10 +106,13 @@ Action* MyNoodleShop::action(int minute) {
   else if (it->servings == 0) {
 
     it->dirty = true;
+    it->inUse = true;
     it->servings = noodle.mBatchSize;
     it->readyAt = noodle.mCookTime + minute;
     it->staleAt = it->readyAt + 30;
     it->noodle = noodle.mName;
+
+    inUsePots[it->noodle] = *it;
 
     Action* cook = new CookAction(it->potID, it->noodle);
     return cook;
@@ -118,7 +121,6 @@ Action* MyNoodleShop::action(int minute) {
   else if (it->readyAt >= minute || !noodle.orders.empty()) {
 
     vector<Serve> serveVector;
-    Serve serveObject;
 
     if (noodle.orders.empty()) {
       
@@ -126,24 +128,27 @@ Action* MyNoodleShop::action(int minute) {
       return none;
     }
 
-    MyOrder info = noodle.orders.front();
-    noodle.orders.pop();
+    for (auto& pair: noodleOrder) {
 
-    serveObject.order_id = info.id;
-    serveObject.pot_id = it->potID;
-    serveVector.push_back(serveObject);
+      auto i = inUsePots.find(noodle.mName);
+      
+      while (!pair.second.orders.empty() || i == inUsePots.end()) {
 
-    if (noodle.orders.empty()) {
+        Serve serveObject;
 
-      noodleOrder.erase(itr);
-      Action* none = new NoAction();
-      return none;
+        MyOrder info = pair.second.orders.front();
+        pair.second.orders.pop();
+
+        serveObject.order_id = info.id;
+        serveObject.pot_id = it->potID;
+        serveVector.push_back(serveObject);
+
+      }
 
     }
 
     Action* serve = new ServeAction(serveVector);
     it->servings --;
-    cout << it->noodle << endl;
     return serve;
 
   }
