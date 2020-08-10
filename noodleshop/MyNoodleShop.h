@@ -38,7 +38,6 @@ struct Pot {
   int servings = 0;
   int potID;
   bool dirty = false;
-  bool inUse = false;
 
 };
 
