@@ -51,6 +51,7 @@ class MyNoodleShop: public NoodleShop {
   vector<Noodle> mNoodles;
   map<string, MyNoodle> noodleOrder;
   vector<Pot> pots;
+  int potNum;
 
 public:
 

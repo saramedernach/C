@@ -23,6 +23,21 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
   }
 
+  potNum = 0;
+
+  for (auto& noodle: noodles) {
+
+    MyNoodle info;
+    info.mCookTime = noodle.cook_time;
+    info.mBatchSize = noodle.batch_size;
+    info.mIngredientCost = noodle.ingredient_cost;
+    info.mServingPrice = noodle.serving_price;
+    info.mName = noodle.name;
+
+    noodleOrder[noodle.name] = info;
+
+  }
+
 }
 
 // MyNoodleShop Member Functions
@@ -32,7 +47,7 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
     auto itr = noodleOrder.find(order.noodle);
 
-    if (itr == noodleOrder.end()) {
+    /*if (itr == noodleOrder.end()) {
 
       vector<Noodle>::iterator it;
 
@@ -56,7 +71,7 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
       noodleOrder[order.noodle] = noodle;
       itr = noodleOrder.find(order.noodle);
 
-    }
+    }*/
 
     MyOrder info;
     info.id = order.id;
@@ -77,16 +92,17 @@ Action* MyNoodleShop::action(int minute) {
 
   auto itr = noodleOrder.begin();
   MyNoodle& noodle = itr->second;
-
+  
   auto it = pots.begin();
-
-  if (it->dirty || it->staleAt > minute) {
+ 
+  if ((it->dirty && it->servings == 0) || it->staleAt > minute) {
 
     it->dirty = false;
+    it->staleAt = it->readyAt + 30;
     Action* clean = new CleanAction(it->potID);
     return clean;
 
-  } 
+  }
   else if (it->servings == 0) {
 
     it->dirty = true;
@@ -95,17 +111,14 @@ Action* MyNoodleShop::action(int minute) {
     it->staleAt = it->readyAt + 30;
     it->noodle = noodle.mName;
 
-    Action* cook = new CookAction(it->potID, noodle.mName);
-    cout << "5" << endl;
+    Action* cook = new CookAction(it->potID, it->noodle);
     return cook;
 
   }
-  else if (it->readyAt >= minute) {
+  else if (it->readyAt >= minute || !noodle.orders.empty()) {
 
     vector<Serve> serveVector;
     Serve serveObject;
-
-    cout << noodle.orders.size() << endl;
 
     if (noodle.orders.empty()) {
       
@@ -128,9 +141,9 @@ Action* MyNoodleShop::action(int minute) {
 
     }
 
-    it->servings --;
-
     Action* serve = new ServeAction(serveVector);
+    it->servings --;
+    cout << it->noodle << endl;
     return serve;
 
   }
