@@ -66,6 +66,7 @@ public:
   // Other Member Functions
   bool Cook();
   bool ServeOrder(int minute);
+  bool Clean(int minute);
 
 };
 
