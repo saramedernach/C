@@ -22,7 +22,7 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
   }
 
-  for (auto& noodle: noodles) {
+  /*for (auto& noodle: noodles) {
 
     MyNoodle info;
     info.mCookTime = noodle.cook_time;
@@ -33,13 +33,13 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
     noodleOrder[noodle.name] = info;
 
-  }
+  }*/
 
 }
 // MyNoodleShop Member Functions
 vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
-  for (Order order: orderlist) {
+  /*for (Order order: orderlist) {
 
     auto itr = noodleOrder.find(order.noodle);
 
@@ -51,16 +51,54 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
     MyNoodle& noodle = itr->second;
     noodle.orders.push(info);
 
+  }*/
 
-
-  }
-
-  /*vector<Order> acceptedOrders;
-  auto i = noodleOrder.begin();
-
+  vector<Order> acceptedOrders;
   for (Order order: orderlist) {
 
-    if (order.noodle == i->second.mName) {
+    if (onlyOption == "") {
+
+      onlyOption = order.noodle;
+
+      auto itr = mNoodles.begin();
+
+      for (auto& noodle: mNoodles) {
+
+        if (onlyOption != noodle.name) {
+
+          itr++;
+
+        }
+        else {
+          break;
+        }
+
+      }
+
+      Noodle& noodle = (*itr);
+
+      MyNoodle info;
+      info.mCookTime = noodle.cook_time;
+      info.mBatchSize = noodle.batch_size;
+      info.mIngredientCost = noodle.ingredient_cost;
+      info.mServingPrice = noodle.serving_price;
+      info.mName = noodle.name;
+
+      noodleOrder[noodle.name] = info;
+
+    }
+
+    if (order.noodle == onlyOption) {
+
+      auto it = noodleOrder.find(onlyOption);
+
+      MyOrder info;
+      info.id = order.id;
+      info.noodle = order.noodle;
+      info.minute = minute;
+
+      MyNoodle& noodle = it->second;
+      noodle.orders.push(info);
 
       acceptedOrders.push_back(order);
 
@@ -68,18 +106,18 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
   }
 
-  return acceptedOrders;*/
+  return acceptedOrders;
 
-  return orderlist;
+  //return orderlist;
 
 }
 
 Action* MyNoodleShop::action(int minute) {
-
+  
   auto itr = noodleOrder.begin();
   MyNoodle& noodle = itr->second;
 
-  for (auto& pot: inUsePots) {
+  /*for (auto& pot: inUsePots) {
 
     if (inUsePots.empty()) {
 
@@ -94,7 +132,7 @@ Action* MyNoodleShop::action(int minute) {
 
     }
 
-  }
+  }*/
 
   auto it = pots.begin();
  
@@ -178,5 +216,107 @@ Action* MyNoodleShop::action(int minute) {
   pots.push_back(*it);
   pots.erase(it);
 
+  /*if (Cook()) {
+
+    auto itr = pots.begin();
+
+    for (auto& pot: pots) {
+
+        if (pot.dirty) {
+
+            itr++;
+
+        }
+        else {
+
+          break;
+
+        }
+
+    }
+
+    auto it = noodleOrder.begin();
+
+    for (auto& noodle: noodleOrder) {
+
+      if (noodle.second.mBatchSize != 0) {
+
+        it++;
+
+      }
+      else {
+
+        break;
+
+      }
+
+    }
+
+    itr->dirty = true;
+    itr->cookTime = it->second.mCookTime;
+    itr->servings = it->second.mServingPrice;
+    itr->readyAt = it->second.mCookTime + minute;
+    itr->staleAt = itr->readyAt + 30;
+    itr->noodle = it->second.mName;
+
+    Action* cook = new CookAction(itr->potID, itr->noodle);
+
+  }
+  else if (Serve())*/
+
 }
 
+bool MyNoodleShop::Cook() {
+
+  for (auto& pot: pots) {
+
+    if (!pot.dirty) {
+
+      return false;
+
+    }
+
+  }
+
+  for (auto& noodle: noodleOrder) {
+
+    if (noodle.second.mBatchSize == 0) {
+
+      return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
+bool MyNoodleShop::ServeY(int minute) {
+
+  for (auto& pot: pots) {
+
+    if (pot.readyAt >= minute && pot.staleAt < minute) {
+
+      auto itr = noodleOrder.begin();
+
+      for (auto& noodle: noodleOrder) {
+
+        if (pot.noodle != noodle.first) {
+
+          itr++;
+
+        }
+        else {
+
+
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

@@ -53,7 +53,7 @@ class MyNoodleShop: public NoodleShop {
   map<string, MyNoodle> noodleOrder;
   vector<Pot> pots;
   map<string, Pot> inUsePots;
-  list<string> toCook;
+  string onlyOption = "";
 
 public:
 
@@ -64,6 +64,8 @@ public:
   Action* action(int minute);
 
   // Other Member Functions
+  bool Cook();
+  bool ServeOrder(int minute);
 
 };
 
