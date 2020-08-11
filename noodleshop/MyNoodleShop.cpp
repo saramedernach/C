@@ -227,6 +227,12 @@ bool MyNoodleShop::Cook() {
 
     if (noodle.second.mServings == 0) {
 
+      if (noodle.second.orders.empty()) {
+
+        return false;
+
+      }
+
       n = 1;
 
     }
