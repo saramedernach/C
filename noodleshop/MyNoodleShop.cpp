@@ -225,13 +225,7 @@ bool MyNoodleShop::Cook() {
 
   for (auto& noodle: noodleOrder) {
 
-    if (noodle.second.mServings == 0) {
-
-      if (noodle.second.orders.empty()) {
-
-        return false;
-
-      }
+    if (noodle.second.mServings == 0 && !noodle.second.orders.empty()) {
 
       n = 1;
 
