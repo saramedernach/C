@@ -26,6 +26,7 @@ struct MyNoodle: public Noodle {
   int mCookTime;
   int mIngredientCost;
   int mServingPrice;
+  int mServings;
 
   queue<MyOrder> orders;
 

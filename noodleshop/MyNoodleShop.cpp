@@ -22,24 +22,25 @@ MyNoodleShop::MyNoodleShop(int npots, int rent, int customers, std::vector<Noodl
 
   }
 
-  /*for (auto& noodle: noodles) {
+  for (auto& noodle: noodles) {
 
     MyNoodle info;
     info.mCookTime = noodle.cook_time;
     info.mBatchSize = noodle.batch_size;
     info.mIngredientCost = noodle.ingredient_cost;
     info.mServingPrice = noodle.serving_price;
+    info.mServings = 0;
     info.mName = noodle.name;
 
     noodleOrder[noodle.name] = info;
 
-  }*/
+  }
 
 }
 // MyNoodleShop Member Functions
 vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
-  /*for (Order order: orderlist) {
+  for (Order order: orderlist) {
 
     auto itr = noodleOrder.find(order.noodle);
 
@@ -53,177 +54,13 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
   }
 
-  return orderlist;*/
-
-  vector<Order> acceptedOrders;
-  for (Order order: orderlist) {
-
-    if (onlyOption == "") {
-
-      onlyOption = order.noodle;
-
-      auto itr = mNoodles.begin();
-
-      for (auto& noodle: mNoodles) {
-
-        if (onlyOption != noodle.name) {
-
-          itr++;
-
-        }
-        else {
-          break;
-        }
-
-      }
-
-      Noodle& noodle = (*itr);
-
-      MyNoodle info;
-      info.mCookTime = noodle.cook_time;
-      info.mBatchSize = noodle.batch_size;
-      info.mIngredientCost = noodle.ingredient_cost;
-      info.mServingPrice = noodle.serving_price;
-      info.mName = noodle.name;
-
-      noodleOrder[noodle.name] = info;
-
-    }
-
-    if (order.noodle == onlyOption) {
-
-      auto it = noodleOrder.find(onlyOption);
-
-      MyOrder info;
-      info.id = order.id;
-      info.noodle = order.noodle;
-      info.minute = minute;
-
-      MyNoodle& noodle = it->second;
-      noodle.orders.push(info);
-
-      acceptedOrders.push_back(order);
-
-    }
-
-  }
-
-  return acceptedOrders;
+  return orderlist;
 
 }
 
 Action* MyNoodleShop::action(int minute) {
 
-  if (onlyOption == "") {
-
-    Action* none = new NoAction();
-    return none;
-
-  }
-  
-  auto itr = noodleOrder.begin();
-  MyNoodle& noodle = itr->second;
-
-  /*for (auto& pot: inUsePots) {
-
-    if (inUsePots.empty()) {
-
-      break;
-
-    }
-
-    while (pot.second.noodle == noodle.mName && pot.second.potID < mNpots) {
-
-      itr++;
-      noodle = itr->second;
-
-    }
-
-  }*/
-
-  auto it = pots.begin();
- 
-  if ((it->dirty && it->servings == 0) || it->staleAt < minute) {
-
-    it->dirty = false;
-    it->staleAt = noodle.mCookTime + 30 + minute;
-    it->servings = 0;
-    Action* clean = new CleanAction(it->potID);
-    return clean;
-
-  }
-  else if (it->servings == 0) {
-
-    it->dirty = true;
-    it->cookTime = noodle.mCookTime;
-    it->servings = noodle.mBatchSize;
-    it->readyAt = noodle.mCookTime + minute;
-    it->staleAt = it->readyAt + 30;
-    it->noodle = noodle.mName;
-
-    inUsePots[it->noodle] = *it;
-
-    Action* cook = new CookAction(it->potID, it->noodle);
-    return cook;
-
-  }
-  else if (it->readyAt >= minute || !noodle.orders.empty()) {
-
-    vector<Serve> serveVector;
-
-    if (noodle.orders.empty()) {
-      
-      Action* none = new NoAction();
-      return none;
-    }
-
-    for (auto& pair: noodleOrder) {
-
-      auto i = inUsePots.find(pair.second.mName);
-
-      if (i == inUsePots.end()) {
-
-        continue;
-
-      }
-      
-      while (!pair.second.orders.empty()) {
-
-        if (i->second.servings == 0) {
-
-          break;
-
-        }
-
-        Serve serveObject;
-
-        MyOrder info = pair.second.orders.front();
-        pair.second.orders.pop();
-
-        serveObject.order_id = info.id;
-        serveObject.pot_id = i->second.potID;
-        serveVector.push_back(serveObject);
-        i->second.servings--;
-
-      }
-
-    }
-
-    Action* serve = new ServeAction(serveVector);
-    return serve;
-
-  }
-  else {
-
-    Action* none = new NoAction();
-    return none;
-
-  }
-
-  pots.push_back(*it);
-  pots.erase(it);
-
-  /*if (Cook()) {
+  if (Cook()) {
 
     auto itr = pots.begin();
 
@@ -246,7 +83,7 @@ Action* MyNoodleShop::action(int minute) {
 
     for (auto& noodle: noodleOrder) {
 
-      if (noodle.second.mBatchSize != 0) {
+      if (noodle.second.mServings != 0) {
 
         it++;
 
@@ -261,10 +98,12 @@ Action* MyNoodleShop::action(int minute) {
 
     itr->dirty = true;
     itr->cookTime = it->second.mCookTime;
-    itr->servings = it->second.mServingPrice;
+    itr->servings = it->second.mBatchSize;
     itr->readyAt = it->second.mCookTime + minute;
     itr->staleAt = itr->readyAt + 30;
     itr->noodle = it->second.mName;
+
+    it->second.mServings = it->second.mBatchSize;
 
     Action* cook = new CookAction(itr->potID, itr->noodle);
     return cook;
@@ -276,7 +115,7 @@ Action* MyNoodleShop::action(int minute) {
 
     for (auto& pot: pots) {
 
-      if (pot.readyAt >= minute && pot.staleAt < minute) {
+      if (minute >= pot.readyAt && minute < pot.staleAt) {
 
         auto itr = noodleOrder.begin();
 
@@ -305,7 +144,7 @@ Action* MyNoodleShop::action(int minute) {
           serveObject.order_id = info.id;
           serveObject.pot_id = pot.potID;
           serveVector.push_back(serveObject);
-          itr->second.mBatchSize--;
+          itr->second.mServings--;
 
         }
 
@@ -353,7 +192,7 @@ Action* MyNoodleShop::action(int minute) {
         pot.dirty = false;
         pot.staleAt = itr->second.mCookTime + 30 + minute;
         pot.servings = 0;
-        itr->second.mBatchSize = 0;
+        itr->second.mServings = 0;
 
         Action* clean = new CleanAction(pot.potID);
         return clean;
@@ -365,7 +204,7 @@ Action* MyNoodleShop::action(int minute) {
   }
 
   Action* none = new NoAction();
-  return none;*/
+  return none;
 
 }
 
@@ -386,7 +225,7 @@ bool MyNoodleShop::Cook() {
 
   for (auto& noodle: noodleOrder) {
 
-    if (noodle.second.mBatchSize == 0) {
+    if (noodle.second.mServings == 0) {
 
       n = 1;
 
@@ -408,7 +247,7 @@ bool MyNoodleShop::ServeOrder(int minute) {
 
   for (auto& pot: pots) {
 
-    if (pot.readyAt >= minute && pot.staleAt < minute) {
+    if (minute >= pot.readyAt && minute < pot.staleAt) {
 
       auto itr = noodleOrder.begin();
 
