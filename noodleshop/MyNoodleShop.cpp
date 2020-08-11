@@ -69,60 +69,45 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
   }
 
   return acceptedOrders;*/
+
   return orderlist;
 
 }
 
 Action* MyNoodleShop::action(int minute) {
 
-  /*auto itr = noodleOrder.begin();
+  auto itr = noodleOrder.begin();
   MyNoodle& noodle = itr->second;
 
-  if (noodle.orders.empty()) {
+  for (auto& pot: inUsePots) {
 
-    itr++;
+    if (inUsePots.empty()) {
 
-  }*/
-  
-  auto it = pots.begin();
-
-  for (auto i = pots.begin(); i < pots.end(); i++) {
-
-    if (i->dirty) {
-
-      continue;
+      break;
 
     }
 
-    it = i;
-    break;
+    while (pot.second.noodle == noodle.mName && pot.second.potID < mNpots) {
+
+      itr++;
+      noodle = itr->second;
+
+    }
 
   }
+
+  auto it = pots.begin();
  
   if ((it->dirty && it->servings == 0) || it->staleAt < minute) {
 
     it->dirty = false;
-    it->staleAt = it->cookTime + 30 + minute;
+    it->staleAt = noodle.mCookTime + 30 + minute;
     it->servings = 0;
     Action* clean = new CleanAction(it->potID);
     return clean;
 
   }
   else if (it->servings == 0) {
-
-    auto itr = noodleOrder.begin();
-    MyNoodle& noodle = itr->second;
-
-    for (auto& pot: inUsePots) {
-
-      if (pot.second.noodle == noodle.mName) {
-
-        itr++;
-        noodle = itr->second;
-
-      }
-
-    }
 
     it->dirty = true;
     it->cookTime = noodle.mCookTime;
@@ -137,15 +122,15 @@ Action* MyNoodleShop::action(int minute) {
     return cook;
 
   }
-  else if (it->readyAt >= minute/* || !noodle.orders.empty()*/) {
+  else if (it->readyAt >= minute || !noodle.orders.empty()) {
 
     vector<Serve> serveVector;
 
-    /*if (noodle.orders.empty()) {
+    if (noodle.orders.empty()) {
       
       Action* none = new NoAction();
       return none;
-    }*/
+    }
 
     for (auto& pair: noodleOrder) {
 
@@ -190,8 +175,8 @@ Action* MyNoodleShop::action(int minute) {
 
   }
 
-  //pots.push_back(*it);
-  //pots.erase(it);
+  pots.push_back(*it);
+  pots.erase(it);
 
 }
 
