@@ -52,11 +52,11 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
 
-    for (const Employee& employee: mEmployees) {
+    /*for (const Employee& employee: mEmployees) {
 
       work[employee.id] = 0;
 
-    }
+    }*/
   
   }
   else {
