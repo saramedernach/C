@@ -31,8 +31,6 @@ MyCallCenter::~MyCallCenter() {
 
 vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
-  vector<int> work;
-
   auto itr = call_ids.begin();
   auto i = mPool.find(*itr);
 
@@ -51,6 +49,12 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
       it->second->work_performed = 0;
 
       hold.push(mPool[id]);
+
+    }
+
+    for (const Employee& employee: mEmployees) {
+
+      work[employee.id] = 0;
 
     }
   
