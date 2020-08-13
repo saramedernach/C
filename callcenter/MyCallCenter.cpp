@@ -10,6 +10,7 @@ CallCenter* CallCenter::create(std::vector<Employee> employees) {
 MyCallCenter::MyCallCenter(vector<Employee> employees) {
 
   mEmployees = employees;
+  work.resize(mEmployees.size());
 
   for (const Employee& employee: mEmployees) {
 
