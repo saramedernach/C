@@ -11,6 +11,12 @@ MyCallCenter::MyCallCenter(vector<Employee> employees) {
 
   mEmployees = employees;
 
+  for (const Employee& employee: mEmployees) {
+
+    work[employee.id] = 0;
+
+  }
+
 }
 
 MyCallCenter::~MyCallCenter() {
@@ -51,12 +57,6 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
       hold.push(mPool[id]);
 
     }
-
-    /*for (const Employee& employee: mEmployees) {
-
-      work[employee.id] = 0;
-
-    }*/
   
   }
   else {
