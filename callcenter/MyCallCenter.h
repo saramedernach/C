@@ -3,11 +3,40 @@
 
 #include "CallCenter.h"
 
-class MyCallCenter: public CallCenter {
-  // Member Variables
+#include <vector>
+#include <algorithm>
+#include <stack>
+#include <queue>
+
+using namespace std;
+
+class CompareImportance {
+
 public:
+  
+  bool operator () (Call *c1, Call *c2) {
+
+    return c1->importance > c2->importance;
+
+  }
+
+};
+
+class MyCallCenter: public CallCenter {
+
+  // Member Variables
+  vector<Employee> mEmployees;
+  map<int, Call*> mPool;
+  priority_queue<Call*, vector<Call*>, CompareImportance> hold;
+
+
+public:
+
   // Constructor
-  // Destructor?
+  MyCallCenter(vector<Employee> employees);
+
+  // Destructor
+  ~MyCallCenter();
 
   // Required Member Functions
   std::vector<int> calls(int minute, const std::vector<int>& call_ids);
