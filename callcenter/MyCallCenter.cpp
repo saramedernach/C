@@ -38,18 +38,16 @@ MyCallCenter::~MyCallCenter() {
 
 vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
   
-  /*auto itr = call_ids.begin();
+  auto itr = call_ids.begin();
   auto i = mPool.find(*itr);
 
-  if (i == mPool.end()) {*/
+  if (i == mPool.end()) {
 
     for (int id: call_ids) {
 
       cout << "1" << endl;
 
       mPool[id] = new Call();
-
-      cout << "2" << endl;
 
       auto it = mPool.find(id);
       it->second->id = id;
@@ -63,8 +61,8 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
   
-  //}
-  //else {
+  }
+  else {
 
     for (const Employee& employee: mEmployees) {
 
@@ -76,9 +74,9 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
         work[employee.id] = employee.call->id;
 
       }
-      else if (employee.call->importance == -1) {
+      else if (employee.call == nullptr) {
 
-      
+        continue;
 
       }
       else if (employee.call->difficulty > employee.skill) {
@@ -124,7 +122,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
 
-  //}
+  }
 
   return work;
 
@@ -136,11 +134,7 @@ void MyCallCenter::learn(int minute, const std::vector<Call>& calls) {
   
   for (const Call& call: calls) {
 
-    auto it = mPool.find(call.id);
-    int recieved = it->second->recieved;
-
     mPool[call.id] = new Call(call);
-    it->second->recieved = recieved;
 
   }
 
