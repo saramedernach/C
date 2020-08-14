@@ -10,7 +10,7 @@ CallCenter* CallCenter::create(std::vector<Employee> employees) {
 MyCallCenter::MyCallCenter(vector<Employee> employees) {
 
   mEmployees = employees;
-  work.resize(mEmployees.size());
+  work.reserve(mEmployees.size());
 
   for (const Employee& employee: mEmployees) {
 
@@ -37,15 +37,19 @@ MyCallCenter::~MyCallCenter() {
 }
 
 vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
-
-  auto itr = call_ids.begin();
+  
+  /*auto itr = call_ids.begin();
   auto i = mPool.find(*itr);
 
-  if (i == mPool.end()) {
+  if (i == mPool.end()) {*/
 
-    for (const int& id: call_ids) {
+    for (int id: call_ids) {
+
+      cout << "1" << endl;
 
       mPool[id] = new Call();
+
+      cout << "2" << endl;
 
       auto it = mPool.find(id);
       it->second->id = id;
@@ -59,8 +63,8 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
   
-  }
-  else {
+  //}
+  //else {
 
     for (const Employee& employee: mEmployees) {
 
@@ -112,7 +116,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
         work[employee.id] = -1;
 
       }
-      else {
+      else if (employee.call->work_performed != employee.call->work_required){
 
         employee.call->work_performed++;
 
@@ -120,14 +124,14 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
 
-  }
+  //}
 
   return work;
 
 }
 
 void MyCallCenter::learn(int minute, const std::vector<Call>& calls) {
-
+  
   (void) minute;
   
   for (const Call& call: calls) {
