@@ -10,11 +10,12 @@ CallCenter* CallCenter::create(std::vector<Employee> employees) {
 MyCallCenter::MyCallCenter(vector<Employee> employees) {
 
   mEmployees = employees;
+  hold.resize(26);
   work.reserve(mEmployees.size());
 
-  for (const Employee& employee: mEmployees) {
+  for (unsigned long i = 0; i < mEmployees.size(); i++) {
 
-    work[employee.id] = 0;
+    work.push_back(0);
 
   }
 
@@ -38,14 +39,12 @@ MyCallCenter::~MyCallCenter() {
 
 vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
   
-  auto itr = call_ids.begin();
+  /*auto itr = call_ids.begin();
   auto i = mPool.find(*itr);
 
-  if (i == mPool.end()) {
+  if (i == mPool.end()) {*/
 
     for (int id: call_ids) {
-
-      cout << "1" << endl;
 
       mPool[id] = new Call();
 
@@ -53,41 +52,43 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
       it->second->id = id;
       it->second->recieved = minute;
       it->second->importance = -1;
-      it->second->difficulty = -1;
+      it->second->difficulty = 1;
       it->second->work_required = -1;
       it->second->work_performed = 0;
-
-      hold.push(mPool[id]);
+      
+      hold[it->second->difficulty].push(mPool[id]);
 
     }
   
-  }
-  else {
+  //}
+  //else {
 
-    for (const Employee& employee: mEmployees) {
+    for (Employee& employee: mEmployees) {
 
-      if ((employee.call == nullptr || work[employee.id] == -1) && !hold.empty()) {
-
-        employee.call->id = hold.top()->id;
-        hold.pop();
+      if ((employee.call == nullptr || work[employee.id] == -1) && !hold[employee.skill].empty()) {
+        
+        employee.call = hold[employee.skill].top();
+        hold[employee.skill].pop();
 
         work[employee.id] = employee.call->id;
-
+        
       }
-      else if (employee.call == nullptr) {
+      if (employee.call == nullptr) {
 
         continue;
 
       }
-      else if (employee.call->difficulty > employee.skill) {
+      if (employee.call->difficulty > employee.skill) {
 
-        for (const Employee& e: mEmployees) {
+        cout << "1" << endl;
+
+        for (Employee& e: mEmployees) {
 
           if (e.skill >= employee.call->difficulty && e.call->id == 0) {
 
-            hold.push(employee.call);
-            e.call->id = hold.top()->id;
-            hold.pop();
+            hold[employee.call->difficulty].push(employee.call);
+            e.call = hold[e.skill].top();
+            hold[e.skill].pop();
             employee.call->id = 0;
 
             work[e.id] = e.call->id;
@@ -101,7 +102,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
         if (employee.call->difficulty > employee.skill) {
 
-          hold.push(employee.call);
+          hold[employee.call->difficulty].push(employee.call);
           employee.call->id = 0;
 
           work[employee.id] = 0;
@@ -109,12 +110,12 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
         }
 
       }
-      else if (employee.call->work_performed == employee.call->work_required) {
+      if (employee.call->work_performed == employee.call->work_required) {
 
         work[employee.id] = -1;
 
       }
-      else if (employee.call->work_performed != employee.call->work_required){
+      if (employee.call->work_performed != employee.call->work_required){
 
         employee.call->work_performed++;
 
@@ -122,7 +123,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
 
     }
 
-  }
+  //}
 
   return work;
 
