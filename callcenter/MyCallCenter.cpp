@@ -81,12 +81,12 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
         }
         
       }
-      else if (employee.call == nullptr) {
+      if (employee.call == nullptr) {
 
         continue;
 
       }
-      else if (employee.call->difficulty > employee.skill) {
+      if (employee.call->difficulty > employee.skill) {
         
         for (Employee& e: mEmployees) {
 
