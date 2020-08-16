@@ -28,7 +28,7 @@ class MyCallCenter: public CallCenter {
   // Member Variables
   vector<Employee> mEmployees;
   map<int, Call*> mPool;
-  vector<priority_queue<Call*, vector<Call*>, CompareImportance>> hold;
+  vector<priority_queue<Call*, vector<Call*>, CompareImportance> > hold;
   vector<int> work;
 
 public:
