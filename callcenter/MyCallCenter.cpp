@@ -47,7 +47,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
     it->second->recieved = minute;
     it->second->importance = -1;
     it->second->difficulty = 0;
-    it->second->work_required = -1;
+    it->second->work_required = -999;
     it->second->work_performed = -1;;
     
     hold[it->second->difficulty].push(mPool[id]);
@@ -77,24 +77,28 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
       continue;
 
     }
-    //cout << "Call: " << employee.call->id << endl;
-    //cout << employee.call->work_performed << "/" << employee.call->work_required << endl;
+    if (work[employee.id] == -1) {
+
+      employee.call = nullptr;
+      work[employee.id] = 0;
+      continue;
+
+    }
     
-    //cout << "Call: " << employee.call->id << endl;
-    //cout << employee.name << ": " << employee.call->difficulty << " > " << employee.skill << endl;
     if (employee.call->difficulty > employee.skill && employee.call != nullptr) {
       
       hold[employee.call->difficulty].push(employee.call);
       employee.call = nullptr;
       work[employee.id] = 0;
+      continue;
 
     }
-    else if (employee.call->work_performed + 1 == employee.call->work_required) {
+    else if (employee.call->work_performed == employee.call->work_required + 1 && employee.call != nullptr) {
 
       work[employee.id] = -1;
 
     }
-    else if (employee.call->work_performed + 2 != employee.call->work_required){
+    else {
 
       employee.call->work_performed++;
 

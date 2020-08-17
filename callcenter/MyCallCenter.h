@@ -29,10 +29,7 @@ class MyCallCenter: public CallCenter {
   // Member Variables
   vector<Employee> mEmployees;
   map<int, Call*> mPool;
-  //list<int> newCalls;
-  //map<int, int> justAnswered;
   vector<priority_queue<Call*, vector<Call*>, CompareImportance> > hold;
-  //map<int, priority_queue<Call*, vector<Call*>, CompareImportance> > hold;
   vector<int> work;
 
 public:
