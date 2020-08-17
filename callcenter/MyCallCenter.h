@@ -17,7 +17,7 @@ public:
   
   bool operator () (Call *c1, Call *c2) {
 
-    return c1->importance > c2->importance;
+    return c1->importance < c2->importance;
 
   }
 
