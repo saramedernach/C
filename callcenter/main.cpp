@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
   }
 
   // Increase this to get more output!
-  int verbosity = 999;
+  int verbosity = 5;
 
   CallCenter* center = nullptr;
 
