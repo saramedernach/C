@@ -29,6 +29,7 @@ enough to draw out on paper to help with debugging.
 All the data files start with the following integer fields on the first line:
 
 - `ndays` is the number of days until the deadline.
+- `estimate` is the projected cost of supplying all cities.
 - `ncities` is the number of cities you need to supply.
 - `nfactories` is the number of factories you have.
 - `nroutes` is the number of routes between cities.
