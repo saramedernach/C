@@ -2,7 +2,7 @@ CXXFLAGS = -g -std=c++17 -Wall -Wextra -Werror
 CXX      = g++
 
 # These targets don't create any files:
-.PHONY: callcenter clean
+.PHONY: vaccinate clean
 
 # Magic Variables!
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
@@ -10,14 +10,14 @@ CXX      = g++
 #  $+ is a list of all the dependencies
 #  $< is the first dependency
 
-callcenter: main.o MyCallCenter.o Validator.o
+vaccinate: main.o MyScheduler.o Validator.o
 	${CXX} $(CXXFLAGS) -o $@ $+
 
 
-main.o: main.cpp CallCenter.h Validator.h Objects.h
+main.o: main.cpp Scheduler.h Validator.h Objects.h
 	${CXX} $(CXXFLAGS) -c -o $@ $<
 
-MyCallCenter.o: MyCallCenter.cpp MyCallCenter.h CallCenter.h Objects.h
+MyScheduler.o: MyScheduler.cpp MyScheduler.h Scheduler.h Objects.h
 	${CXX} $(CXXFLAGS) -c -o $@ $<
 
 Validator.o: Validator.cpp Validator.h Objects.h
@@ -25,4 +25,4 @@ Validator.o: Validator.cpp Validator.h Objects.h
 
 
 clean:
-	rm -f callcenter main.o MyCallCenter.o Validator.o
+	rm -f vaccinate main.o MyScheduler.o Validator.o
