@@ -65,7 +65,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
           employee.call = mPool[hold[i].top()->id];
           hold[i].pop();
           work[employee.id] = employee.call->id;
-          continue;
+          break;
 
         }
 
@@ -93,7 +93,7 @@ vector<int> MyCallCenter::calls(int minute, const std::vector<int>& call_ids) {
       continue;
 
     }
-    else if (employee.call->work_performed == employee.call->work_required + 1 && employee.call != nullptr) {
+    else if (employee.call->work_performed == employee.call->work_required + 1) {
 
       work[employee.id] = -1;
 
@@ -116,11 +116,7 @@ void MyCallCenter::learn(int minute, const std::vector<Call>& calls) {
   
   for (const Call& call: calls) {
 
-    //hold[call.difficulty].push(new Call(call));
-
     *mPool[call.id] = call;
-
-    //hold[mPool[call.id]->difficulty].push(mPool[call.id]);
 
   }
 
