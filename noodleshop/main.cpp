@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
   }
 
   // Change this to get more detailed logs!
-  int verbosity = 1;
+  int verbosity = 999;
 
   unsigned int npots;
   unsigned int rent;
