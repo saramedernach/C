@@ -10,13 +10,38 @@
 
 using namespace std;
 
-class CompareDays {
+struct City;
+struct Road;
 
-public:
+struct City {
 
-  bool operator () (pair<Route, int> &r1, pair<Route, int> &r2) {
+  string name;
+  bool factory;
+  unsigned int population;
+  unsigned int vaccines;
+  City* prev;
+  set<Road> roads;
 
-    return r1.second > r2.second;
+};
+
+struct Road {
+
+  City* source;
+  City* destination;
+  int route_id;
+  unsigned int days;
+  unsigned int load;
+  unsigned int cost;
+
+  bool operator < (Road &r2) {
+
+    if (this->days < r2.days) {
+
+      return true;
+
+    }
+
+    return false;
 
   }
 
@@ -24,22 +49,14 @@ public:
 
 class MyScheduler: public Scheduler {
 
-  struct City {
-
-    string   name;
-    bool          factory;
-    unsigned int  population;
-    unsigned int  vaccines;
-    set<Route>    routes;
-
-  };
+  
 
   // Member Variables
   unsigned int mDeadline;
   map<string, City> mCities;
   vector<Route> mRoutes;
   map<pair<string, string>, int> graph;
-  vector<vector<pair<Route, int> > > paths;
+  vector<vector<pair<Road, int> > > paths;
 
 public:
 
@@ -49,7 +66,19 @@ public:
   // Required Member Function
   vector<Shipment> schedule();
 
-  vector<pair<Route, int> > shortestPath(City source);
+  vector<pair<Road, int> > shortestPath(City source);
+
+};
+
+class CompareDays {
+
+public:
+
+  bool operator () (pair<Road, int> &r1, pair<Road, int> &r2) {
+
+    return r1.second > r2.second;
+
+  }
 
 };
 

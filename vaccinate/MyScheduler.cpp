@@ -18,10 +18,11 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
   for (const auto& pair: cities) {
 
     City city;
-    city.name       = pair.first;
-    city.factory    = false;
+    city.name = pair.first;
+    city.factory = false;
     city.population = pair.second;
-    city.vaccines   = 0;
+    city.vaccines = 0;
+    city.prev = nullptr;
 
     mCities[pair.first] = city;
 
@@ -40,8 +41,16 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     auto itr = mCities.find(route.city1);
     auto it = mCities.find(route.city2);
 
-    itr->second.routes.insert(route);
-    it->second.routes.insert(route);
+    Road road;
+    road.source = &itr->second;
+    road.destination = &itr->second;
+    road.days = route.days;
+    road.route_id = route.id;
+    road.load = route.load;
+    road.cost = road.cost;
+
+    itr->second.roads.insert(road);
+    it->second.roads.insert(road);
 
   }
 
@@ -73,16 +82,16 @@ vector<Shipment> MyScheduler::schedule() {
 
 }
 
-vector<pair<Route, int> > MyScheduler::shortestPath(City source) {
+vector<pair<Road, int> > MyScheduler::shortestPath(City source) {
 
-  vector<pair<Route, int> > path;
-  priority_queue<pair<Route, int>, vector<pair<Route, int> >, CompareDays > pq;
+  vector<pair<Road, int> > path;
+  priority_queue<pair<Road, int>, vector<pair<Road, int> >, CompareDays > pq;
   int days = 0;
 
-  for (auto& route: source.routes) {
+  for (auto& road: source.roads) {
 
-    days = route.days;
-    pq.push(make_pair(route, route.days));
+    days = road.days;
+    pq.push(make_pair(road, road.days));
 
   }
 
@@ -90,7 +99,7 @@ vector<pair<Route, int> > MyScheduler::shortestPath(City source) {
 
     for (const auto& pair: path) {
 
-      if (pair.first.city2 == pq.top().first.city2) {
+      if (pair.first.destination->name == pq.top().first.destination->name) {
 
         pq.pop();
 
@@ -100,11 +109,11 @@ vector<pair<Route, int> > MyScheduler::shortestPath(City source) {
 
     path.push_back(make_pair(pq.top().first, days));
 
-    auto itr = mCities.find(pq.top().first.city2);
-    for (auto& route: itr->second.routes) {
+    auto itr = mCities.find(pq.top().first.destination->name);
+    for (auto& road: itr->second.roads) {
 
-      days += route.days;
-      pq.push(make_pair(route, days));
+      days += road.days;
+      pq.push(make_pair(road, days));
 
     }
 
@@ -112,11 +121,15 @@ vector<pair<Route, int> > MyScheduler::shortestPath(City source) {
 
   }
 
-  for (auto p: path) {
+  for (auto pair: path) {
 
-    cout << p.first.city1 << " -> " << p.first.city2 << " " << p.second;
+    auto it = mCities.find(pair.first.source->name);
+    auto itr = mCities.find(pair.first.destination->name);
+    itr->second.prev = &it->second;
+    cout << pair.first.source->name << " -> " << pair.first.destination->name << " " << pair.second;
 
   }
+
   return path;
 
 }
