@@ -161,7 +161,7 @@ Action* MyNoodleShop::action(int minute) {
 
     for (auto& pot: pots) {
 
-      if ((pot.servings == 0 && pot.dirty) || pot.staleAt < minute) {
+      if ((pot.servings == 0 && pot.dirty) || minute > pot.staleAt) {
 
         auto itr = noodleOrder.begin();
         
@@ -238,7 +238,7 @@ bool MyNoodleShop::ServeOrder(int minute) {
 
   for (auto& pot: pots) {
 
-    if (minute >= pot.readyAt && minute < pot.staleAt) {
+    if (minute >= pot.readyAt && minute > pot.staleAt) {
 
       auto itr = noodleOrder.begin();
 
@@ -275,7 +275,7 @@ bool MyNoodleShop::Clean(int minute) {
 
   for (auto& pot: pots) {
 
-    if ((pot.servings == 0 && pot.dirty) || pot.staleAt < minute) {
+    if ((pot.servings == 0 && pot.dirty) || minute < pot.staleAt) {
 
       return true;
 
