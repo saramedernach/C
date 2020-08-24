@@ -43,14 +43,20 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
     Road road;
     road.source = &itr->second;
-    road.destination = &itr->second;
+    road.destination = &it->second;
     road.days = route.days;
     road.route_id = route.id;
     road.load = route.load;
-    road.cost = road.cost;
+    road.cost = route.cost;
+
+    cout << "itr: " << itr->first << endl;
+    cout << "it: " << it->first << endl;
 
     itr->second.roads.insert(road);
     it->second.roads.insert(road);
+
+    cout << "Source: " << road.source->name << endl;
+    cout << "Destination: " << road.destination->name << endl;
 
   }
 
@@ -87,6 +93,14 @@ vector<pair<Road, int> > MyScheduler::shortestPath(City source) {
   vector<pair<Road, int> > path;
   priority_queue<pair<Road, int>, vector<pair<Road, int> >, CompareDays > pq;
   int days = 0;
+
+  auto i = mCities.find("Birmingham");
+  for (auto road: i->second.roads) {
+
+    cout << "shortestPath source: " << road.source->name << endl;
+    cout << "shortestPath destination: " << road.destination->name << endl;
+
+  }
 
   for (auto& road: source.roads) {
 
@@ -126,7 +140,7 @@ vector<pair<Road, int> > MyScheduler::shortestPath(City source) {
     auto it = mCities.find(pair.first.source->name);
     auto itr = mCities.find(pair.first.destination->name);
     itr->second.prev = &it->second;
-    cout << pair.first.source->name << " -> " << pair.first.destination->name << " " << pair.second;
+    cout << pair.first.source->name << " -> " << pair.first.destination->name << " " << pair.second << endl;
 
   }
 

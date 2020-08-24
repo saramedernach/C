@@ -33,7 +33,7 @@ struct Road {
   unsigned int load;
   unsigned int cost;
 
-  bool operator < (Road &r2) {
+  bool operator < (Road const &r2) const {
 
     if (this->days < r2.days) {
 
