@@ -20,7 +20,7 @@ struct City {
   unsigned int population;
   unsigned int vaccines;
   City* prev;
-  set<Road> roads;
+  vector<Road> roads;
 
 };
 
