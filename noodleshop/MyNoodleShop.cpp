@@ -143,18 +143,18 @@ Action* MyNoodleShop::action(int minute) {
 
     }
 
-    if (!serveVector.empty()) {
+    while (!serveVector.empty()) {
 
       Action* serve = new ServeAction(serveVector);
       return serve;
 
     }
-    else {
+    /*else {
 
       Action* none = new NoAction();
       return none;
 
-    }
+    }*/
 
   }
   else if (Clean(minute)) {
