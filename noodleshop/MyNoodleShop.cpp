@@ -124,7 +124,7 @@ Action* MyNoodleShop::action(int minute) {
 
         }
 
-        if (!itr->second.orders.empty()) {
+        while (!itr->second.orders.empty()) {
 
           Serve serveObject;
 
