@@ -135,7 +135,6 @@ Action* MyNoodleShop::action(int minute) {
           serveObject.pot_id = pot.potID;
           serveVector.push_back(serveObject);
           itr->second.mServings--;
-          pot.servings--;
 
         }
 
@@ -161,7 +160,7 @@ Action* MyNoodleShop::action(int minute) {
 
     for (auto& pot: pots) {
 
-      if ((pot.servings == 0 && pot.dirty) || minute > pot.staleAt) {
+      if (pot.dirty && pot.staleAt < minute) {
 
         auto itr = noodleOrder.begin();
         
@@ -238,7 +237,7 @@ bool MyNoodleShop::ServeOrder(int minute) {
 
   for (auto& pot: pots) {
 
-    if (minute >= pot.readyAt && minute > pot.staleAt) {
+    if (minute >= pot.readyAt && minute < pot.staleAt) {
 
       auto itr = noodleOrder.begin();
 
@@ -275,7 +274,7 @@ bool MyNoodleShop::Clean(int minute) {
 
   for (auto& pot: pots) {
 
-    if ((pot.servings == 0 && pot.dirty) || minute < pot.staleAt) {
+    if (pot.dirty || pot.staleAt < minute) {
 
       return true;
 
