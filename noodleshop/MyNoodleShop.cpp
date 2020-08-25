@@ -105,7 +105,7 @@ Action* MyNoodleShop::action(int minute) {
 
     for (auto& pot: pots) {
 
-      if (minute >= pot.readyAt && minute < pot.staleAt && pot.servings > 0) {
+      if ((minute >= pot.readyAt && minute < pot.staleAt) || pot.servings > 0) {
 
         auto itr = noodleOrder.begin();
 
