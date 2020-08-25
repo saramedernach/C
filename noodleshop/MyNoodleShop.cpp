@@ -238,7 +238,7 @@ bool MyNoodleShop::ServeOrder(int minute) {
 
   for (auto& pot: pots) {
 
-    if (minute >= pot.readyAt && minute < pot.staleAt && pot.servings > 0) {
+    if (minute >= pot.readyAt && minute < pot.staleAt) {
 
       auto itr = noodleOrder.begin();
 
