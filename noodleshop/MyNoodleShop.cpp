@@ -72,12 +72,12 @@ Action* MyNoodleShop::action(int minute) {
 
       }
 
-    }
+    } 
 
     map<string, MyNoodle>::iterator it;
     for (auto i = noodleOrder.begin(); i != noodleOrder.end(); ++i) {
 
-      if (i->second.mServings == 0) {
+      if (i->second.mServings == 0 && !i->second.orders.empty()) {
 
         it = i;
         break;
@@ -93,7 +93,7 @@ Action* MyNoodleShop::action(int minute) {
     itr->staleAt = itr->readyAt + 30;
     itr->noodle = it->second.mName;
 
-    it->second.mServings = it->second.mBatchSize;
+    it->second.mServings += it->second.mBatchSize;
 
     Action* cook = new CookAction(itr->potID, itr->noodle);
     return cook;
@@ -143,18 +143,18 @@ Action* MyNoodleShop::action(int minute) {
 
     }
 
-    while (!serveVector.empty()) {
+    if (!serveVector.empty()) {
 
       Action* serve = new ServeAction(serveVector);
       return serve;
 
     }
-    /*else {
+    else {
 
       Action* none = new NoAction();
       return none;
 
-    }*/
+    }
 
   }
   else if (Clean(minute)) {
@@ -182,8 +182,8 @@ Action* MyNoodleShop::action(int minute) {
 
         pot.dirty = false;
         pot.staleAt = itr->second.mCookTime + 30 + minute;
+        itr->second.mServings -= pot.servings;
         pot.servings = 0;
-        itr->second.mServings = 0;
 
         Action* clean = new CleanAction(pot.potID);
         return clean;
