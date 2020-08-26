@@ -315,7 +315,8 @@ bool MyNoodleShop::needClean(int minute) {
 
   for (auto& noodle: noodleOrder) {
 
-    if (noodle.second.mServings == 0 && !noodle.second.orders.empty()) {
+    unsigned long temp = noodle.second.mServings;
+    if (temp < noodle.second.orders.size()) {
 
       n = 1;
 
@@ -325,7 +326,7 @@ bool MyNoodleShop::needClean(int minute) {
 
   for (auto& pot: pots) {
 
-    if (pot.dirty && pot.staleAt < minute) {
+    if (!pot.dirty || !(pot.staleAt < minute)) {
 
       m = 1;
 
@@ -333,7 +334,7 @@ bool MyNoodleShop::needClean(int minute) {
 
   }
 
-  if (n == 1 && m == 1) {
+  if (n == 1 && m != 1) {
 
     return true;
 
