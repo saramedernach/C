@@ -60,7 +60,7 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
 Action* MyNoodleShop::action(int minute) {
 
-  if (Cook()) {
+  if (cook()) {
 
     vector<Pot>::iterator itr;
     for (auto it = pots.begin(); it != pots.end(); ++it) {
@@ -99,7 +99,7 @@ Action* MyNoodleShop::action(int minute) {
     return cook;
 
   }
-  else if (ServeOrder(minute)) {
+  else if (serveOrder(minute)) {
 
     vector<Serve> serveVector;
 
@@ -157,7 +157,7 @@ Action* MyNoodleShop::action(int minute) {
     }
 
   }
-  else if (Clean(minute)) {
+  else if (clean(minute)) {
 
     for (auto& pot: pots) {
 
@@ -199,7 +199,7 @@ Action* MyNoodleShop::action(int minute) {
 
 }
 
-bool MyNoodleShop::Cook() {
+bool MyNoodleShop::cook() {
 
   int m = 0;
   int n = 0;
@@ -234,11 +234,11 @@ bool MyNoodleShop::Cook() {
 
 }
 
-bool MyNoodleShop::ServeOrder(int minute) {
+bool MyNoodleShop::serveOrder(int minute) {
 
   for (auto& pot: pots) {
 
-    if (minute >= pot.readyAt && minute < pot.staleAt) {
+    if (minute >= pot.readyAt && minute < pot.staleAt && pot.servings > 0) {
 
       auto itr = noodleOrder.begin();
 
@@ -271,7 +271,7 @@ bool MyNoodleShop::ServeOrder(int minute) {
 
 }
 
-bool MyNoodleShop::Clean(int minute) {
+bool MyNoodleShop::clean(int minute) {
 
   for (auto& pot: pots) {
 

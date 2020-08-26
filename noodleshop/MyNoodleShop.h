@@ -65,9 +65,9 @@ public:
   Action* action(int minute);
 
   // Other Member Functions
-  bool Cook();
-  bool ServeOrder(int minute);
-  bool Clean(int minute);
+  bool cook();
+  bool serveOrder(int minute);
+  bool clean(int minute);
 
 };
 
