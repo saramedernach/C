@@ -9,6 +9,7 @@
 #include <iostream>
 
 using namespace std;
+#define INF 0x3f3f3f3f
 
 struct City;
 struct Road;
@@ -16,6 +17,7 @@ struct Road;
 struct City {
 
   string name;
+  int id;
   bool factory;
   unsigned int population;
   unsigned int vaccines;
@@ -33,7 +35,7 @@ struct Road {
   unsigned int load;
   unsigned int cost;
 
-  bool operator < (Road const &r2) const {
+  /*bool operator < (Road const &r2) const {
 
     if (this->days < r2.days) {
 
@@ -43,20 +45,19 @@ struct Road {
 
     return false;
 
-  }
+  }*/
 
 };
 
 class MyScheduler: public Scheduler {
 
-  
-
   // Member Variables
   unsigned int mDeadline;
   map<string, City> mCities;
   vector<Route> mRoutes;
-  map<pair<string, string>, int> graph;
-  vector<vector<pair<Road, int> > > paths;
+  vector<vector<int> > paths;
+  list<pair<Road, int> > *adj;
+  int V;
 
 public:
 
@@ -66,11 +67,11 @@ public:
   // Required Member Function
   vector<Shipment> schedule();
 
-  vector<pair<Road, int> > shortestPath(City source);
+  vector<int> shortestPath(City source);
 
 };
 
-class CompareDays {
+/*class CompareDays {
 
 public:
 
@@ -80,6 +81,6 @@ public:
 
   }
 
-};
+};*/
 
 #endif
