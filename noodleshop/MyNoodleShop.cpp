@@ -312,6 +312,7 @@ bool MyNoodleShop::needClean(int minute) {
 
   int n = 0;
   int m = 0;
+  int potNum = 0;
 
   for (auto& noodle: noodleOrder) {
 
@@ -326,15 +327,17 @@ bool MyNoodleShop::needClean(int minute) {
 
   for (auto& pot: pots) {
 
-    if (!pot.dirty || !(pot.staleAt < minute)) {
+    potNum++;
 
-      m = 1;
+    if (pot.dirty && pot.staleAt < minute) {
+
+      m++;
 
     }
 
   }
 
-  if (n == 1 && m != 1) {
+  if (n == 1 && m == potNum) {
 
     return true;
 
