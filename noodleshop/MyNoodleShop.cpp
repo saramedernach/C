@@ -77,7 +77,8 @@ Action* MyNoodleShop::action(int minute) {
     map<string, MyNoodle>::iterator it;
     for (auto i = noodleOrder.begin(); i != noodleOrder.end(); ++i) {
 
-      if (i->second.mServings == 0 && !i->second.orders.empty()) {
+      unsigned long temp = i->second.mServings;
+      if (temp < i->second.orders.size()) {
 
         it = i;
         break;
@@ -99,26 +100,7 @@ Action* MyNoodleShop::action(int minute) {
     return cook;
 
   }
-  if (needClean(minute)) {
-
-    for (auto& pot: pots) {
-
-      if (pot.dirty && pot.staleAt < minute) {
-
-        noodleOrder[pot.noodle].mServings -= pot.servings;
-        pot.dirty = false;
-        pot.staleAt = noodleOrder[pot.noodle].mCookTime + 30 + minute;
-        pot.servings = 0;
-
-        Action* clean = new CleanAction(pot.potID);
-        return clean;
-
-      }
-
-    }
-
-  }
-  if (serveOrder(minute)) {
+  else if (serveOrder(minute)) {
 
     vector<Serve> serveVector;
 
@@ -176,7 +158,7 @@ Action* MyNoodleShop::action(int minute) {
     }
 
   }
-  if (clean(minute)) {
+  else if (clean(minute)) {
 
     for (auto& pot: pots) {
 
@@ -235,7 +217,8 @@ bool MyNoodleShop::cook() {
 
   for (auto& noodle: noodleOrder) {
 
-    if (noodle.second.mServings == 0 && !noodle.second.orders.empty()) {
+    unsigned long temp = noodle.second.mServings;
+    if (temp < noodle.second.orders.size()) {
 
       n = 1;
 
@@ -299,41 +282,6 @@ bool MyNoodleShop::clean(int minute) {
       return true;
 
     }
-
-  }
-
-  return false;
-
-}
-
-bool MyNoodleShop::needClean(int minute) {
-
-  int n = 0;
-  int m = 0;
-
-  for (auto& noodle: noodleOrder) {
-
-    if (noodle.second.mServings == 0 && !noodle.second.orders.empty()) {
-
-      n = 1;
-
-    }
-
-  }
-
-  for (auto& pot: pots) {
-
-    if (pot.dirty && pot.staleAt < minute) {
-
-      m = 1;
-
-    }
-
-  }
-
-  if (n == 1 && m == 1) {
-
-    return true;
 
   }
 

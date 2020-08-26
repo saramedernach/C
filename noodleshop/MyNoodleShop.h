@@ -68,7 +68,6 @@ public:
   bool cook();
   bool serveOrder(int minute);
   bool clean(int minute);
-  bool needClean(int minute);
 
 };
 
