@@ -275,7 +275,7 @@ bool MyNoodleShop::Clean(int minute) {
 
   for (auto& pot: pots) {
 
-    if (pot.dirty || pot.staleAt < minute) {
+    if (pot.dirty && pot.staleAt < minute) {
 
       return true;
 
