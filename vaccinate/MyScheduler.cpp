@@ -17,7 +17,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   adj = new list<pair<Road, int> > [mRoutes.size()];
   V = mRoutes.size();
-  int id = 0;
+  int id = 1;
 
   for (const auto& pair: cities) {
 
@@ -61,7 +61,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     itr->second.roads.push_back(road);
     it->second.roads.push_back(road);
 
-    adj[road.route_id].push_back(make_pair(road, road.days));
+    adj[itr->second.id].push_back(make_pair(road, road.days));
     //adj[it->second.id].push_back(make_pair(road, route.days));
 
   }
@@ -81,6 +81,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
       road.route_id = roadID;
 
       roads[road.route_id] = road;
+      adj[0].push_back(make_pair(road, road.days));
 
       paths.push_back(shortestPath(road));
 
@@ -112,7 +113,7 @@ vector<int> MyScheduler::shortestPath(Road source) {
 
   while (!pq.empty()) {
 
-    int sourceID = pq.top().second.route_id;
+    int sourceID = pq.top().second.source->id;
     path.push_back(pq.top().second.route_id);
 
     pq.pop();
