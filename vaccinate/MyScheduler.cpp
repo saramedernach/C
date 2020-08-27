@@ -15,6 +15,9 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
   mDeadline = deadline;
   mRoutes = routes;
 
+  doses = 0;
+  day = 0;
+
   adj = new list<pair<Road, int> > [mRoutes.size()];
   V = mRoutes.size();
   int id = 1;
@@ -27,6 +30,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     city.factory = false;
     city.population = pair.second;
     city.vaccines = 0;
+    city.visited = false;
     city.prev = nullptr;
 
     mCities[pair.first] = city;
@@ -40,6 +44,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     auto itr = mCities.find(name);
 
     itr->second.factory = true;
+    itr->second.visited = true;
 
   }
 
@@ -66,28 +71,25 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   }
 
-  int roadID = 0;
   for (const auto& city: mCities) {
 
     if (city.second.factory) {
-    
-      roadID--;
-      auto itr = mCities.find(city.first);
+      
+      for (auto& road: roads) {
 
-      Road road;
-      road.source = nullptr;
-      road.destination = &itr->second;
-      road.days = 0;
-      road.route_id = roadID;
+        if (road.second.source->name == city.first) {
 
-      roads[road.route_id] = road;
-      adj[0].push_back(make_pair(road, road.days));
+          mFactories.push_back(road.second);
 
-      paths.push_back(shortestPath(road));
+        }
+
+      }
 
     }
 
   }
+
+  shortestPath(mFactories);
 
 }
 
@@ -95,51 +97,50 @@ vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
   
+  
 
   return shipments;
-
-
   
 }
 
-vector<int> MyScheduler::shortestPath(Road source) {
+void MyScheduler::shortestPath(vector<Road> sources) {
 
   priority_queue<pair<int, Road>, vector<pair<int, Road> >, CompareDays > pq;
   vector<int> dist(V, INF);
-  vector<int> path;
 
-  pq.push(make_pair(0, source));
-  dist[source.route_id] = 0;
+  for (auto& source: sources) {
+
+    for (auto& adjacent: adj[source.source->id]) {
+
+      pq.push(make_pair(adjacent.second, adjacent.first));
+      dist[adjacent.first.source->id] = adjacent.second;
+
+    }
+
+  }
 
   while (!pq.empty()) {
 
     int sourceID = pq.top().second.source->id;
-    path.push_back(pq.top().second.route_id);
+    pq.top().second.destination->prev = pq.top().second.source;
 
     pq.pop();
 
     for (auto& adjacent: adj[sourceID]) {
 
+      Road dest = adjacent.first;
       int destID = adjacent.first.route_id;
       int days = adjacent.second;
 
-      if (dist[destID] > dist[sourceID] + days) {
+      if (dist[destID] > dist[sourceID] + days && dest.destination->visited == false) {
 
         dist[destID] = dist[sourceID] + days;
-        pq.push(make_pair(dist[destID], adjacent.first));
+        pq.push(make_pair(dist[destID], dest));
 
       }
 
     } 
 
   }
-
-  for (auto& id: path) {
-
-    cout << id << endl;
-
-  }
-
-  return path;
 
 }

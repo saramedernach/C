@@ -22,6 +22,7 @@ struct City {
   bool factory;
   unsigned int population;
   unsigned int vaccines;
+  bool visited;
   City* prev;
   vector<Road> roads;
 
@@ -57,9 +58,11 @@ class MyScheduler: public Scheduler {
   map<string, City> mCities;
   vector<Route> mRoutes;
   unordered_map<int, Road> roads;
-  vector<vector<int> > paths;
+  vector<Road> mFactories;
   list<pair<Road, int> > *adj;
   int V;
+  int doses;
+  int day;
 
 public:
 
@@ -69,7 +72,7 @@ public:
   // Required Member Function
   vector<Shipment> schedule();
 
-  vector<int> shortestPath(Road source);
+  void shortestPath(vector<Road> sources);
 
 };
 
