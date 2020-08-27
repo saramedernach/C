@@ -7,6 +7,7 @@
 #include <list>
 #include <set>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 #define INF 0x3f3f3f3f
@@ -55,6 +56,7 @@ class MyScheduler: public Scheduler {
   unsigned int mDeadline;
   map<string, City> mCities;
   vector<Route> mRoutes;
+  unordered_map<int, Road> roads;
   vector<vector<int> > paths;
   list<pair<Road, int> > *adj;
   int V;
@@ -67,20 +69,20 @@ public:
   // Required Member Function
   vector<Shipment> schedule();
 
-  vector<int> shortestPath(City source);
+  vector<int> shortestPath(Road source);
 
 };
 
-/*class CompareDays {
+class CompareDays {
 
 public:
 
-  bool operator () (pair<Road, int> &r1, pair<Road, int> &r2) {
+  bool operator () (pair<int, Road> &r1, pair<int, Road> &r2) {
 
-    return r1.second > r2.second;
+    return r1.first > r2.first;
 
   }
 
-};*/
+};
 
 #endif

@@ -56,19 +56,33 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     road.load = route.load;
     road.cost = route.cost;
 
+    roads[road.route_id] = road;
+
     itr->second.roads.push_back(road);
     it->second.roads.push_back(road);
 
-    adj[itr->second.id].push_back(make_pair(road, route.days));
-    adj[it->second.id].push_back(make_pair(road, route.days));
+    adj[road.route_id].push_back(make_pair(road, road.days));
+    //adj[it->second.id].push_back(make_pair(road, route.days));
 
   }
 
+  int roadID = 0;
   for (const auto& city: mCities) {
 
     if (city.second.factory) {
+    
+      roadID--;
+      auto itr = mCities.find(city.first);
 
-      paths.push_back(shortestPath(city.second));
+      Road road;
+      road.source = nullptr;
+      road.destination = &itr->second;
+      road.days = 0;
+      road.route_id = roadID;
+
+      roads[road.route_id] = road;
+
+      paths.push_back(shortestPath(road));
 
     }
 
@@ -87,25 +101,25 @@ vector<Shipment> MyScheduler::schedule() {
   
 }
 
-vector<int> MyScheduler::shortestPath(City source) {
+vector<int> MyScheduler::shortestPath(Road source) {
 
-  priority_queue<pair<int, Road>, vector<pair<int, Road> >, greater<pair<int, Road> > > pq;
+  priority_queue<pair<int, Road>, vector<pair<int, Road> >, CompareDays > pq;
   vector<int> dist(V, INF);
   vector<int> path;
 
   pq.push(make_pair(0, source));
-  dist[source.id] = 0;
+  dist[source.route_id] = 0;
 
   while (!pq.empty()) {
 
-    int sourceID = pq.top().second.source->id;
+    int sourceID = pq.top().second.route_id;
     path.push_back(pq.top().second.route_id);
 
     pq.pop();
 
     for (auto& adjacent: adj[sourceID]) {
 
-      int destID = adjacent.first.destination->id;
+      int destID = adjacent.first.route_id;
       int days = adjacent.second;
 
       if (dist[destID] > dist[sourceID] + days) {
@@ -116,6 +130,12 @@ vector<int> MyScheduler::shortestPath(City source) {
       }
 
     } 
+
+  }
+
+  for (auto& id: path) {
+
+    cout << id << endl;
 
   }
 
