@@ -62,7 +62,38 @@ Action* MyNoodleShop::action(int minute) {
 
   if (minute % 5 == 0) {
 
+    for (auto& pot: pots) {
 
+      if (pot.dirty && pot.staleAt < minute) {
+
+        auto itr = noodleOrder.begin();
+        
+        for (auto& noodle: noodleOrder) {
+
+          if (pot.noodle != noodle.first) {
+
+            itr++;
+
+          }
+          else {
+
+            break;
+
+          }
+
+        }
+
+        pot.dirty = false;
+        pot.staleAt = itr->second.mCookTime + 30 + minute;
+        itr->second.mServings -= pot.servings;
+        pot.servings = 0;
+
+        Action* clean = new CleanAction(pot.potID);
+        return clean;
+
+      }
+
+    }
 
   }
 
