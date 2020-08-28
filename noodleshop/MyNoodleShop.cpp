@@ -60,27 +60,13 @@ vector<Order> MyNoodleShop::orders(int minute, std::vector<Order> orderlist) {
 
 Action* MyNoodleShop::action(int minute) {
 
-  
-  if (needClean(minute)) {
+  if (minute % 5 == 0) {
 
-    for (auto& pot: pots) {
 
-      if (pot.dirty && pot.staleAt < minute) {
-
-        noodleOrder[pot.noodle].mServings -= pot.servings;
-        pot.dirty = false;
-        pot.staleAt = noodleOrder[pot.noodle].mCookTime + 30 + minute;
-        pot.servings = 0;
-
-        Action* clean = new CleanAction(pot.potID);
-        return clean;
-
-      }
-
-    }
 
   }
-  else if (cook()) {
+
+  if (cook()) {
 
     vector<Pot>::iterator itr;
     for (auto it = pots.begin(); it != pots.end(); ++it) {
@@ -118,6 +104,42 @@ Action* MyNoodleShop::action(int minute) {
 
     Action* cook = new CookAction(itr->potID, itr->noodle);
     return cook;
+
+  }
+  else if (needClean(minute)) {
+
+    for (auto& pot: pots) {
+
+      if (pot.dirty && pot.staleAt < minute) {
+
+        auto itr = noodleOrder.begin();
+        
+        for (auto& noodle: noodleOrder) {
+
+          if (pot.noodle != noodle.first) {
+
+            itr++;
+
+          }
+          else {
+
+            break;
+
+          }
+
+        }
+
+        pot.dirty = false;
+        pot.staleAt = itr->second.mCookTime + 30 + minute;
+        itr->second.mServings -= pot.servings;
+        pot.servings = 0;
+
+        Action* clean = new CleanAction(pot.potID);
+        return clean;
+
+      }
+
+    }
 
   }
   else if (serveOrder(minute)) {
