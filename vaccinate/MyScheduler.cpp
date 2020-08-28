@@ -88,7 +88,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   }
 
-  shortestPath(mFactories);
+  //shortestPath(mFactories);
 
 }
 
@@ -96,7 +96,21 @@ vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
   
-  
+  for (auto& factory: mFactories) {
+
+    for (auto& adjacent: adj[factory.source->id]) {
+
+      Shipment ship;
+      ship.route_id = adjacent.first.route_id;
+      ship.source = adjacent.first.source->name;
+      ship.day = 0;
+      ship.doses = adjacent.first.destination->population;
+
+      shipments.push_back(ship);
+
+    }
+
+  }
 
   return shipments;
   
@@ -122,7 +136,7 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
     int sourceID = pq.top().second.destination->id;
     days += pq.top().first;
-    pq.top().second.destination->prev = pq.top().second.source;
+    pq.top().second.destination->prev = new Road(pq.top().second);
     pq.top().second.destination->visited = true;
 
     path.push_back(pq.top().second);

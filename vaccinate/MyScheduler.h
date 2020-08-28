@@ -23,7 +23,7 @@ struct City {
   unsigned int population;
   unsigned int vaccines;
   bool visited;
-  City* prev;
+  Road* prev;
   vector<Road> roads;
 
 };
