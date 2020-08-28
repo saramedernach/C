@@ -20,7 +20,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   adj = new list<pair<Road, int> > [mRoutes.size()];
   V = mRoutes.size();
-  int id = 1;
+  int id = 0;
 
   for (const auto& pair: cities) {
 
@@ -67,7 +67,6 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     it->second.roads.push_back(road);
 
     adj[itr->second.id].push_back(make_pair(road, road.days));
-    //adj[it->second.id].push_back(make_pair(road, route.days));
 
   }
 
@@ -106,14 +105,14 @@ vector<Shipment> MyScheduler::schedule() {
 void MyScheduler::shortestPath(vector<Road> sources) {
 
   priority_queue<pair<int, Road>, vector<pair<int, Road> >, CompareDays > pq;
-  vector<int> dist(V, INF);
+  vector<Road> path;
+  int days = 0;
 
   for (auto& source: sources) {
 
     for (auto& adjacent: adj[source.source->id]) {
 
       pq.push(make_pair(adjacent.second, adjacent.first));
-      dist[adjacent.first.source->id] = adjacent.second;
 
     }
 
@@ -121,25 +120,30 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
   while (!pq.empty()) {
 
-    int sourceID = pq.top().second.source->id;
+    int sourceID = pq.top().second.destination->id;
+    days += pq.top().first;
     pq.top().second.destination->prev = pq.top().second.source;
+    pq.top().second.destination->visited = true;
+
+    path.push_back(pq.top().second);
 
     pq.pop();
 
     for (auto& adjacent: adj[sourceID]) {
 
-      Road dest = adjacent.first;
-      int destID = adjacent.first.route_id;
-      int days = adjacent.second;
-
-      if (dist[destID] > dist[sourceID] + days && dest.destination->visited == false) {
-
-        dist[destID] = dist[sourceID] + days;
-        pq.push(make_pair(dist[destID], dest));
+      if (adjacent.first.destination->visited == false) {
+        
+        pq.push(make_pair(adjacent.second + days, adjacent.first));
 
       }
+      
+    }
 
-    } 
+  }
+
+  for (auto& road: path) {
+
+    cout << road.source->name << " -> " << road.destination->name << endl;
 
   }
 
