@@ -32,6 +32,7 @@ struct Road {
   City* source;
   City* destination;
   int route_id;
+  int road_id;
   unsigned int days;
   unsigned int load;
   unsigned int cost;

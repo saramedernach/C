@@ -47,6 +47,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   }
 
+  int roadID = 0;
   for (auto& route: mRoutes) {
 
     auto itr = mCities.find(route.city1);
@@ -57,22 +58,26 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     road1.destination = &it->second;
     road1.days = route.days;
     road1.route_id = route.id;
+    road1.road_id = roadID;
     road1.load = route.load;
     road1.cost = route.cost;
     road1.used = false;
 
-    roads[road1.route_id] = road1;
+    roads[road1.road_id] = road1;
+    roadID++;
 
     Road road2;
     road2.source = &it->second;
     road2.destination = &itr->second;
     road2.days = route.days;
     road2.route_id = route.id;
+    road2.road_id = roadID;
     road2.load = route.load;
     road2.cost = route.cost;
     road2.used = false;
 
-    roads[road2.route_id] = road2;
+    roads[road2.road_id] = road2;
+    roadID++;
 
     adj[itr->second.id].push_back(make_pair(road1, road1.days));
     adj[it->second.id].push_back(make_pair(road2, road2.days));
@@ -151,7 +156,7 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
     int sourceID = pq.top().second.destination->id;
     days += pq.top().first;
-    //pq.top().second.prev = &roads[pq.top().second.route_id];
+    pq.top().second.destination->prev = &roads[pq.top().second.road_id];
     pq.top().second.destination->visited = true;
 
     path.push_back(make_pair(pq.top().second, pq.top().first));
