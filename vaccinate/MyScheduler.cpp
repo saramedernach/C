@@ -108,24 +108,14 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
-  int day = 0;
-  
-  //for (auto road = path.rbegin(); road != path.rend(); ++road) {
-  for (auto& road: path) { 
 
-    Shipment ship;
+  for (auto& road: path) {
 
-    cout << dose << endl;
-    
-    ship.route_id = road.first.route_id;
-    ship.source = road.first.source->name;
-    ship.day = day;
-    ship.doses = dose;
+    for (Shipment ship: recursiveShipment(road)) {
 
-    day += road.second.first;
-    dose -= road.second.second;
+      shipments.push_back(ship);
 
-    shipments.push_back(ship);
+    }
 
   }
 
@@ -182,36 +172,33 @@ void MyScheduler::shortestPath(vector<Road> sources) {
   for (auto& road: path) {
 
     cout << road.first.source->name << " -> " << road.first.destination->name << " " << road.first.route_id << " Doses: " << road.second.second << endl;
-    //cout << "Previous: " << road.first << endl;
+    if (road.first.source->prev != nullptr)
+    cout << "Previous: " << road.first.destination->prev->route_id << " -> " << road.first.source->prev->route_id << endl;
 
   }
 
 }
 
-vector<Shipment> MyScheduler::recursiveShipment(Road *road) {
+vector<Shipment> MyScheduler::recursiveShipment(pair<Road, pair<int, int>> &road) {
 
   vector<Shipment> shipments;
-  (void) road;
 
-  /*if (road->destination->prev == nullptr) {
+  if (road.first.source->prev != nullptr) {
 
     Shipment ship;
-
-    ship.route_id = road->route_id;
-    ship.source = road->source->name;
+    
+    ship.route_id = road.first.route_id;
+    ship.source = road.first.source->name;
     ship.day = day;
-    ship.doses = doses;
+    ship.doses = dose;
+
+    day += road.second.first;
+    dose -= road.second.second;
 
     shipments.push_back(ship);
 
+
   }
-  else {
-
-    day += road->days;
-    doses += road->destination->population;
-    recursiveShipment(road->destination->prev);
-
-  }*/
 
   return shipments;
 
