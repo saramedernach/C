@@ -47,7 +47,7 @@ class MyScheduler: public Scheduler {
   vector<Route> mRoutes;
   unordered_map<int, Road> roads;
   vector<Road> mFactories;
-  vector<Road> path;
+  vector<pair<Road, int> > path;
   list<pair<Road, int> > *adj;
   int day;
   int doses;
