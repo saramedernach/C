@@ -36,6 +36,7 @@ struct Road {
   unsigned int days;
   unsigned int load;
   unsigned int cost;
+  unsigned int doses;
   bool used;
 
 };
@@ -48,10 +49,9 @@ class MyScheduler: public Scheduler {
   vector<Route> mRoutes;
   unordered_map<int, Road> roads;
   vector<Road> mFactories;
-  vector<pair<Road, int> > path;
+  vector<pair<Road, pair<int, int> > > path;
   list<pair<Road, int> > *adj;
-  int day;
-  int doses;
+  int dose = 0;
 
 public:
 
