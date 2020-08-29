@@ -15,11 +15,10 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
   mDeadline = deadline;
   mRoutes = routes;
 
-  doses = 0;
   day = 0;
+  doses = 0;
 
   adj = new list<pair<Road, int> > [mRoutes.size()];
-  V = mRoutes.size();
   int id = 0;
 
   for (const auto& pair: cities) {
@@ -53,20 +52,30 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     auto itr = mCities.find(route.city1);
     auto it = mCities.find(route.city2);
 
-    Road road;
-    road.source = &itr->second;
-    road.destination = &it->second;
-    road.days = route.days;
-    road.route_id = route.id;
-    road.load = route.load;
-    road.cost = route.cost;
+    Road road1;
+    road1.source = &itr->second;
+    road1.destination = &it->second;
+    road1.days = route.days;
+    road1.route_id = route.id;
+    road1.load = route.load;
+    road1.cost = route.cost;
+    road1.used = false;
 
-    roads[road.route_id] = road;
+    roads[road1.route_id] = road1;
 
-    itr->second.roads.push_back(road);
-    it->second.roads.push_back(road);
+    Road road2;
+    road2.source = &it->second;
+    road2.destination = &itr->second;
+    road2.days = route.days;
+    road2.route_id = route.id;
+    road2.load = route.load;
+    road2.cost = route.cost;
+    road2.used = false;
 
-    adj[itr->second.id].push_back(make_pair(road, road.days));
+    roads[road2.route_id] = road2;
+
+    adj[itr->second.id].push_back(make_pair(road1, road1.days));
+    adj[it->second.id].push_back(make_pair(road2, road2.days));
 
   }
 
@@ -88,7 +97,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
   }
 
-  //shortestPath(mFactories);
+  shortestPath(mFactories);
 
 }
 
@@ -96,17 +105,17 @@ vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
   
-  for (auto& factory: mFactories) {
+  for (auto road = path.rbegin(); road != path.rend(); ++road) { 
 
-    for (auto& adjacent: adj[factory.source->id]) {
+    if (road->destination->prev == nullptr) {
 
-      Shipment ship;
-      ship.route_id = adjacent.first.route_id;
-      ship.source = adjacent.first.source->name;
-      ship.day = 0;
-      ship.doses = adjacent.first.destination->population;
+      break;
 
-      shipments.push_back(ship);
+    }
+      
+    for (auto& shipment: recursiveShipment(road->destination->prev)) {
+
+      shipments.push_back(shipment);
 
     }
 
@@ -119,7 +128,6 @@ vector<Shipment> MyScheduler::schedule() {
 void MyScheduler::shortestPath(vector<Road> sources) {
 
   priority_queue<pair<int, Road>, vector<pair<int, Road> >, CompareDays > pq;
-  vector<Road> path;
   int days = 0;
 
   for (auto& source: sources) {
@@ -134,9 +142,16 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
   while (!pq.empty()) {
 
+    if (pq.top().second.destination->visited == true) {
+        
+      pq.pop();
+      continue;
+
+    }
+
     int sourceID = pq.top().second.destination->id;
     days += pq.top().first;
-    pq.top().second.destination->prev = new Road(pq.top().second);
+    pq.top().second.destination->prev = &roads[pq.top().second.route_id];
     pq.top().second.destination->visited = true;
 
     path.push_back(pq.top().second);
@@ -160,5 +175,33 @@ void MyScheduler::shortestPath(vector<Road> sources) {
     cout << road.source->name << " -> " << road.destination->name << endl;
 
   }
+
+}
+
+vector<Shipment> MyScheduler::recursiveShipment(Road *road) {
+
+  vector<Shipment> shipments;
+
+  if (road->source->prev == nullptr) {
+
+    Shipment ship;
+
+    ship.route_id = road->route_id;
+    ship.source = road->source->name;
+    ship.day = day;
+    ship.doses = doses;
+
+    shipments.push_back(ship);
+
+  }
+  else {
+
+    day += road->days;
+    doses += road->destination->population;
+    recursiveShipment(road->destination->prev);
+
+  }
+
+  return shipments;
 
 }

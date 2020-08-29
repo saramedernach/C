@@ -24,7 +24,6 @@ struct City {
   unsigned int vaccines;
   bool visited;
   Road* prev;
-  vector<Road> roads;
 
 };
 
@@ -36,18 +35,7 @@ struct Road {
   unsigned int days;
   unsigned int load;
   unsigned int cost;
-
-  /*bool operator < (Road const &r2) const {
-
-    if (this->days < r2.days) {
-
-      return true;
-
-    }
-
-    return false;
-
-  }*/
+  bool used;
 
 };
 
@@ -59,10 +47,10 @@ class MyScheduler: public Scheduler {
   vector<Route> mRoutes;
   unordered_map<int, Road> roads;
   vector<Road> mFactories;
+  vector<Road> path;
   list<pair<Road, int> > *adj;
-  int V;
-  int doses;
   int day;
+  int doses;
 
 public:
 
@@ -73,6 +61,7 @@ public:
   vector<Shipment> schedule();
 
   void shortestPath(vector<Road> sources);
+  vector<Shipment> recursiveShipment(Road *road);
 
 };
 
