@@ -133,8 +133,6 @@ vector<Shipment> MyScheduler::schedule() {
     ship.day = road.first.source->day;
     ship.doses = road.first.destination->doses;
 
-    cout << ship.day << endl;
-
     shipments.push_back(ship);
 
   }
