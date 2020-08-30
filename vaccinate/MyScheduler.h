@@ -23,6 +23,8 @@ struct City {
   unsigned int population;
   unsigned int vaccines;
   unsigned int doses;
+  unsigned int roadLength;
+  unsigned int day;
   bool visited;
   City* prev;
 
@@ -38,7 +40,6 @@ struct Road {
   unsigned int load;
   unsigned int cost;
   unsigned int doses;
-  bool used;
 
 };
 
@@ -64,7 +65,7 @@ public:
 
   void shortestPath(vector<Road> sources);
   //vector<Shipment> recursiveShipment(Road* road, int dose);
-  void recursiveDoses(City* city, int doses);
+  void recursiveDoses(City* city, int doses, int& day);
 
 };
 
