@@ -52,7 +52,6 @@ class MyScheduler: public Scheduler {
   vector<pair<Road, pair<int, int> > > path;
   list<pair<Road, int> > *adj;
   int day = 0;
-  int dose = 0;
 
 public:
 
@@ -63,7 +62,7 @@ public:
   vector<Shipment> schedule();
 
   void shortestPath(vector<Road> sources);
-  vector<Shipment> recursiveShipment(pair<Road, pair<int, int>> &road);
+  vector<Shipment> recursiveShipment(Road* road, int dose);
 
 };
 

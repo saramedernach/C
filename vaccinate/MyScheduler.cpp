@@ -109,9 +109,10 @@ vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
 
-  for (auto& road: path) {
+  for (auto road = path.rbegin(); road != path.rend(); ++road) {
 
-    for (Shipment ship: recursiveShipment(road)) {
+    int dose = 0;
+    for (Shipment ship: recursiveShipment(&road->first, dose)) {
 
       shipments.push_back(ship);
 
@@ -127,6 +128,7 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
   priority_queue<pair<int, Road>, vector<pair<int, Road> >, CompareDays > pq;
   int days = 0;
+  int doses = 0;
 
   for (auto& source: sources) {
 
@@ -149,11 +151,11 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
     int sourceID = pq.top().second.destination->id;
     days += pq.top().first;
-    dose += pq.top().second.doses;
+    doses += pq.top().second.doses;
     pq.top().second.destination->prev = &roads[pq.top().second.road_id];
     pq.top().second.destination->visited = true;
 
-    path.push_back(make_pair(pq.top().second, make_pair(pq.top().first, dose)));
+    path.push_back(make_pair(pq.top().second, make_pair(pq.top().first, doses)));
 
     pq.pop();
 
@@ -169,34 +171,38 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
   }
 
-  for (auto& road: path) {
+  /*for (auto& road: path) {
 
-    cout << road.first.source->name << " -> " << road.first.destination->name << " " << road.first.route_id << " Doses: " << road.second.second << endl;
+    cout << road.first.source->name << " -> " << road.first.destination->name << endl;
     if (road.first.source->prev != nullptr)
     cout << "Previous: " << road.first.destination->prev->route_id << " -> " << road.first.source->prev->route_id << endl;
 
-  }
+  }*/
 
 }
 
-vector<Shipment> MyScheduler::recursiveShipment(pair<Road, pair<int, int>> &road) {
+vector<Shipment> MyScheduler::recursiveShipment(Road* road, int dose) {
 
   vector<Shipment> shipments;
 
-  if (road.first.source->prev != nullptr) {
+  if (road->source->prev == nullptr) {
 
     Shipment ship;
     
-    ship.route_id = road.first.route_id;
-    ship.source = road.first.source->name;
+    ship.route_id = road->route_id;
+    ship.source = road->source->name;
     ship.day = day;
     ship.doses = dose;
 
-    day += road.second.first;
-    dose -= road.second.second;
-
     shipments.push_back(ship);
 
+  }
+  else {
+
+    dose += road->doses;
+    day += road->days;
+
+    recursiveShipment(road->source->prev, dose);
 
   }
 
