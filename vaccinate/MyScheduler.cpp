@@ -108,6 +108,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
 MyScheduler::~MyScheduler() {
 
+  delete [] adj;
 
 }
 
@@ -131,6 +132,8 @@ vector<Shipment> MyScheduler::schedule() {
     ship.source = road.first.source->name;
     ship.day = road.first.source->day;
     ship.doses = road.first.destination->doses;
+
+    cout << ship.day << endl;
 
     shipments.push_back(ship);
 
@@ -188,15 +191,13 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
   }
 
-  /*for (auto& road: path) {
-
-    cout << road.second.first << endl;
+  for (auto& road: path) {
 
     cout << road.first.source->name << " -> " << road.first.destination->name << endl;
-    if (road.first.source->prev != nullptr)
-    cout << "Previous: " << road.first.destination->prev->name << " -> " << road.first.source->prev->name << endl;
+    //if (road.first.source->prev != nullptr)
+    //cout << "Previous: " << road.first.destination->prev->name << " -> " << road.first.source->prev->name << endl;
 
-  }*/
+  }
 
 }
 
