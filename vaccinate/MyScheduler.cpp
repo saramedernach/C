@@ -108,7 +108,6 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
 MyScheduler::~MyScheduler() {
 
-  delete adj;
 
 }
 
