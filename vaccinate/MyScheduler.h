@@ -59,6 +59,7 @@ public:
 
   // Constructor
   MyScheduler(unsigned int deadline, map<string, unsigned int> cities, vector<string> factories, vector<Route> routes);
+  ~MyScheduler();
 
   // Required Member Function
   vector<Shipment> schedule();

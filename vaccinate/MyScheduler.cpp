@@ -106,6 +106,12 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
 
 }
 
+MyScheduler::~MyScheduler() {
+
+  delete adj;
+
+}
+
 vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
