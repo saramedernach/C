@@ -53,7 +53,6 @@ class MyScheduler: public Scheduler {
   vector<Road> mFactories;
   vector<pair<Road, pair<int, int> > > path;
   list<pair<Road, int> > *adj;
-  //int day = 0;
 
 public:
 

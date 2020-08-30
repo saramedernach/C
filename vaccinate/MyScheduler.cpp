@@ -175,7 +175,9 @@ void MyScheduler::shortestPath(vector<Road> sources) {
     pq.top().second.destination->roadLength = pq.top().second.days;
     pq.top().second.destination->visited = true;
 
-    path.push_back(make_pair(pq.top().second, make_pair(pq.top().first, doses)));
+    int roadLength = pq.top().second.destination->roadLength;
+
+    path.push_back(make_pair(pq.top().second, make_pair(pq.top().second.destination->roadLength, doses)));
 
     pq.pop();
 
@@ -183,7 +185,7 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
       if (adjacent.first.destination->visited == false) {
 
-        pq.push(make_pair(adjacent.second + days, adjacent.first));
+        pq.push(make_pair(adjacent.second + roadLength, adjacent.first));
 
       }
       
