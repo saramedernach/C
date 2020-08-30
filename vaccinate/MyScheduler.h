@@ -22,8 +22,9 @@ struct City {
   bool factory;
   unsigned int population;
   unsigned int vaccines;
+  unsigned int doses;
   bool visited;
-  Road* prev;
+  City* prev;
 
 };
 
@@ -51,7 +52,7 @@ class MyScheduler: public Scheduler {
   vector<Road> mFactories;
   vector<pair<Road, pair<int, int> > > path;
   list<pair<Road, int> > *adj;
-  int day = 0;
+  //int day = 0;
 
 public:
 
@@ -62,7 +63,8 @@ public:
   vector<Shipment> schedule();
 
   void shortestPath(vector<Road> sources);
-  vector<Shipment> recursiveShipment(Road* road, int dose);
+  //vector<Shipment> recursiveShipment(Road* road, int dose);
+  void recursiveDoses(City* city, int doses);
 
 };
 

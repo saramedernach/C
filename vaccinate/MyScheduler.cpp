@@ -26,6 +26,7 @@ MyScheduler::MyScheduler(unsigned int deadline, map<string, unsigned int> cities
     city.factory = false;
     city.population = pair.second;
     city.vaccines = 0;
+    city.doses = 0;
     city.visited = false;
     city.prev = nullptr;
 
@@ -109,14 +110,22 @@ vector<Shipment> MyScheduler::schedule() {
 
   vector<Shipment> shipments;
 
-  for (auto road = path.rbegin(); road != path.rend(); ++road) {
+  for (auto& city: mCities) {
 
-    int dose = 0;
-    for (Shipment ship: recursiveShipment(&road->first, dose)) {
+    recursiveDoses(&city.second, city.second.population);
 
-      shipments.push_back(ship);
+  }
 
-    }
+  for (auto& road: path) {
+
+    Shipment ship;
+
+    ship.route_id = road.first.route_id;
+    ship.source = road.first.source->name;
+    ship.day = road.second.first - 1;
+    ship.doses = road.first.destination->doses;
+
+    shipments.push_back(ship);
 
   }
 
@@ -152,7 +161,8 @@ void MyScheduler::shortestPath(vector<Road> sources) {
     int sourceID = pq.top().second.destination->id;
     days += pq.top().first;
     doses += pq.top().second.doses;
-    pq.top().second.destination->prev = &roads[pq.top().second.road_id];
+    //pq.top().second.destination->prev = &roads[pq.top().second.road_id];
+    pq.top().second.destination->prev = roads[pq.top().second.road_id].source;
     pq.top().second.destination->visited = true;
 
     path.push_back(make_pair(pq.top().second, make_pair(pq.top().first, doses)));
@@ -175,37 +185,19 @@ void MyScheduler::shortestPath(vector<Road> sources) {
 
     cout << road.first.source->name << " -> " << road.first.destination->name << endl;
     if (road.first.source->prev != nullptr)
-    cout << "Previous: " << road.first.destination->prev->route_id << " -> " << road.first.source->prev->route_id << endl;
+    cout << "Previous: " << road.first.destination->prev->name << " -> " << road.first.source->prev->name << endl;
 
   }*/
 
 }
 
-vector<Shipment> MyScheduler::recursiveShipment(Road* road, int dose) {
+void MyScheduler::recursiveDoses(City* city, int doses) {
 
-  vector<Shipment> shipments;
+  if (city->prev != nullptr) {
 
-  if (road->source->prev == nullptr) {
-
-    Shipment ship;
-    
-    ship.route_id = road->route_id;
-    ship.source = road->source->name;
-    ship.day = day;
-    ship.doses = dose;
-
-    shipments.push_back(ship);
+    city->doses += doses;
+    recursiveDoses(city->prev, doses);
 
   }
-  else {
-
-    dose += road->doses;
-    day += road->days;
-
-    recursiveShipment(road->source->prev, dose);
-
-  }
-
-  return shipments;
 
 }
